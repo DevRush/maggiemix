@@ -2,12 +2,80 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aaj Kya Banayein? — Pakistani Recipe Chooser</title>
-<meta name="description" content="Your daily Pakistani recipe helper — filter by protein, type, and effort, explore 100+ authentic recipes, or let us pick one for you.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>MaggieMix — 180+ Pakistani Recipes (Biryani, Karahi, Nihari, Chaat, Mithai)</title>
+<meta name="description" content="MaggieMix — 180+ Pakistani, Indian &amp; South Asian home recipes, curated by genuine desi home cooks. Bilingual (Urdu + English). Filter by effort and type, or hit Pick For Me when you're tired of deciding. Karahi, biryani, nihari, chaat, mithai, chai — all in one place.">
+<meta name="keywords" content="Pakistani recipes, Indian recipes, South Asian recipes, desi recipes, karahi, biryani, nihari, korma, haleem, paya, daal, chaat, mithai, chai, Urdu recipes, halal recipes, MaggieMix, Aaj Kya Banayein, recipe picker, what should I cook">
+<meta name="author" content="MaggieMix">
+<meta name="theme-color" content="#15531e">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://maggiemix.com/">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maggiemix.com/">
+<meta property="og:title" content="MaggieMix — 180+ Pakistani Recipes">
+<meta property="og:description" content="180+ Pakistani, Indian &amp; South Asian home recipes, curated by genuine desi home cooks. Bilingual. Filter by effort and type — or hit Pick For Me when you're tired of deciding.">
+<meta property="og:site_name" content="MaggieMix">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ur_PK">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://maggiemix.com/">
+<meta name="twitter:title" content="MaggieMix — 180+ Pakistani Recipes">
+<meta name="twitter:description" content="180+ Pakistani, Indian &amp; South Asian home recipes, curated by genuine desi home cooks. Bilingual. Filter by effort and type, or hit Pick For Me.">
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥘</text></svg>">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥘</text></svg>">
+
+<!-- WebSite + Organization structured data (per-recipe structured data injected by JS at load) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://maggiemix.com/#website",
+      "url": "https://maggiemix.com/",
+      "name": "MaggieMix",
+      "alternateName": ["Aaj Kya Banayein?", "Pakistani Recipe Chooser"],
+      "description": "Bilingual Pakistani recipe helper with 180+ authentic home recipes",
+      "inLanguage": ["en", "ur"],
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://maggiemix.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://maggiemix.com/#organization",
+      "name": "MaggieMix",
+      "url": "https://maggiemix.com/",
+      "description": "A bilingual Pakistani home-recipe site"
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://maggiemix.com/#collection",
+      "url": "https://maggiemix.com/",
+      "name": "MaggieMix Pakistani Recipe Collection",
+      "description": "180+ authentic Pakistani home recipes — curries, biryanis, BBQ, snacks, mithai, and drinks",
+      "isPartOf": { "@id": "https://maggiemix.com/#website" },
+      "inLanguage": ["en", "ur"],
+      "about": [
+        {"@type": "Thing", "name": "Pakistani cuisine"},
+        {"@type": "Thing", "name": "South Asian recipes"},
+        {"@type": "Thing", "name": "Halal home cooking"}
+      ]
+    }
+  ]
+}
+</script>
+
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
 <script>
 tailwind.config = {
@@ -67,8 +135,9 @@ tailwind.config = {
   .filter-pill.active-veg { background: #15a328; color: white; }
   .filter-pill.active-all { background: #374151; color: white; }
   .filter-pill.active-rice { background: #a13d0e; color: white; }
-  .filter-pill.active-salaan { background: #8c2121; color: white; }
+  .filter-pill.active-saalan { background: #8c2121; color: white; }
   .filter-pill.active-sides { background: #575a31; color: white; }
+  .filter-pill.active-snacks { background: #db2777; color: white; }
   .filter-pill.active-quick { background: #28c63a; color: white; }
   .filter-pill.active-medium { background: #ff9f37; color: white; }
   .filter-pill.active-elaborate { background: #a82424; color: white; }
@@ -87,7 +156,7 @@ tailwind.config = {
     scroll-margin-top: 200px;
   }
 
-  /* Pick for me button shimmer */
+  /* Pick for me button shimmer + dice wobble */
   .shimmer {
     background: linear-gradient(110deg, #ff8310 0%, #ffc370 25%, #ff8310 50%, #ffc370 75%, #ff8310 100%);
     background-size: 200% 100%;
@@ -96,6 +165,15 @@ tailwind.config = {
   @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
+  }
+  .pick-button { letter-spacing: 0.02em; }
+  .dice-wobble { animation: diceWobble 2.4s ease-in-out infinite; transform-origin: center; }
+  .pick-button:hover .dice-wobble { animation-duration: 0.6s; }
+  @keyframes diceWobble {
+    0%, 100% { transform: rotate(-8deg) scale(1); }
+    25% { transform: rotate(8deg) scale(1.05); }
+    50% { transform: rotate(-4deg) scale(1); }
+    75% { transform: rotate(4deg) scale(1.05); }
   }
 
   /* Recipe image area */
@@ -144,8 +222,9 @@ tailwind.config = {
 
   /* Dish type tags */
   .tag-rice { background: #fff8ed; color: #a13d0e; }
-  .tag-salaan { background: #fdf3f3; color: #8c2121; }
+  .tag-saalan { background: #fdf3f3; color: #8c2121; }
   .tag-side { background: #f6f7f0; color: #3d3f28; }
+  .tag-snacks { background: #fdf2f8; color: #be185d; }
 
   /* Effort dots */
   .effort-dot { width: 8px; height: 8px; border-radius: 50%; }
@@ -329,7 +408,7 @@ tailwind.config = {
       Aaj Kya Banayein<span class="text-saffron-400">?</span>
     </h1>
     <p class="font-display text-lg md:text-2xl text-pakgreen-200 italic mb-1">آج کیا بنائیں؟</p>
-    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-2 md:mt-4 max-w-md mx-auto hidden md:block">Your daily Pakistani recipe helper — filter, explore, or let us pick for you</p>
+    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-3 md:mt-4 max-w-xl mx-auto px-2">Your daily Pakistani recipe helper — 180+ home recipes curated by desi people. Filter by effort and type, or hit <span class="text-saffron-300 font-semibold">Pick For Me</span> when you're tired of deciding.</p>
 
     <!-- Decorative crescents -->
     <div class="absolute top-4 left-6 text-saffron-400 opacity-20 text-6xl select-none" aria-hidden="true">☪</div>
@@ -357,8 +436,9 @@ tailwind.config = {
       <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters">
         <button onclick="setFilter('type','all')" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
         <button onclick="setFilter('type','rice')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-700 cursor-pointer">🍚 Rice</button>
-        <button onclick="setFilter('type','salaan')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-600 cursor-pointer">🍛 Salaan</button>
+        <button onclick="setFilter('type','saalan')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-600 cursor-pointer">🍛 Saalan</button>
         <button onclick="setFilter('type','sides')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-cardamom-500 cursor-pointer">🫓 Sides</button>
+        <button onclick="setFilter('type','snacks')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pink-500 cursor-pointer">🍡 Snacks</button>
       </div>
     </div>
 
@@ -374,8 +454,8 @@ tailwind.config = {
       <!-- Pick For Me & Counter -->
       <div class="ml-auto flex items-center gap-2 md:gap-3">
         <span class="text-xs md:text-sm text-stone-400"><span id="recipeCount" class="font-bold counter-badge text-sm md:text-base">0</span></span>
-        <button onclick="pickForMe()" class="bg-saffron-500 px-5 md:px-6 py-3 md:py-2 rounded-xl md:rounded-full text-white font-semibold text-sm md:text-sm shadow-lg hover:shadow-xl hover:scale-105 transition-transform cursor-pointer">
-          🎲 Pick For Me!
+        <button onclick="pickForMe()" class="pick-button shimmer px-5 md:px-8 py-3 md:py-3.5 rounded-2xl text-white font-bold text-base md:text-lg shadow-lg hover:shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
+          <span class="dice-wobble inline-block">🎲</span> <span class="hidden sm:inline">Pick For Me!</span><span class="sm:hidden">Surprise!</span>
         </button>
       </div>
     </div>
@@ -437,12 +517,12 @@ tailwind.config = {
 // ============================================================
 const recipes = [
 
-  // ─── CHICKEN SALAAN ───────────────────────────────────
+  // ─── CHICKEN SAALAN ───────────────────────────────────
   {
     name: "Chicken Karahi",
     urdu: "چکن کڑاہی",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "45 min",
     desc: "Wok-tossed chicken in a tomato-ginger sauce, finished with green chilies and fresh ginger julienne. The quintessential Pakistani dinner.",
@@ -455,7 +535,7 @@ const recipes = [
     name: "Butter Chicken",
     urdu: "بٹر چکن",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Tender chicken in a rich, creamy tomato-butter sauce with a hint of sweetness. A crowd favorite for good reason.",
@@ -468,7 +548,7 @@ const recipes = [
     name: "Chicken Korma",
     urdu: "چکن قورمہ",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "75 min",
     desc: "A luxurious, mildly spiced curry with a yogurt-based sauce enriched with fried onions and whole spices. Dawat-worthy.",
@@ -481,7 +561,7 @@ const recipes = [
     name: "Chicken Jalfrezi",
     urdu: "چکن جلفریزی",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "35 min",
     desc: "A vibrant stir-fry of chicken with bell peppers, onions, and tomatoes in a tangy sauce. Quick, colorful, and bold.",
@@ -494,7 +574,7 @@ const recipes = [
     name: "Chicken Nihari",
     urdu: "چکن نہاری",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "2.5 hrs",
     desc: "A lighter take on the Mughlai classic — slow-cooked chicken in a thick, aromatic bone broth spiced with nihari masala.",
@@ -507,7 +587,7 @@ const recipes = [
     name: "Chicken Handi",
     urdu: "چکن ہانڈی",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "55 min",
     desc: "Creamy, mildly spiced chicken cooked in a clay pot style with yogurt, cream, and aromatic spices.",
@@ -520,7 +600,7 @@ const recipes = [
     name: "Achari Chicken",
     urdu: "اچاری چکن",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "45 min",
     desc: "Tangy, pickle-spiced chicken with a kick of mustard seeds, fenugreek, and nigella. Bold and addictive.",
@@ -533,7 +613,7 @@ const recipes = [
     name: "Chicken Do Pyaza",
     urdu: "چکن دو پیازہ",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "\"Double onion\" chicken — onions cooked two ways (fried base + caramelized on top) for layers of sweet and savory depth.",
@@ -546,7 +626,7 @@ const recipes = [
     name: "Malai Chicken",
     urdu: "ملائی چکن",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Incredibly creamy boneless chicken in a white sauce with minimal spice — pure comfort food.",
@@ -559,7 +639,7 @@ const recipes = [
     name: "Dahi Chicken",
     urdu: "دہی والا چکن",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Yogurt-braised chicken with a tangy, creamy sauce. Simple spicing lets the yogurt shine.",
@@ -572,7 +652,7 @@ const recipes = [
     name: "White Karahi",
     urdu: "وائٹ کڑاہی",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "35 min",
     desc: "A Peshawar specialty — chicken cooked without tomato, with just cream, green chilies, and fresh ginger. Beautifully simple.",
@@ -585,7 +665,7 @@ const recipes = [
     name: "Chicken Changezi",
     urdu: "چکن چنگیزی",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Named after Genghis Khan — a fiery, deep red chicken curry with dried red chilies and a bold, smoky flavor.",
@@ -598,7 +678,7 @@ const recipes = [
     name: "Chicken Shorba",
     urdu: "چکن شوربہ",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "40 min",
     desc: "A warming, brothy chicken soup infused with cumin, black pepper, and lemon. Perfect when feeling under the weather.",
@@ -611,7 +691,7 @@ const recipes = [
     name: "Peshawari Chicken",
     urdu: "پشاوری چکن",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "55 min",
     desc: "Rustic Pashtun-style chicken with charsi-inspired bold flavors — heavy on cumin and black pepper, light on tomato.",
@@ -688,12 +768,12 @@ const recipes = [
     notes: "Use day-old refrigerated rice for best results — fresh rice will be mushy. Cook on very high heat. Push everything to the side, scramble eggs, then mix. Add sauces at the end."
   },
 
-  // ─── MEAT SALAAN ──────────────────────────────────────
+  // ─── MEAT SAALAN ──────────────────────────────────────
   {
     name: "Nihari",
     urdu: "نہاری",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "4+ hrs",
     desc: "The legendary Mughlai slow-cooked stew — beef shanks simmered overnight until meltingly tender in a thick, spiced gravy.",
@@ -706,7 +786,7 @@ const recipes = [
     name: "Paya",
     urdu: "پائے",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "5+ hrs",
     desc: "Slow-cooked trotters (goat or lamb) in a rich, gelatinous broth. A winter morning ritual across Pakistan.",
@@ -719,7 +799,7 @@ const recipes = [
     name: "Haleem",
     urdu: "حلیم",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "4+ hrs",
     desc: "A thick, hearty stew of shredded meat blended with lentils and wheat. Slow-cooked until everything melts together.",
@@ -732,7 +812,7 @@ const recipes = [
     name: "Beef Karahi",
     urdu: "بیف کڑاہی",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "60 min",
     desc: "Beef chunks wok-tossed with tomatoes and ginger in the classic karahi style. Robust and deeply savory.",
@@ -745,7 +825,7 @@ const recipes = [
     name: "Aloo Gosht",
     urdu: "آلو گوشت",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "70 min",
     desc: "The everyday comfort classic — tender meat with potatoes in a simple, homestyle masala. Nostalgic in every bite.",
@@ -758,7 +838,7 @@ const recipes = [
     name: "Saag Gosht",
     urdu: "ساگ گوشت",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "75 min",
     desc: "Tender meat simmered with mustard greens and spinach. Earthy, nutritious, and quintessentially Punjabi.",
@@ -771,7 +851,7 @@ const recipes = [
     name: "Keema Matar",
     urdu: "قیمہ مٹر",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "35 min",
     desc: "Minced meat with green peas in a simple masala — quick, satisfying, and loved by everyone from kids to elders.",
@@ -784,7 +864,7 @@ const recipes = [
     name: "Lamb Korma",
     urdu: "لیمب قورمہ",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "90 min",
     desc: "Rich, velvety lamb curry with fried onions, yogurt, and aromatic spices. Special occasion food at its finest.",
@@ -797,7 +877,7 @@ const recipes = [
     name: "Bhuna Gosht",
     urdu: "بھنا گوشت",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "70 min",
     desc: "Dry-roasted meat in a clinging, intensely spiced masala. Every piece coated in concentrated flavor.",
@@ -810,7 +890,7 @@ const recipes = [
     name: "Kadhai Gosht",
     urdu: "کڑاہی گوشت",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "65 min",
     desc: "Mutton cooked in a traditional wok with coarsely ground spices, tomatoes, and green peppers. Bold and rustic.",
@@ -823,7 +903,7 @@ const recipes = [
     name: "Lamb Chops Masala",
     urdu: "لیمب چاپس مصالحہ",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "60 min",
     desc: "Tender lamb chops simmered in a rich, spicy tomato-yogurt gravy. Elegant enough for guests.",
@@ -836,7 +916,7 @@ const recipes = [
     name: "Nalli Nihari",
     urdu: "نلی نہاری",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "5+ hrs",
     desc: "Slow-braised lamb shanks (nalli) in a thick, fiery nihari gravy. The bone marrow melts into the sauce for extraordinary richness.",
@@ -849,7 +929,7 @@ const recipes = [
     name: "Mutton Kunna",
     urdu: "مٹن کنہ",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "3+ hrs",
     desc: "A Rawalpindi/Lahori specialty — lamb cooked in a sealed pot (dum) with minimal water until impossibly tender in its own juices.",
@@ -862,7 +942,7 @@ const recipes = [
     name: "Chapli Kebab Curry",
     urdu: "چپلی کباب سالن",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Pan-fried Peshawari chapli kebabs simmered in a light tomato gravy. Smoky, aromatic, and uniquely satisfying.",
@@ -875,7 +955,7 @@ const recipes = [
     name: "Seekh Kebab Curry",
     urdu: "سیخ کباب کا سالن",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "55 min",
     desc: "Grilled seekh kebabs nestled in a rich, tangy masala curry. Double the flavor from grill char plus saucy masala.",
@@ -952,12 +1032,12 @@ const recipes = [
     notes: "Tahiri is biryani's humble cousin — everything cooks together in one pot. The potatoes absorb all the meat juices and become the best part. Less fussy than biryani but equally satisfying."
   },
 
-  // ─── VEGETARIAN SALAAN ────────────────────────────────
+  // ─── VEGETARIAN SAALAN ────────────────────────────────
   {
     name: "Chana Daal",
     urdu: "چنا دال",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Split chickpea lentils tempered with cumin and garlic. Hearty, protein-rich, and a daily staple in most homes.",
@@ -970,7 +1050,7 @@ const recipes = [
     name: "Daal Masoor",
     urdu: "دال مسور",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Quick-cooking red lentils in a simple tomato-onion base. The fastest daal — ready in under 30 minutes.",
@@ -983,7 +1063,7 @@ const recipes = [
     name: "Moong Daal",
     urdu: "مونگ دال",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Light, easy-to-digest yellow lentils with a simple tempering. Gentle enough for when you're feeling delicate.",
@@ -996,7 +1076,7 @@ const recipes = [
     name: "Daal Tarka (Toor Daal)",
     urdu: "دال تڑکا",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "40 min",
     desc: "Creamy toor daal finished with a sizzling tempering of garlic, cumin, and dried chilies. Restaurant-style favorite.",
@@ -1009,7 +1089,7 @@ const recipes = [
     name: "Mixed Daal",
     urdu: "ملی جلی دال",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "45 min",
     desc: "A blend of 3-4 types of lentils for complex flavor and texture. More interesting than any single daal.",
@@ -1022,7 +1102,7 @@ const recipes = [
     name: "Aloo Gobi",
     urdu: "آلو گوبی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Spiced potatoes and cauliflower — a dry sabzi that's crispy, earthy, and immensely comforting.",
@@ -1035,7 +1115,7 @@ const recipes = [
     name: "Baingan Bharta",
     urdu: "بینگن کا بھرتا",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "45 min",
     desc: "Smoky roasted eggplant mashed and cooked with onions, tomatoes, and spices. Charred, smoky, and deeply savory.",
@@ -1048,7 +1128,7 @@ const recipes = [
     name: "Bhindi Masala",
     urdu: "بھنڈی مصالحہ",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "25 min",
     desc: "Crispy okra with onions, tomatoes, and warm spices. The key is high heat to avoid the slime.",
@@ -1061,7 +1141,7 @@ const recipes = [
     name: "Karela Sabzi",
     urdu: "کریلا سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "40 min",
     desc: "Bitter gourd cooked with onions and spices — an acquired taste that's beloved for its health benefits and unique flavor.",
@@ -1074,7 +1154,7 @@ const recipes = [
     name: "Aloo Palak",
     urdu: "آلو پالک",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Potatoes in a smooth spinach gravy — iron-rich, vibrant green, and loved by all ages.",
@@ -1087,7 +1167,7 @@ const recipes = [
     name: "Chana Masala",
     urdu: "چنا مصالحہ",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "45 min",
     desc: "Chickpeas in a tangy, dark masala with a characteristic sour-spicy flavor. Protein powerhouse and incredibly satisfying.",
@@ -1100,7 +1180,7 @@ const recipes = [
     name: "Rajma",
     urdu: "راجمہ",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Red kidney beans in a thick, spiced tomato gravy. Hearty, filling, and perfect comfort food with rice.",
@@ -1113,7 +1193,7 @@ const recipes = [
     name: "Mixed Sabzi",
     urdu: "ملی جلی سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "25 min",
     desc: "A medley of seasonal vegetables stir-fried with basic spices. Simple, nutritious, everyday cooking.",
@@ -1126,7 +1206,7 @@ const recipes = [
     name: "Tori Ki Sabzi",
     urdu: "توری کی سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "20 min",
     desc: "Gentle ridge gourd cooked simply with tomatoes and minimal spice. Light, watery, and easy on the stomach.",
@@ -1139,7 +1219,7 @@ const recipes = [
     name: "Kaddu Ki Sabzi",
     urdu: "کدو کی سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "25 min",
     desc: "Sweet pumpkin cubes cooked with onions and spices. Mildly sweet and savory — a unique comfort food.",
@@ -1152,7 +1232,7 @@ const recipes = [
     name: "Shalgam Ki Sabzi",
     urdu: "شلگم کی سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Turnips cooked in a simple masala — a beloved winter sabzi with a slightly sweet, earthy flavor.",
@@ -1162,13 +1242,13 @@ const recipes = [
     notes: "Turnips are a winter staple. They cook faster than potatoes and have a subtle sweetness. Some families add meat (shalgam gosht) — but the vegetarian version is a classic on its own."
   },
   {
-    name: "Aloo Keema (Veg)",
-    urdu: "آلو بھجیا",
+    name: "Zeera Aloo",
+    urdu: "زیرہ آلو",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "25 min",
-    desc: "Simple fried potatoes with cumin and green chilies — the ultimate lazy day sabzi. Everyone has eaten this a thousand times.",
+    desc: "Simple fried potatoes with cumin and green chilies — the ultimate lazy-day sabzi. Everyone has eaten this a thousand times.",
     urduDesc: "زیرے اور ہری مرچ کے ساتھ سادہ بھنے ہوئے آلو — سست دن کی آسان ترین سبزی۔ ہزار بار کھائی ہے۔",
 
     ingredients: ["4 potatoes (cubed small)", "1 tsp cumin seeds", "½ tsp turmeric", "1 tsp red chili", "3 green chilies", "3 tbsp oil", "Salt"],
@@ -1273,7 +1353,7 @@ const recipes = [
     name: "Pakoras",
     urdu: "پکوڑے",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "quick",
     time: "20 min",
     desc: "Crispy, spiced vegetable fritters in gram flour batter. The quintessential rainy-day snack.",
@@ -1286,7 +1366,7 @@ const recipes = [
     name: "Samosas",
     urdu: "سموسے",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "elaborate",
     time: "60 min",
     desc: "Crispy triangular pastries stuffed with spiced potatoes and peas. The king of Pakistani snacks.",
@@ -1328,7 +1408,7 @@ const recipes = [
     type: "sides",
     effort: "medium",
     time: "45 min",
-    desc: "Soft, pillowy leavened flatbread — the essential vehicle for every salaan.",
+    desc: "Soft, pillowy leavened flatbread — the essential vehicle for every saalan.",
     urduDesc: "نرم، پھولی ہوئی خمیری روٹی — ہر سالن کے لیے بہترین ساتھی۔",
 
     ingredients: ["3 cups flour", "1 tsp yeast", "1 tsp sugar", "½ cup yogurt", "½ cup warm milk", "2 tbsp oil", "1 tsp salt", "Nigella seeds (optional)", "Butter for brushing"],
@@ -1377,7 +1457,7 @@ const recipes = [
     name: "Dahi Bhalla",
     urdu: "دہی بھلے",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "45 min",
     desc: "Soft lentil dumplings soaked in spiced yogurt, drizzled with chutneys. Cool, tangy, and addictive chaat.",
@@ -1392,7 +1472,7 @@ const recipes = [
     name: "Chicken Tikka",
     urdu: "چکن ٹکہ",
     protein: "chicken",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "45 min",
     desc: "Smoky, charred boneless chicken marinated in yogurt and spices, grilled until blistered. The original Pakistani BBQ.",
@@ -1405,7 +1485,7 @@ const recipes = [
     name: "Chicken Malai Boti",
     urdu: "چکن ملائی بوٹی",
     protein: "chicken",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "40 min",
     desc: "Creamy white chicken tikka — marinated in cream, cheese, and mild spices. Melt-in-your-mouth tender.",
@@ -1418,7 +1498,7 @@ const recipes = [
     name: "Chicken Steam Roast",
     urdu: "چکن سٹیم روسٹ",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "90 min",
     desc: "A Lahori specialty — whole chicken marinated in bold spices, steamed tender, then roasted until the skin crisps up.",
@@ -1431,7 +1511,7 @@ const recipes = [
     name: "Chicken Qorma (White)",
     urdu: "سفید قورمہ",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "80 min",
     desc: "The royal white korma — no tomatoes, enriched with cream, almonds, and saffron. Wedding-feast caliber.",
@@ -1444,7 +1524,7 @@ const recipes = [
     name: "Reshmi Kebab",
     urdu: "ریشمی کباب",
     protein: "chicken",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "35 min",
     desc: "\"Silky\" chicken kebabs — finely minced chicken wrapped around skewers, impossibly smooth and tender.",
@@ -1457,7 +1537,7 @@ const recipes = [
     name: "Murgh Cholay",
     urdu: "مرغ چھولے",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "55 min",
     desc: "Chicken and chickpea curry — two proteins in one hearty, masaledar dish. Filling and flavorful.",
@@ -1470,7 +1550,7 @@ const recipes = [
     name: "Chicken Afghani",
     urdu: "چکن افغانی",
     protein: "chicken",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "35 min",
     desc: "A rich, creamy white gravy chicken with cashew paste, cream, and aromatic spices. Mild and luxurious.",
@@ -1485,7 +1565,7 @@ const recipes = [
     name: "Kata Kat",
     urdu: "کٹا کٹ",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "50 min",
     desc: "Named for the sound of cleavers chopping on a tawa — a Lahori street-food stir-fry of organ meats with butter and spices.",
@@ -1498,7 +1578,7 @@ const recipes = [
     name: "Mutton Karahi",
     urdu: "مٹن کڑاہی",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "70 min",
     desc: "Tender mutton in the classic karahi style — minimal spices, maximum meat flavor with tomato and ginger.",
@@ -1511,7 +1591,7 @@ const recipes = [
     name: "Bihari Kebab",
     urdu: "بہاری کباب",
     protein: "meat",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "50 min",
     desc: "Flat, paper-thin beef kebabs marinated in raw papaya and aromatic spices — impossibly tender and flavorful.",
@@ -1524,7 +1604,7 @@ const recipes = [
     name: "Hareesa",
     urdu: "ہریسہ",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "4+ hrs",
     desc: "A Kashmiri winter specialty — meat, wheat, and lentils pounded into a thick, porridge-like paste. Ultimate cold-weather comfort.",
@@ -1537,7 +1617,7 @@ const recipes = [
     name: "Namkeen Gosht",
     urdu: "نمکین گوشت",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "60 min",
     desc: "\"Salty meat\" — Balochi-style simple mutton cooked with just salt, fat, and minimal spice. Rustic and primal.",
@@ -1563,7 +1643,7 @@ const recipes = [
     name: "Tawa Keema",
     urdu: "توا قیمہ",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "30 min",
     desc: "Minced meat seared on a flat griddle with tomatoes, peppers, and bold spices. Quick, dry, and full of char flavor.",
@@ -1576,7 +1656,7 @@ const recipes = [
     name: "Mutton Rogan Josh",
     urdu: "مٹن روغن جوش",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "90 min",
     desc: "Kashmiri red-hued lamb curry — slow-cooked with Kashmiri chilies for color and fennel for aroma. Mild heat, deep flavor.",
@@ -1589,7 +1669,7 @@ const recipes = [
     name: "Beef Nihari Nalli",
     urdu: "بیف نلی نہاری",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "5+ hrs",
     desc: "Rich beef shank nihari where the bone marrow melts into the sauce over hours of slow cooking. A Sunday breakfast tradition.",
@@ -1602,7 +1682,7 @@ const recipes = [
     name: "Dum Pukht",
     urdu: "دم پخت",
     protein: "meat",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "3+ hrs",
     desc: "\"Slow-breathed cooking\" — meat sealed in a pot with dough, cooked in its own steam and juices. Mughlai royalty food.",
@@ -1630,7 +1710,7 @@ const recipes = [
     name: "Palak Paneer",
     urdu: "پالک پنیر",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "40 min",
     desc: "Creamy spinach puree with cubes of soft paneer. Rich in iron and flavor — a vegetarian showstopper.",
@@ -1643,7 +1723,7 @@ const recipes = [
     name: "Daal Makhani",
     urdu: "دال مکھنی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "3+ hrs",
     desc: "The queen of daals — black lentils slow-cooked for hours with butter and cream until impossibly rich and velvety.",
@@ -1656,7 +1736,7 @@ const recipes = [
     name: "Aloo Bhujia / Sabzi",
     urdu: "آلو بھجیا",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "20 min",
     desc: "Cumin-tempered potatoes — the simplest everyday sabzi that somehow never gets old.",
@@ -1669,7 +1749,7 @@ const recipes = [
     name: "Mattar Paneer",
     urdu: "مٹر پنیر",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "35 min",
     desc: "Soft paneer and sweet peas in a mildly spiced tomato-onion gravy. A beloved vegetarian curry.",
@@ -1682,7 +1762,7 @@ const recipes = [
     name: "Baingan Ka Salan",
     urdu: "بینگن کا سالن",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "45 min",
     desc: "Hyderabadi eggplant curry in a tangy peanut-sesame sauce. Complex, nutty, and the classic biryani companion.",
@@ -1695,7 +1775,7 @@ const recipes = [
     name: "Sarson Ka Saag",
     urdu: "سرسوں کا ساگ",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "elaborate",
     time: "90 min",
     desc: "Slow-cooked mustard greens with spinach and bathua, mashed smooth — the iconic Punjabi winter dish.",
@@ -1708,7 +1788,7 @@ const recipes = [
     name: "Tinda Masala",
     urdu: "ٹنڈے کی سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "25 min",
     desc: "Baby round gourd (apple gourd) cooked in a simple masala. A gentle summer vegetable, light and easy.",
@@ -1721,7 +1801,7 @@ const recipes = [
     name: "Arvi Ki Sabzi",
     urdu: "اروی کی سبزی",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "medium",
     time: "40 min",
     desc: "Taro root cooked in a tangy masala. Starchy, slightly sticky, and uniquely satisfying.",
@@ -1734,7 +1814,7 @@ const recipes = [
     name: "Aloo Shimla Mirch",
     urdu: "آلو شملہ مرچ",
     protein: "veg",
-    type: "salaan",
+    type: "saalan",
     effort: "quick",
     time: "25 min",
     desc: "Potatoes and bell peppers stir-fried with cumin and mild spices. Colorful, quick, everyday comfort.",
@@ -1762,7 +1842,7 @@ const recipes = [
     name: "Gol Gappay / Pani Puri",
     urdu: "گول گپے",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "elaborate",
     time: "60 min",
     desc: "Crispy hollow puris filled with spiced water, chickpeas, and potatoes — the iconic Pakistani street chaat.",
@@ -1775,7 +1855,7 @@ const recipes = [
     name: "Chaat Papri",
     urdu: "چاٹ پاپڑی",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "30 min",
     desc: "Crispy flour wafers topped with potatoes, chickpeas, yogurt, and chutneys. Sweet, sour, spicy, crunchy — all at once.",
@@ -1788,7 +1868,7 @@ const recipes = [
     name: "Aloo Tikki",
     urdu: "آلو ٹکی",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "35 min",
     desc: "Crispy spiced potato patties, shallow-fried until golden. Street food staple, served with chutneys and yogurt.",
@@ -1840,7 +1920,7 @@ const recipes = [
     name: "Halwa Puri",
     urdu: "حلوا پوری",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "50 min",
     desc: "The classic Pakistani Sunday breakfast — deep-fried puris with sweet semolina halwa and chana. A trio of joy.",
@@ -1853,7 +1933,7 @@ const recipes = [
     name: "Lassi (Sweet & Salty)",
     urdu: "لسی",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "quick",
     time: "5 min",
     desc: "Frothy, chilled yogurt drink — sweet with sugar and cardamom, or salty with cumin and salt. The ultimate coolant.",
@@ -1866,7 +1946,7 @@ const recipes = [
     name: "Gajar Ka Halwa",
     urdu: "گاجر کا حلوا",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "elaborate",
     time: "90 min",
     desc: "Slow-cooked carrot pudding — grated carrots simmered in milk until rich, dense, and caramelized. Winter's favorite dessert.",
@@ -1879,7 +1959,7 @@ const recipes = [
     name: "Kheer",
     urdu: "کھیر",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "60 min",
     desc: "Creamy rice pudding slow-simmered in milk with cardamom, nuts, and a touch of saffron. Pakistani comfort dessert.",
@@ -1892,7 +1972,7 @@ const recipes = [
     name: "Phirni",
     urdu: "فرنی",
     protein: "veg",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "40 min",
     desc: "Ground rice pudding set in clay bowls — smoother than kheer, with a delicate rose and cardamom perfume.",
@@ -1918,7 +1998,7 @@ const recipes = [
     name: "Shami Kebab",
     urdu: "شامی کباب",
     protein: "meat",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "60 min",
     desc: "Smooth, disc-shaped kebabs made from boiled meat and lentils — crispy outside, soft inside. Classic appetizer.",
@@ -1931,7 +2011,7 @@ const recipes = [
     name: "Bun Kebab",
     urdu: "بن کباب",
     protein: "meat",
-    type: "sides",
+    type: "snacks",
     effort: "medium",
     time: "40 min",
     desc: "Karachi's iconic street burger — spiced lentil or meat patty in a soft bun with chutney, onion, and egg.",
@@ -1939,6 +2019,882 @@ const recipes = [
 
     ingredients: ["Shami kebab or lentil patty", "Soft buns", "1 egg (fried flat, cut to bun size)", "Tamarind chutney", "Green chutney", "Sliced onion", "Sliced tomato", "Chaat masala"],
     notes: "The bun is toasted on the tawa, slathered with chutneys, topped with kebab, fried egg, onion, and chaat masala. It's Karachi's answer to the burger and possibly better. The egg and double chutney are non-negotiable."
+  },
+
+  // ─── MORE SAALAN — OFFAL ──────────────────────────────
+  {
+    name: "Maghaz Masala (Brain Masala)",
+    urdu: "مغز مسالہ",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "45 min",
+    desc: "Goat brain gently simmered with tomato, onion, and ginger-garlic, then bhuna with garam masala until rich and creamy. A Lahori weekend breakfast served with hot naan.",
+    urduDesc: "بکرے کا مغز ٹماٹر، پیاز اور ادرک لہسن کے ساتھ ہلکی آنچ پر پکایا گیا، پھر گرم مسالے کے ساتھ بھونا گیا۔ لاہور کا روایتی ناشتہ۔",
+
+    ingredients: ["500g goat brain (2-3 sets)", "2 onions (finely chopped)", "3 tomatoes (chopped)", "1 tbsp ginger-garlic paste", "3-4 green chilies (slit)", "1 tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "1 tsp garam masala", "½ tsp cumin", "4 tbsp ghee/oil", "Salt", "Fresh coriander, ginger julienne, lemon wedges"],
+    notes: "Soak brain in salted water for 20 minutes and gently peel off the thin membrane — this removes the iron-y aftertaste. Don't stir aggressively, brain breaks apart fast; fold gently with the back of the spoon. Finish on high heat for that signature bhuna sheen, but never overcook — 10-12 minutes in the masala is plenty."
+  },
+  {
+    name: "Kaleji Masala (Liver Masala)",
+    urdu: "کلیجی مسالہ",
+    protein: "meat",
+    type: "saalan",
+    effort: "quick",
+    time: "30 min",
+    desc: "Chicken or mutton liver bhuna in onion-tomato masala with green chili and a finishing sprinkle of chaat masala. A 30-minute home favorite that disappears fast.",
+    urduDesc: "چکن یا مٹن کی کلیجی پیاز ٹماٹر کے مسالے میں بھونی، اوپر سے چاٹ مسالہ۔ گھر کی پسندیدہ ڈش جو فوراً ختم ہو جاتی ہے۔",
+
+    ingredients: ["500g liver (cleaned, cubed)", "2 onions (sliced)", "2 tomatoes (chopped)", "1 tbsp ginger-garlic paste", "3-4 green chilies (slit)", "1 tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "½ tsp cumin", "1 tsp chaat masala", "½ tsp garam masala", "3 tbsp oil", "Salt, fresh coriander, lemon wedges"],
+    notes: "Rinse liver well and pat dry — wet liver splatters and steams instead of browning. Add liver last and cook only 6-8 minutes; overcooked liver turns grainy and bitter. The chaat masala goes on right at the end off the heat — it's what makes home kaleji taste like the dhaba version."
+  },
+  {
+    name: "Gurda Kapoora",
+    urdu: "گردہ کپورہ",
+    protein: "meat",
+    type: "saalan",
+    effort: "elaborate",
+    time: "90 min",
+    desc: "A traditional Lahori offal classic — kidney and testicles slow-cooked tender, then bhuna with a bold masala until deeply browned. Strong, rustic, and beloved at old-city breakfast spots.",
+    urduDesc: "لاہور کی پرانی ڈش — گردہ اور کپورہ آہستہ پکا کر تیز مسالے میں بھونا گیا۔ اندرون شہر کے ناشتے کا روایتی ذائقہ۔",
+
+    ingredients: ["300g kidney (cleaned, cubed)", "300g kapoora/testicles (cleaned, halved)", "2 onions (chopped)", "3 tomatoes (chopped)", "1½ tbsp ginger-garlic paste", "4-5 green chilies", "1½ tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "1 tsp garam masala", "1 tsp cumin", "½ tsp black pepper", "5 tbsp ghee", "Salt, fresh coriander, ginger julienne"],
+    notes: "Soak kidney and kapoora in vinegar water for 30 minutes — non-negotiable for removing the offal smell. Boil once in salted water with a cinnamon stick, drain, then start the masala fresh. The bhuna stage is long — at least 20 minutes on medium heat — until the oil separates and the meat takes on a dark mahogany color. Eat with kulcha or naan."
+  },
+
+  // ─── MORE SAALAN — MEAT & VEG ─────────────────────────
+  {
+    name: "Bhindi Gosht",
+    urdu: "بھنڈی گوشت",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "75 min",
+    desc: "Okra and tender mutton or beef cooked together in a light tomato-onion masala — the meat counterpart to the classic Bhindi Masala. Comforting and homestyle.",
+    urduDesc: "بھنڈی اور نرم گوشت ہلکے ٹماٹر پیاز کے مسالے میں۔ بھنڈی مسالہ کا گوشت والا روپ۔ گھریلو اور دل کو بھانے والا۔",
+
+    ingredients: ["500g mutton/beef (bone-in)", "500g okra (trimmed, 1-inch pieces)", "2 onions (sliced)", "3 tomatoes (chopped)", "1½ tbsp ginger-garlic paste", "3 green chilies", "1 tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "1 tsp garam masala", "½ tsp cumin", "4 tbsp oil", "Salt, fresh coriander"],
+    notes: "Fry the okra separately in a wide pan until the sliminess is gone — about 8-10 minutes on medium heat, don't crowd the pan. Pressure-cook the meat first until tender, then add the masala, then fold the okra in at the very end. Stirring okra into wet masala too early turns the dish gluey."
+  },
+  {
+    name: "Palak Gosht",
+    urdu: "پالک گوشت",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "75 min",
+    desc: "Pure spinach pureed into a deep green gravy with tender lamb — different from Saag Gosht which uses mustard greens. A Punjabi staple at almost every winter dinner table.",
+    urduDesc: "خالص پالک کی گہری سبز گریوی میں نرم گوشت — ساگ گوشت سے الگ کیونکہ اس میں سرسوں نہیں۔ پنجابی سردیوں کا لازمی پکوان۔",
+
+    ingredients: ["500g lamb/mutton (bone-in)", "750g fresh spinach (washed, chopped)", "2 onions (sliced)", "2 tomatoes (chopped)", "1½ tbsp ginger-garlic paste", "4 green chilies", "1 tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "1 tsp garam masala", "4 tbsp ghee/oil", "Salt, ginger julienne (for garnish)"],
+    notes: "Blanch the spinach for 2 minutes only and shock it in cold water — this locks in the deep green color. Don't over-puree; a slightly textured palak feels more homestyle than baby-food-smooth. Add the spinach in the last 15 minutes of cooking, otherwise it dulls to a grayish khaki and loses its fresh taste. Finish with a tarka of ghee and sliced garlic."
+  },
+  {
+    name: "Daal Gosht",
+    urdu: "دال گوشت",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "90 min",
+    desc: "The classic Punjabi Sunday lunch — chana daal slow-cooked with chunks of mutton or beef until both melt into one rich, savory bowl. Two proteins, one comforting pot.",
+    urduDesc: "پنجاب کی اتوار کی روایتی دعوت — چنا دال اور گوشت ایک ساتھ آہستہ پکے، دونوں گل کر مل جائیں۔ ایک ہی پیالے میں دو پروٹین۔",
+
+    ingredients: ["500g mutton/beef (bone-in)", "1 cup chana daal (soaked 1 hour)", "2 onions (chopped)", "3 tomatoes (chopped)", "1½ tbsp ginger-garlic paste", "3-4 green chilies", "1 tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "1 tsp garam masala", "½ tsp cumin", "4 tbsp ghee/oil", "Salt, fresh coriander, lemon wedges"],
+    notes: "Cook the meat almost fully tender first, then add the soaked daal and let them finish together for the last 25 minutes. Moong daal works too — both are traditional, regional preference. A final tarka of cumin and dried red chili in ghee is what makes it taste like nani's."
+  },
+  {
+    name: "Daal Palak",
+    urdu: "دال پالک",
+    protein: "veg",
+    type: "saalan",
+    effort: "quick",
+    time: "45 min",
+    desc: "Masoor or moong daal cooked with fresh spinach until soft and silky, finished with a smoky garlic tarka. Light, nourishing, and the home daal everyone reaches for on a tired night.",
+    urduDesc: "مسور یا مونگ کی دال پالک کے ساتھ نرم اور ہلکی پھلکی۔ تھکے دن کے لیے گھر کی سب سے آرام دہ دال۔",
+
+    ingredients: ["1 cup masoor daal (or moong)", "300g spinach (chopped)", "1 onion (chopped)", "2 tomatoes (chopped)", "1 tbsp ginger-garlic paste", "2-3 green chilies", "½ tsp turmeric", "1 tsp red chili powder", "1 tsp cumin seeds", "4-5 garlic cloves (sliced)", "2 dried red chilies", "3 tbsp ghee", "Salt, fresh coriander, lemon"],
+    notes: "Cook the daal first with turmeric and salt until soft, then add the spinach in the last 8-10 minutes — spinach cooks fast and turns bitter if boiled too long. The tarka at the end is the whole personality of the dish — heat ghee till smoking, add cumin, sliced garlic, dried red chili, and pour it over the daal while it sizzles. Don't skip the lemon squeeze at the table."
+  },
+  {
+    name: "Anda Salan (Egg Curry)",
+    urdu: "انڈا سالن",
+    protein: "veg",
+    type: "saalan",
+    effort: "quick",
+    time: "30 min",
+    desc: "Boiled eggs simmered in a glossy tomato-onion gravy spiced with cumin and coriander. The ultimate weeknight standby when the fridge is bare and dinner is in 30 minutes.",
+    urduDesc: "ابلے انڈے ٹماٹر پیاز کی چمکدار گریوی میں۔ مصروف رات کا فوری اور آسان ڈنر۔",
+
+    ingredients: ["6-8 eggs (boiled, peeled)", "2 onions (chopped)", "3 tomatoes (pureed)", "1 tbsp ginger-garlic paste", "2-3 green chilies", "1 tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "½ tsp garam masala", "½ tsp cumin", "3 tbsp oil", "Salt, fresh coriander"],
+    notes: "Score the boiled eggs lightly with a knife or prick with a fork before adding to the gravy — this lets the masala soak in instead of sliding off. Some homes shallow-fry the eggs first until golden for extra flavor; some skip it. Add the eggs only in the last 5 minutes — they don't need cooking, just bathing in the masala."
+  },
+  {
+    name: "Achar Gosht",
+    urdu: "اچار گوشت",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "75 min",
+    desc: "Mutton or beef cooked with the classic achaari masala — nigella, fennel, fenugreek, mustard, and kalonji — bound together with a touch of yogurt. Tangy, robust, and unmistakably distinct from Achari Chicken.",
+    urduDesc: "گوشت اچار کے مسالوں — کلونجی، سونف، میتھی، رائی — کے ساتھ، تھوڑے دہی میں۔ ترش اور بھرپور ذائقہ۔ اچاری چکن سے مختلف۔",
+
+    ingredients: ["750g mutton/beef (bone-in)", "2 onions (sliced)", "3 tomatoes (chopped)", "1 cup yogurt (whisked)", "1½ tbsp ginger-garlic paste", "4 green chilies (slit)", "1 tsp kalonji (nigella)", "1 tsp fennel seeds", "½ tsp fenugreek seeds", "1 tsp mustard seeds", "1 tsp cumin", "1½ tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "4 tbsp mustard oil (or regular)", "Salt, fresh coriander"],
+    notes: "Lightly toast the achaari whole spices — kalonji, fennel, fenugreek, mustard — in dry pan for 30 seconds before grinding coarsely. This is what gives achar gosht its distinct punch versus a regular salan. Add the yogurt off the heat or while whisking constantly, otherwise it splits. Mustard oil makes a noticeable difference if you have it."
+  },
+  {
+    name: "Machli Salan (Fish Curry)",
+    urdu: "مچھلی سالن",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "45 min",
+    desc: "White fish simmered in a sharp gravy of tomato, onion, and ginger-garlic, finished with mustard oil and curry leaves for that coastal Karachi character. Bright, fragrant, and a little fiery.",
+    urduDesc: "سفید مچھلی ٹماٹر اور ادرک لہسن کی تیز گریوی میں، اوپر سے سرسوں کا تیل اور کڑی پتہ۔ کراچی کے ساحلی ذائقے کی جھلک۔",
+
+    ingredients: ["750g firm white fish (rahu, surmai, or tilapia — steaks)", "2 onions (chopped)", "3 tomatoes (pureed)", "1½ tbsp ginger-garlic paste", "3-4 green chilies", "1½ tsp red chili powder", "1 tsp coriander powder", "½ tsp turmeric", "½ tsp cumin", "10-12 curry leaves", "1 tsp lemon juice", "3 tbsp mustard oil", "1 tbsp regular oil", "Salt, fresh coriander"],
+    notes: "Marinate fish for 15 minutes with turmeric, salt, and lemon juice — this firms up the flesh and removes any fishiness. Make the gravy fully first and only add the fish in the last 8-10 minutes — fish overcooks fast and falls apart if stirred too much. Heat the mustard oil to smoking point before using; raw mustard oil is bitter. Curry leaves go in at the very end for the aroma to hit."
+  },
+  {
+    name: "Pindi Cholay",
+    urdu: "پنڈی چھولے",
+    protein: "veg",
+    type: "saalan",
+    effort: "medium",
+    time: "90 min",
+    desc: "Dark, dry-style chickpeas from Rawalpindi cooked with anardana and tea leaves — no tomato in sight. Deeply spiced, almost black, and served with kulcha or bhatura.",
+    urduDesc: "راولپنڈی کے روایتی کالے چھولے، انار دانہ اور چائے کی پتی کے ساتھ، بغیر ٹماٹر کے۔ گہرے، چٹپٹے، کلچے کے ساتھ۔",
+
+    ingredients: ["2 cups dried kabuli chickpeas (soaked overnight)", "2 tea bags (or 1 tbsp loose tea in muslin)", "2 onions (chopped)", "1½ tbsp ginger-garlic paste", "3-4 green chilies", "1½ tsp anardana (pomegranate seed powder)", "1 tsp chana masala", "1 tsp red chili powder", "1 tsp coriander powder", "1 tsp cumin", "1 tsp garam masala", "½ tsp amchur", "4 tbsp ghee", "Salt, ginger julienne, fresh coriander, lemon wedges"],
+    notes: "Boil the soaked chickpeas with tea bags submerged in the water — this is what gives Pindi cholay its signature dark color, no shortcut works as well. There's intentionally no tomato — Pindi style is dry, dark, and spice-forward, not gravy-based. Bhuna the masala until almost black before folding in the chickpeas. Finish with raw ginger julienne and lemon for that street-stall punch."
+  },
+  {
+    name: "Mutton Korma (Traditional Red)",
+    urdu: "مٹن قورمہ",
+    protein: "meat",
+    type: "saalan",
+    effort: "elaborate",
+    time: "150 min",
+    desc: "The classic red shaadi korma — deep-fried onions, yogurt, ghee, and whole spices slow-cooked into a glossy, fragrant gravy. The most-served dish at Pakistani weddings, and a different beast entirely from a lighter Lamb Korma.",
+    urduDesc: "روایتی سرخ شادی قورمہ — تلی پیاز، دہی، گھی اور سالم گرم مسالے سے بنی چمکدار گریوی۔ پاکستانی شادیوں کا سب سے مقبول کھانا۔",
+
+    ingredients: ["1 kg mutton (bone-in)", "4 onions (thinly sliced, deep-fried golden — birista)", "1½ cups full-fat yogurt (whisked)", "2 tbsp ginger-garlic paste", "3 black cardamoms", "5 green cardamoms", "1 inch cinnamon stick", "5 cloves", "1 tsp black peppercorns", "1 bay leaf", "2 tsp Kashmiri red chili powder", "1 tsp coriander powder", "1 tsp cumin", "1 tsp garam masala", "½ cup ghee", "Salt, kewra water (few drops), ginger julienne, fresh coriander"],
+    notes: "The fried onions (birista) are the entire soul of korma — fry them slowly until evenly golden brown, then crush half by hand and leave half whole. Bloom the whole spices in ghee first, then add meat, then yogurt — yogurt must be whisked smooth and added off heat or while stirring, or it splits. Cook on the lowest possible flame for 90+ minutes — korma rewards patience. A few drops of kewra at the end is the wedding-hall signature."
+  },
+
+  // ─── SOUPS ────────────────────────────────────────────
+  {
+    name: "Chicken Corn Soup",
+    urdu: "چکن کارن سوپ",
+    protein: "chicken",
+    type: "saalan",
+    effort: "quick",
+    time: "30 min",
+    desc: "Thick, creamy chicken soup loaded with cream-style corn and shredded chicken, finished with an egg drizzle and the holy trio at the table — soy, vinegar, and chili oil. Every Pakistani dawat starts here.",
+    urduDesc: "گاڑھا چکن سوپ، کریم کارن اور شریڈڈ چکن کے ساتھ، اوپر سے انڈا اور میز پر سویا، سرکہ، چلی آئل۔ ہر دعوت کا پہلا کورس۔",
+
+    ingredients: ["2 chicken breasts (boiled, shredded)", "6 cups chicken stock (from boiling)", "1 can cream-style corn (400g)", "½ cup sweet corn kernels", "2 eggs (lightly beaten)", "3 tbsp cornflour (slurried in ½ cup water)", "1 tbsp soy sauce", "1 tsp white pepper", "Salt", "Sugar (pinch)", "Spring onions (chopped)", "Soy sauce, vinegar, chili oil (for serving)"],
+    notes: "Boil chicken with bones (wings or carcass), a knob of ginger, a few peppercorns, and salt — or use a chicken bouillon cube — to get properly flavored stock. Two plain breasts in water won't yield enough body. Whisk the cornflour slurry into cold stock first, then bring to a boil for that classic thick-but-not-gloopy texture. Drizzle the beaten egg in a thin stream while stirring gently with a fork to get those silky ribbons. The condiments at the table are mandatory — Pakistani dinner guests will judge you for not putting them out."
+  },
+  {
+    name: "Hot & Sour Soup (Desi-style)",
+    urdu: "ہاٹ اینڈ ساور سوپ",
+    protein: "chicken",
+    type: "saalan",
+    effort: "quick",
+    time: "35 min",
+    desc: "The Pakistani-Chinese desi take — chicken, mushrooms, cabbage, carrot, and tofu in a tangy, peppery broth sharpened with vinegar and chili. Iftar and dawat tables across Pakistan run on this.",
+    urduDesc: "پاکستانی چائنیز انداز کا ہاٹ اینڈ سار — چکن، مشروم، گوبھی، گاجر اور توفو، سرکہ اور مرچ کی تیزی کے ساتھ۔ ہر افطار اور دعوت کا لازمی حصہ۔",
+
+    ingredients: ["1 chicken breast (boiled, shredded)", "6 cups chicken stock", "1 cup cabbage (finely shredded)", "1 carrot (julienne)", "½ cup mushrooms (sliced)", "½ cup tofu (cubed, optional)", "1 egg (beaten)", "3 tbsp cornflour (slurried)", "3 tbsp vinegar (white or rice)", "2 tbsp soy sauce", "1 tbsp chili sauce", "1 tsp white pepper", "½ tsp black pepper", "1 tsp ginger (grated)", "Salt, sugar (pinch), spring onions, chili oil (to serve)"],
+    notes: "Hot and sour soup is all about balance — taste at the end and adjust vinegar (sour) and white pepper (hot) until both punch through. Vegetables should stay crisp-tender, not boiled to death — add them only in the last 5-6 minutes. Egg drizzle goes in last while stirring in one direction for those clean ribbons. Desi homes often add a splash of extra chili sauce or red food color — that bright reddish-brown is the dawat signature."
+  },
+
+  // ─── MORE BBQ / GRILL ─────────────────────────────────
+  {
+    name: "Chicken Chargha",
+    urdu: "چکن چڑغا",
+    protein: "chicken",
+    type: "snacks",
+    effort: "elaborate",
+    time: "1 hr 30 min",
+    desc: "The iconic Lahori whole chicken — deeply spiced, steamed until fall-apart tender, then deep-fried to a shattering crisp skin. A Food Street legend.",
+    urduDesc: "لاہور کا مشہور چڑغا — مصالحوں میں مرینیٹ، بھاپ پر گلایا اور پھر کرسپی ہونے تک تلا ہوا۔",
+
+    ingredients: ["1 whole chicken (~1.2 kg, skin-on, slits cut)", "1 cup yogurt", "2 tbsp ginger-garlic paste", "2 tsp red chili powder", "1 tsp Kashmiri red chili", "2 tsp cumin powder", "2 tsp coriander powder", "1 tsp ajwain", "1 tsp garam masala", "½ tsp turmeric", "1 tbsp lemon juice", "Salt", "Oil for deep frying"],
+    notes: "Score the chicken deeply so the marinade penetrates — at least 4 hours, overnight is better. Steam covered for 35-40 min until juices run clear, then dry the surface completely before frying. The double-cook is the whole secret — steaming keeps it juicy, frying makes it shatter-crisp."
+  },
+  {
+    name: "Chicken Bihari Boti",
+    urdu: "چکن بہاری بوٹی",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "50 min",
+    desc: "Smoky, deeply marinated chicken cubes with raw papaya, mustard oil, and brown onion paste — the chicken cousin of beef bihari. Tender, dark, and intensely flavored.",
+    urduDesc: "کچے پپیتے، سرسوں کے تیل اور تلے پیاز میں مرینیٹ نرم بوٹیاں — بہاری ذائقے سے بھرپور۔",
+
+    ingredients: ["1 kg boneless chicken (cubed)", "2 tbsp raw papaya paste", "3 tbsp mustard oil", "½ cup fried onion (paste)", "2 tbsp ginger-garlic paste", "2 tbsp bihari kebab masala", "1 tsp red chili powder", "1 tsp roasted cumin", "2 tbsp yogurt", "1 tbsp gram flour (besan, roasted)", "Salt", "1 small piece charcoal (for dhungar)"],
+    notes: "Raw papaya is the tenderizer — don't skip it, and don't overdo it (more than 4 hours and the chicken turns mushy). Heat the mustard oil to smoking and cool before using to mellow the bite. Finish with charcoal smoke (dhungar) for that authentic dhaba aroma."
+  },
+  {
+    name: "Chicken Tikka Boti",
+    urdu: "چکن ٹکہ بوٹی",
+    protein: "chicken",
+    type: "snacks",
+    effort: "quick",
+    time: "35 min",
+    desc: "Cubed boneless chicken in classic red tikka marinade, threaded on skewers and grilled until charred at the edges. Quick, punchy, and the king of party starters.",
+    urduDesc: "کیوب کی ہوئی چکن کلاسک ٹکہ مرینیڈ میں — سیخ پر کوئلے کی آنچ سے بھنی ہوئی۔",
+
+    ingredients: ["1 kg boneless chicken (1-inch cubes)", "¾ cup thick yogurt", "2 tbsp ginger-garlic paste", "2 tbsp tikka masala", "1½ tsp red chili powder", "1 tsp Kashmiri red chili", "1 tsp roasted cumin", "1 tsp garam masala", "2 tbsp lemon juice", "2 tbsp oil", "Salt", "1 tsp gram flour (besan)"],
+    notes: "Strain the yogurt or use thick hung curd — runny marinade won't cling. Soak wooden skewers for 30 min so they don't burn. Brush with oil halfway through grilling so the edges char without drying out. Serve with chutney and onion rings squeezed with lemon."
+  },
+  {
+    name: "Tandoori Chicken (Whole)",
+    urdu: "تندوری چکن",
+    protein: "chicken",
+    type: "snacks",
+    effort: "elaborate",
+    time: "1 hr 15 min",
+    desc: "The original Punjabi BBQ — whole chicken with deep slits, marinated in a fiery red yogurt mix and blasted at high heat until charred outside, juicy within. Pure dhaba nostalgia.",
+    urduDesc: "اصلی پنجابی تندوری چکن — سرخ مرینیڈ میں ڈوبا، تیز آنچ پر بھنا ہوا — باہر سے کرارا، اندر سے رس بھرا۔",
+
+    ingredients: ["1 whole chicken (1.2 kg, skin removed, deep slits)", "1 cup thick yogurt", "3 tbsp ginger-garlic paste", "2 tbsp Kashmiri red chili", "1 tsp red chili powder", "2 tsp garam masala", "1 tsp roasted cumin", "1 tsp coriander powder", "2 tbsp mustard oil", "2 tbsp lemon juice", "½ tsp turmeric", "Salt", "Red food color (optional, pinch)"],
+    notes: "Two-stage marinade is traditional — first a quick lemon-salt-chili rub for 15 min, then the full yogurt mix for 4+ hours. Roast at the highest oven setting (250°C/480°F) for that tandoor-like char, basting with mustard oil halfway. Kashmiri chili is what gives that beautiful red without scorching heat."
+  },
+  {
+    name: "Lahori Tali Hui Machli",
+    urdu: "لاہوری تلی ہوئی مچھلی",
+    protein: "meat",
+    type: "snacks",
+    effort: "medium",
+    time: "40 min",
+    desc: "Friday Lahori street staple — white fish coated in spiced chickpea flour batter with ajwain and crushed coriander, deep-fried until shatter-crisp. The original Anarkali Bazaar snack.",
+    urduDesc: "لاہور کی روایتی جمعہ والی مچھلی — بیسن، اجوائن اور دھنیے کے مصالحے میں ڈوب کر کرارا تلی ہوئی۔",
+
+    ingredients: ["750g white fish (rohu, sole, or tilapia — sliced)", "¾ cup gram flour (besan)", "2 tbsp rice flour", "1 tsp ajwain", "1 tsp crushed coriander seeds", "1½ tsp red chili powder", "1 tsp Kashmiri red chili", "1 tsp ginger-garlic paste", "1 tsp turmeric", "2 tbsp lemon juice", "Salt", "Oil for deep frying"],
+    notes: "Pat the fish bone-dry before coating — wet fish makes the batter slip off. Mix the besan to a thick paste (not runny) so it sticks like a crust. Fry in batches at medium-high heat — too hot and the spice burns. Serve with imli chutney, sliced onion, and a wedge of lemon. Friday tradition."
+  },
+  {
+    name: "Frontier Chicken",
+    urdu: "فرنٹیئر چکن",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "50 min",
+    desc: "Peshawari-style charcoal chicken — yogurt, onion paste, and just black pepper and salt. KP-style restraint that lets the smoke and meat speak for themselves.",
+    urduDesc: "پشاوری انداز کا کوئلے پر بھنا چکن — دہی، پیاز اور کالی مرچ کے سادہ ذائقے کے ساتھ۔",
+
+    ingredients: ["1 kg chicken (quarters or bone-in pieces)", "1 cup thick yogurt", "½ cup onion paste", "2 tbsp ginger-garlic paste", "2 tsp coarse black pepper", "1 tsp white pepper", "1 tsp green chili paste", "2 tbsp lemon juice", "2 tbsp oil", "Salt"],
+    notes: "Frontier style is about restraint — no red chili powder, no garam masala overload. The flavor comes from yogurt tang, pepper bite, and live charcoal smoke. Grill over hot coals turning often, basting with oil. If using an oven, finish with dhungar (hot charcoal + ghee under a covered tray) for 5 min."
+  },
+  {
+    name: "Beef Seekh Kebab (Grilled)",
+    urdu: "بیف سیخ کباب",
+    protein: "meat",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "Minced beef with green chili, fresh herbs, and warm spices, hand-shaped onto skewers and grilled over charcoal. The classic tandoor-grilled format — smoky, juicy, and unforgettable.",
+    urduDesc: "قیمہ، ہری مرچ اور تازہ ہریاول کے ساتھ سیخ پر چڑھا کر کوئلے پر بھنا کلاسک کباب۔",
+
+    ingredients: ["500g beef mince (with some fat, finely ground)", "1 small onion (very finely chopped, squeezed dry)", "2 green chilies (finely chopped)", "2 tbsp ginger-garlic paste", "3 tbsp fresh coriander (chopped)", "2 tbsp fresh mint (chopped)", "1 tsp red chili powder", "1 tsp roasted cumin", "1 tsp garam masala", "1 tsp coriander powder", "1 egg", "2 tbsp gram flour (besan, roasted)", "Salt", "Oil for basting"],
+    notes: "Squeeze every drop of water from the onion — wet mince won't hold on the skewer. Knead the mince hard for 5 min until it turns sticky (this is what binds it). Wet your hands with oil and shape firmly around metal skewers. Grill over hot coals turning quickly — they cook in 6-8 min."
+  },
+  {
+    name: "Tandoori Lamb Chops",
+    urdu: "تندوری چانپ",
+    protein: "meat",
+    type: "snacks",
+    effort: "elaborate",
+    time: "1 hr",
+    desc: "Khan BBQ-style rib chops in yogurt and raw papaya marinade, charred over fierce heat until pink-edged and smoky. Karachi's most beloved restaurant order, at home.",
+    urduDesc: "خان بی بی کیو طرز کی چانپیں — دہی اور کچے پپیتے میں مرینیٹ، تیز آنچ پر گلابی اندر سے بھنی ہوئی۔",
+
+    ingredients: ["8-10 lamb rib chops (~800g)", "1 cup thick yogurt", "2 tbsp raw papaya paste", "3 tbsp ginger-garlic paste", "2 tbsp Kashmiri red chili", "1 tsp red chili powder", "2 tsp garam masala", "1 tsp roasted cumin", "1 tsp black pepper", "2 tbsp mustard oil", "2 tbsp lemon juice", "Salt", "1 piece charcoal (for dhungar)"],
+    notes: "Raw papaya is non-negotiable for tender chops — marinate 6-8 hours, no less. Bring to room temp before grilling or the inside stays raw. Cook hot and fast — 3-4 min per side over high heat — they should be pink at the bone. Rest 5 min before serving with mint chutney and naan."
+  },
+  {
+    name: "Haryali Chicken Boti",
+    urdu: "ہریالی چکن بوٹی",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "40 min",
+    desc: "Chicken cubes drowned in a bright green paste of coriander, mint, and green chili — grilled until edges char. Fresh, herbaceous, and a stunning emerald color on the plate.",
+    urduDesc: "تازہ دھنیا، پودینہ اور ہری مرچ کے ہرے مرینیڈ میں ڈوبی چکن بوٹیاں — سیخ پر بھنی ہوئی۔",
+
+    ingredients: ["1 kg boneless chicken (cubed)", "1 cup fresh coriander (packed)", "½ cup fresh mint leaves", "3-4 green chilies", "½ cup thick yogurt", "2 tbsp ginger-garlic paste", "1 tsp garam masala", "1 tsp roasted cumin", "1 tsp white pepper", "2 tbsp lemon juice", "2 tbsp oil", "Salt", "1 tsp gram flour (besan)"],
+    notes: "Blend the herbs with just a splash of lemon juice to keep the color vivid — water dulls the green. Don't over-marinate (max 2 hours) or the acid turns the herbs army-drab. Grill quickly over high heat so the chicken cooks before the herb paste burns. Squeeze lemon at the end."
+  },
+  {
+    name: "Balochi Tikka",
+    urdu: "بلوچی ٹکہ",
+    protein: "chicken",
+    type: "snacks",
+    effort: "elaborate",
+    time: "1 hr 10 min",
+    desc: "Balochi-style slow-grilled chicken with thick yogurt, raw papaya, and a heavy hand of cracked black pepper — minimal red chili, maximum smoke. Drier, peppery, and deeply distinct from any tikka you know.",
+    urduDesc: "بلوچی طرز کا ٹکہ — دہی، پپیتے اور کھلی کالی مرچ میں مرینیٹ، آہستہ کوئلے پر دھویں سے بھرپور۔",
+
+    ingredients: ["1 kg chicken (whole or thighs, bone-in, deep slits)", "1 cup thick yogurt (strained)", "2 tbsp raw papaya paste", "3 tbsp ginger-garlic paste", "2 tbsp coarse cracked black pepper", "1 tsp white pepper", "½ tsp red chili powder", "1 tsp roasted cumin", "1 tsp coriander powder", "2 tbsp lemon juice", "3 tbsp oil", "Salt", "2 pieces charcoal (for heavy dhungar)"],
+    notes: "The pepper is the star — use coarsely cracked, not powdered, for that authentic Quetta heat. Marinate at least 6 hours. Grill low and slow over indirect coals (or oven at 180°C) so the meat dries slightly and the smoke really sets in. Double dhungar — once during marinating, once before serving — is the Balochi signature."
+  },
+
+  // ─── MORE BREADS ──────────────────────────────────────
+  {
+    name: "Onion Kulcha",
+    urdu: "پیاز والا کلچہ",
+    protein: "veg",
+    type: "sides",
+    effort: "medium",
+    time: "1 hr 30 min",
+    desc: "Soft, slightly chewy leavened flatbread topped with finely chopped onion, fresh coriander, and nigella seeds — pressed onto the dough before baking. Lahori specialty, perfect with chana or nihari.",
+    urduDesc: "نرم خمیری روٹی جس پر باریک کٹا پیاز، ہرا دھنیا اور کلونجی لگائی جاتی ہے۔ لاہوری خاص، چنوں اور نہاری کے ساتھ مزیدار۔",
+
+    ingredients: ["2 cups maida", "¼ cup yogurt", "1 tsp instant yeast", "1 tsp sugar", "½ tsp salt", "1 tsp baking powder", "2 tbsp oil or melted ghee", "Warm milk (~½ cup)", "Topping: 1 onion finely chopped, ¼ cup chopped coriander, 1 tsp nigella seeds, 1 green chili minced (optional)", "Melted butter or ghee for brushing"],
+    notes: "Knead the dough soft and let it rest 1 hour until doubled — patience here is the difference between bakery-style and rubbery. Press the onion topping firmly into the rolled-out dough so it doesn't fall off. Bake at the highest oven temperature on a preheated cast-iron skillet or pizza stone, or cook on a hot tawa then finish under the broiler for the bubbled char. Brush with butter the moment it comes out."
+  },
+  {
+    name: "Bhatura",
+    urdu: "بھٹورا",
+    protein: "veg",
+    type: "sides",
+    effort: "medium",
+    time: "2 hr",
+    desc: "Deep-fried leavened bread that puffs up into golden pillows — yogurt and a little sooji in the dough give it that signature tang and crisp edge. Sunday breakfast with cholay, no exceptions.",
+    urduDesc: "دہی اور سوجی والے خمیری آٹے کی تلی ہوئی پھولی ہوئی روٹی، چھولوں کے ساتھ بہترین۔ پنجابی ناشتے کی شان۔",
+
+    ingredients: ["2 cups maida", "2 tbsp fine sooji", "3 tbsp yogurt", "½ tsp baking powder", "¼ tsp baking soda", "1 tsp sugar", "½ tsp salt", "2 tbsp oil (plus more for frying)", "Warm water (~½ cup)", "Oil for deep-frying"],
+    notes: "The dough must rest at least 1.5-2 hours in a warm spot — this is what makes them puff. Roll each bhatura into an oval, not a circle, and not too thin. Oil must be properly hot (~180°C / 360°F) — slide the dough in gently and immediately press it down with a slotted spoon so it puffs instantly. Flip once, fry till golden, and serve hot — bhature wait for no one."
+  },
+
+  // ─── SNACKS — SAVORY ──────────────────────────────────
+  {
+    name: "Paratha Roll",
+    urdu: "پراٹھا رول",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "Karachi's beloved street wrap — flaky paratha rolled around smoky chicken tikka boti with green chutney, onions, and a fierce squeeze of lemon. Pakistan's answer to the burrito.",
+    urduDesc: "کراچی کا محبوب اسٹریٹ رول — لچکدار پراٹھے میں مصالحے دار چکن بوٹی، ہری چٹنی، پیاز اور لیموں کا رس۔ پاکستانی بریٹو۔",
+
+    ingredients: ["500g boneless chicken (cubed)", "4 parathas (ready-made or homemade)", "½ cup yogurt", "2 tbsp ginger-garlic paste", "1 tbsp tikka masala", "1 tsp red chili powder", "1 tsp cumin powder", "½ tsp garam masala", "1 tbsp lemon juice", "2 onions (thinly sliced)", "Green chutney (mint-coriander)", "Lemon wedges", "Oil, salt"],
+    notes: "Marinate the chicken at least 30 minutes — overnight is better for that proper tikka flavor. Char the boti on high heat so the edges catch slightly, that smoky bite is everything. Swap in beef boti or seekh kabab for variants — wrap tight so the chutney doesn't leak."
+  },
+  {
+    name: "Fruit Chaat",
+    urdu: "فروٹ چاٹ",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "20 min",
+    desc: "The undisputed star of every Ramadan iftar table — sweet, tangy, and spiced chopped fruits tossed with chaat masala and lemon. No iftar is complete without it.",
+    urduDesc: "ہر رمضان کی افطاری کا لازمی حصہ — میٹھے، چٹپٹے اور مصالحے دار پھلوں کا مرکب چاٹ مسالے اور لیموں کے ساتھ۔",
+
+    ingredients: ["2 apples (diced)", "2 bananas (sliced)", "2 oranges (segmented)", "1 cup grapes (halved)", "½ cup pomegranate seeds", "1 guava (diced)", "2 tbsp lemon juice", "2 tsp chaat masala", "1 tsp black salt", "2 tbsp sugar or orange juice", "Pinch of red chili powder (optional)"],
+    notes: "Cut fruits just before serving — bananas brown quickly and apples lose their crunch if left sitting. Add the bananas last so they don't turn to mush in the mixing. For iftar, chill the fruits beforehand but dress only at the table — that first cold spoonful after a long fast is the whole point."
+  },
+  {
+    name: "Samosa Chaat",
+    urdu: "سموسہ چاٹ",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "30 min",
+    desc: "Crushed samosas drowned in cool yogurt, tangy tamarind, fresh mint chutney, and a flurry of sev — every bite a riot of crunch, cream, and chaat masala kick. A proper chaat bowl.",
+    urduDesc: "ٹوٹے ہوئے سموسوں پر چھولے، دہی، املی کی چٹنی، پودینے کی چٹنی، چاٹ مسالہ اور سیو — ہر چمچ میں چٹخارا۔",
+
+    ingredients: ["4 samosas (fried)", "1 cup boiled chickpeas", "1 cup whipped yogurt", "½ cup tamarind chutney", "½ cup mint-coriander chutney", "1 onion (finely chopped)", "1 tomato (finely chopped)", "1 green chili (chopped)", "2 tsp chaat masala", "1 tsp roasted cumin powder", "½ cup sev (fine)", "Fresh coriander", "Pomegranate seeds (optional)"],
+    notes: "Assemble just before serving — samosas turn soggy fast under wet toppings. Whisk the yogurt with a pinch of salt and sugar until smooth and pourable, lumpy dahi ruins the layering. Build in order: samosa → chana → yogurt → chutneys → masala → sev. Layering is the whole drama."
+  },
+  {
+    name: "Chana Chaat",
+    urdu: "چنا چاٹ",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "20 min",
+    desc: "Boiled chickpeas tossed with sharp onion, juicy tomato, green chili, and a generous shower of chaat masala. The honest tea-time snack every Pakistani kitchen knows by heart.",
+    urduDesc: "ابلے ہوئے چنے، پیاز، ٹماٹر، ہری مرچ اور چاٹ مسالے کے ساتھ — چائے کے وقت کا سادہ مگر لاجواب ناشتہ۔",
+
+    ingredients: ["2 cups boiled chickpeas", "1 large onion (finely chopped)", "2 tomatoes (chopped)", "2 green chilies (chopped)", "2 tbsp lemon juice", "2 tsp chaat masala", "1 tsp roasted cumin powder", "½ tsp red chili powder", "Fresh coriander (handful)", "Fresh mint (optional)", "Salt to taste"],
+    notes: "Use chickpeas that still have a slight bite — mushy chana ruins the texture. Toss everything just before serving; tomatoes weep and turn the chaat watery if it sits. A drizzle of tamarind chutney lifts it to chaat-cart level if you have it on hand."
+  },
+  {
+    name: "Dahi Puri",
+    urdu: "دہی پوری",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "30 min",
+    desc: "Crisp little puris filled with spiced potato and chickpeas, crowned with cold whipped yogurt, sweet-sour tamarind, mint chutney, sev, and ruby pomegranate. Pop the whole thing in one bite.",
+    urduDesc: "کرسپی پوریوں میں آلو، چنا، ٹھنڈا دہی، املی، پودینے کی چٹنی، سیو اور انار کے دانے — ایک ہی نوالے میں سارا مزہ۔",
+
+    ingredients: ["24 ready-made puris (dahi puri type)", "1 cup boiled chickpeas", "2 boiled potatoes (diced small)", "1½ cups whipped yogurt", "½ cup tamarind chutney", "½ cup mint-coriander chutney", "1 small onion (finely chopped)", "2 tsp chaat masala", "1 tsp roasted cumin powder", "½ cup sev (fine)", "¼ cup pomegranate seeds", "Fresh coriander", "Salt"],
+    notes: "Unlike gol gappay, there's no pani here — the yogurt is the star, so whip it cold and smooth with a pinch of sugar. Crack a small hole on top of each puri gently, they shatter easily. Assemble on the plate the moment guests sit down — five minutes in and the puris go limp."
+  },
+  {
+    name: "Anda Paratha",
+    urdu: "انڈہ پراٹھا",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "25 min",
+    desc: "Flaky paratha cooked with a beaten egg pressed right into the dough on the tawa — golden, layered, and gloriously rich. Karachi's beloved street breakfast eaten standing up with chai.",
+    urduDesc: "تواے پر پراٹھے میں انڈا پھیلا کر پکایا گیا — سنہری، نرم اور ذائقے دار۔ کراچی کا کلاسیکی ناشتہ۔",
+
+    ingredients: ["2 cups whole wheat flour", "Water (to knead)", "4 eggs", "1 onion (very finely chopped)", "2 green chilies (chopped)", "Fresh coriander (chopped)", "½ tsp red chili powder", "½ tsp cumin powder", "Salt", "Ghee or oil (for tawa)"],
+    notes: "The trick is timing — half-cook one side of the paratha, flip, then pour the whisked egg-onion mixture on top and gently spread before the next flip seals it. Don't beat the egg too foamy, it puffs and tears the layers. Eat immediately, ideally with achar and a cup of doodh patti."
+  },
+  {
+    name: "Chole Bhature (Cholay)",
+    urdu: "چھولے بھٹورے (چھولے)",
+    protein: "veg",
+    type: "snacks",
+    effort: "elaborate",
+    time: "1 hr 30 min",
+    desc: "The deep, dark Punjabi cholay made specifically for bhature — chickpeas slow-cooked with anardana and a muslin pouch of tea leaves for that signature inky color and tang. Richer and darker than everyday chana masala.",
+    urduDesc: "بھٹورے کے ساتھ کھائے جانے والے گہرے رنگ کے پنجابی چھولے — انار دانہ اور چائے کی پتی سے پکے، ذائقے میں گہرے اور رنگ میں سیاہ۔",
+
+    ingredients: ["2 cups dried chickpeas (soaked overnight)", "2 black tea bags (or 1 tbsp loose tea in muslin)", "2 large onions (finely chopped)", "3 tomatoes (pureed)", "2 tbsp ginger-garlic paste", "2 tbsp anardana (pomegranate seed powder)", "1 tbsp coriander powder", "1 tbsp cumin powder", "1 tsp red chili powder", "1 tsp turmeric", "1 tbsp garam masala", "2 tsp chaat masala", "2 green chilies (slit)", "1 inch ginger (julienned, for garnish)", "Fresh coriander", "Oil or ghee", "Salt"],
+    notes: "The tea bags are non-negotiable — they give cholay that deep, near-black color you see in Lahori stalls. Cook the masala until oil separates and turns almost mahogany before adding chickpeas. Finish with julienned ginger and slit green chilies on top — that fresh hit cuts through all the richness."
+  },
+  {
+    name: "Chicken Patties",
+    urdu: "چکن پیٹیز",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "Golden puff-pastry parcels filled with buttery, spiced chicken keema — the unmistakable smell of every Pakistani bakery on a rainy afternoon. Tea-time royalty.",
+    urduDesc: "سنہری پف پیسٹری میں مصالحے دار چکن قیمہ — ہر پاکستانی بیکری کی پہچان۔ چائے کے ساتھ بادشاہی مزہ۔",
+
+    ingredients: ["1 packet puff pastry (thawed)", "300g chicken keema (mince)", "1 onion (finely chopped)", "1 tbsp ginger-garlic paste", "2 green chilies (chopped)", "1 tsp cumin powder", "1 tsp coriander powder", "½ tsp red chili powder", "½ tsp garam masala", "½ tsp white pepper", "1 tbsp lemon juice", "Fresh coriander", "1 egg (beaten, for egg wash)", "Oil or butter", "Salt"],
+    notes: "Cook the keema until completely dry — any moisture and the bottoms turn soggy in the oven. Let the filling cool fully before sealing the pastry, hot filling melts the butter layers and you lose the puff. Brush generously with egg wash for that bakery-window shine; bake at 200°C until deeply golden."
+  },
+  {
+    name: "Khari Puff",
+    urdu: "کھاری پف",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "25 min",
+    desc: "Crisp, buttery puff-pastry strips dusted with caraway and cumin — the salty companion to every cup of chai in Karachi homes and bakeries. Light as air, gone in two bites.",
+    urduDesc: "نمکین، کرسپی پف پیسٹری کی پٹیاں زیرے اور کلونجی کے ساتھ — کراچی کی ہر بیکری اور چائے کا ساتھی۔",
+
+    ingredients: ["1 packet puff pastry (thawed)", "1 tsp caraway seeds (or kalonji)", "1 tsp cumin seeds", "½ tsp salt (flaky)", "½ tsp black pepper", "1 egg (beaten, for egg wash)", "1 tbsp milk"],
+    notes: "Keep the pastry cold right up until it hits the oven — warm pastry collapses instead of puffing. Cut into thin strips or twist them gently for that classic bakery shape. Bake at 200°C until deeply golden and crisp on the bottom; store in an airtight tin or they go soft by evening chai time."
+  },
+  {
+    name: "Bun Maska",
+    urdu: "بن مسکہ",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "10 min",
+    desc: "A soft, slightly sweet bun split open and slathered with cold salted butter — the iconic Iranian cafe pairing for a cup of cutting chai. Karachi's simplest, most beloved tea-time ritual.",
+    urduDesc: "نرم، ہلکا میٹھا بن، بیچ سے کاٹ کر ٹھنڈے مکھن سے بھرپور — کراچی کی ایرانی کیفے روایت اور چائے کا بہترین ساتھی۔",
+
+    ingredients: ["4 soft sweet buns (pav or maska bun)", "4-6 tbsp salted butter (cold, thick slabs)", "Optional: pinch of sugar", "Optional: hot chai (to serve)"],
+    notes: "The butter must be cold and thickly sliced — it should barely melt into the warm bun, not soak in completely. Warm the bun on a tawa for 30 seconds before splitting; the contrast of warm bread and cold butter is the entire magic. Dunk into chai if that's your way — there is no wrong way to eat bun maska."
+  },
+  {
+    name: "Desi Masala Maggi",
+    urdu: "دیسی مصالحہ ماگی",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "10 min",
+    desc: "The Maggi every brown kid grew up on — boiled with onion, tomato, peas, and green chili, finished with the holy yellow tastemaker packet and a squeeze of lemon. Late-night comfort, exam-week dinner, post-school snack — one packet, infinite memories.",
+    urduDesc: "ہر دیسی بچے کا پسندیدہ ماگی — پیاز، ٹماٹر، مٹر اور ہری مرچ کے ساتھ، پیلے ماگی مسالے اور لیموں کے ساتھ۔ رات کی بھوک، امتحان کے دن، اسکول کے بعد کا ناشتہ۔",
+
+    ingredients: ["2 packets Maggi 2-Minute Noodles (with tastemaker)", "2 cups water", "1 small onion (finely chopped)", "1 small tomato (chopped)", "2 green chilies (chopped)", "¼ cup peas (frozen or fresh)", "¼ cup capsicum (optional, diced)", "1 tbsp ghee or oil", "½ tsp cumin seeds", "Pinch of red chili powder (extra heat, optional)", "Lemon wedge (to finish)", "Fresh coriander (chopped)", "1 egg (optional, for Egg Maggi version)", "Grated cheese (optional, for Cheese Maggi version)"],
+    notes: "Heat ghee, splutter cumin, sauté onion till translucent, add tomato + peas + green chili — 2 minutes. Add water, bring to boil, drop in noodle cakes (break them or leave whole, your choice). Sprinkle BOTH tastemaker packets and stir. Cook 2 minutes — they should be barely al-dente; carry-over heat finishes them. Squeeze lemon, top with coriander. Eat immediately — Maggi waits for no one and turns to mush within 5 minutes. For Egg Maggi: crack an egg into the pot in the last minute and stir-scramble. For Cheese Maggi: grate cheese on top off the heat and let it melt. The two tastemaker packets are non-negotiable — this is the whole soul of the dish."
+  },
+
+  // ─── SNACKS — MITHAI ──────────────────────────────────
+  {
+    name: "Gulab Jamun",
+    urdu: "گلاب جامن",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Golden khoya dumplings fried slow and soaked in cardamom-rose syrup until they swell soft as clouds. The mithai you cannot have Eid or a dawat without.",
+    urduDesc: "سنہری کھویا کے گلاب جامن جو الائچی اور گلاب کے شیرے میں ڈوب کر روئی کی طرح نرم ہو جاتے ہیں۔ عید اور دعوت کی پہچان۔",
+
+    ingredients: ["1 cup khoya (grated)", "3 tbsp milk powder", "3 tbsp maida", "¼ tsp baking soda", "2 tbsp milk (to bind)", "1 tsp ghee (in dough)", "Ghee or oil (to fry)", "2 cups sugar", "2 cups water", "6 cardamom pods (crushed)", "1 tsp rose water", "Few strands saffron"],
+    notes: "Fry on the lowest possible heat — if the oil is too hot the outside browns before the centre cooks and they collapse in syrup. The syrup should be one-string consistency, not thick like chashni for jalebi. Always drop hot jamuns into warm (not boiling, not cold) syrup so they drink it in."
+  },
+  {
+    name: "Ras Malai",
+    urdu: "رس ملائی",
+    protein: "veg",
+    type: "snacks",
+    effort: "elaborate",
+    time: "2 hr",
+    desc: "Soft chenna discs floating in saffron-cardamom thickened milk, cool and silky. The dessert every aunty quietly competes over at family parties.",
+    urduDesc: "ٹھنڈے، ریشمی دودھ میں زعفران اور الائچی کی خوشبو سے بسی پنیر کی ٹکیاں۔ ہر دعوت کی شان اور خالاؤں کی خاموش مقابلہ بازی۔",
+
+    ingredients: ["1 liter full-fat milk (for chenna)", "2 tbsp lemon juice or vinegar", "2 tbsp sugar (in chenna dough)", "1 tsp maida", "1.5 liters full-fat milk (for rabri)", "¾ cup sugar", "8 cardamom (crushed)", "Pinch of saffron", "Pistachios and almonds (slivered)", "4 cups water + 1 cup sugar (poaching syrup)"],
+    notes: "Knead the chenna with the heel of your hand for a full 8-10 minutes until it turns smooth and slightly oily — under-kneaded chenna gives hard, rubbery malai. Poach in a wide pot with plenty of room; they double in size. Always chill overnight — ras malai is never truly ready the same day."
+  },
+  {
+    name: "Kulfi",
+    urdu: "قلفی",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Dense, slow-reduced milk frozen into creamy batons of pistachio and cardamom. Karachi summer in one bite, from the thela on the corner.",
+    urduDesc: "گاڑھے، آہستہ پکے دودھ سے بنی پستے اور الائچی والی قلفی۔ ایک کاٹ میں کراچی کی گرمیوں اور محلے کے ٹھیلے کا ذائقہ۔",
+
+    ingredients: ["1.5 liters full-fat milk", "¾ cup sugar", "½ cup khoya (optional, for richness)", "2 tbsp cornflour (in 3 tbsp milk)", "8 cardamom (crushed)", "Few strands saffron", "¼ cup pistachios (chopped)", "2 tbsp almonds (chopped)", "1 tsp kewra water"],
+    notes: "Reduce the milk to roughly one-third — this is the whole secret, and there are no shortcuts. Pour into kulfi molds or steel tumblers covered with foil; freezing in plastic gives an icy, not creamy, set. Run the mold under warm water for 5 seconds to release cleanly."
+  },
+  {
+    name: "Falooda",
+    urdu: "فالودہ",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "A layered glass of tukmaria, vermicelli, rose syrup, chilled milk, jelly cubes, and a crown of kulfi. Wedding-night joy in a tall glass.",
+    urduDesc: "تخم بالنگا، سویاں، روح افزا، ٹھنڈا دودھ، جیلی اور اوپر قلفی — لمبے گلاس میں سجی ہوئی شادیوں کی خوشی۔",
+
+    ingredients: ["2 tbsp basil seeds (tukmaria, soaked)", "½ cup falooda sev (cooked, chilled)", "4 tbsp Rooh Afza", "3 cups cold full-fat milk", "½ cup jelly (cubed)", "4 scoops kulfi or vanilla ice cream", "Crushed pistachios", "Sugar to taste", "Ice cubes"],
+    notes: "Soak tukmaria for at least 20 minutes so they bloom fully — undersoaked seeds feel gritty. Build the glass in this order: Rooh Afza, jelly, tukmaria, sev, milk, kulfi on top — the layers are half the magic. Always serve immediately before the kulfi melts into the milk."
+  },
+  {
+    name: "Sheer Khurma",
+    urdu: "شیر خرما",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "Fine vermicelli simmered in milk with dates, raisins, and toasted nuts. The first thing eaten on Eid morning in nearly every Pakistani home.",
+    urduDesc: "باریک سویاں دودھ میں کھجوروں، کشمش اور خشک میوہ جات کے ساتھ پکی ہوئی۔ پاکستان کے ہر گھر میں عید کی صبح کا پہلا میٹھا۔",
+
+    ingredients: ["½ cup fine seviyan (vermicelli)", "3 tbsp ghee", "1.5 liters full-fat milk", "½ cup sugar (adjust)", "8 dates (chopped)", "3 tbsp raisins", "¼ cup almonds (slivered)", "¼ cup pistachios (slivered)", "2 tbsp charoli/chironji (optional)", "6 cardamom (crushed)", "Pinch of saffron", "1 tsp kewra water"],
+    notes: "Roast the seviyan in ghee until deep golden — pale seviyan tastes flat no matter how much milk you add. Add sugar only after the milk has reduced and thickened, otherwise it splits. Sheer khurma is meant to be ladled hot into small bowls on Eid morning; the leftover version next day, chilled, is somehow even better."
+  },
+  {
+    name: "Sooji Halwa",
+    urdu: "سوجی کا حلوہ",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "30 min",
+    desc: "Semolina toasted in ghee until nutty, swelled with sweet cardamom syrup, finished with nuts. The halwa of nazr, of halwa puri Sundays, of childhood.",
+    urduDesc: "گھی میں بھنی سوجی، الائچی والے میٹھے شیرے میں پھولی ہوئی، خشک میوے سے سجی۔ نذر، حلوہ پوری اور بچپن کا حلوہ۔",
+
+    ingredients: ["1 cup sooji (semolina, coarse)", "½ cup ghee", "¾ cup sugar", "2.5 cups water", "6 cardamom (crushed)", "Pinch of saffron", "2 tbsp almonds (slivered)", "2 tbsp pistachios (slivered)", "1 tbsp raisins"],
+    notes: "Roast the sooji on medium-low until it smells like toasted nuts and turns the colour of light wheat — this is the whole flavour of the dish. Keep the syrup hot and pour it into the sooji (not the other way around), standing back as it splutters violently. Done when the ghee starts to separate at the edges."
+  },
+  {
+    name: "Jalebi",
+    urdu: "جلیبی",
+    protein: "veg",
+    type: "snacks",
+    effort: "elaborate",
+    time: "12 hr",
+    desc: "Crispy fermented spirals fried orange and plunged into cardamom syrup until they crackle. The smell of every bazaar at iftar time.",
+    urduDesc: "خمیر اٹھے ہوئے گھولے سے بنی کرارے گول دائرے، الائچی والے شیرے میں ڈوبی ہوئی۔ ہر بازار کی افطار کی خوشبو۔",
+
+    ingredients: ["1 cup maida", "2 tbsp besan", "¼ tsp baking powder", "½ cup yogurt", "Water to make pouring batter", "Pinch of orange food colour or saffron", "Oil or ghee (to fry)", "2 cups sugar", "1 cup water", "1 tsp lemon juice", "6 cardamom (crushed)", "1 tsp kewra water"],
+    notes: "Ferment the batter overnight in a warm spot — this sourness is what makes jalebi taste like jalebi, not pancake batter. The syrup must be one-string consistency and warm; cold syrup won't soak in, boiling syrup makes them soggy. Pipe spirals through a ketchup bottle or thick cloth into hot ghee and dunk for only 30 seconds — they should crackle when bitten."
+  },
+  {
+    name: "Besan Ladoo",
+    urdu: "بیسن کے لڈو",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Gram flour slow-roasted in ghee until it turns the colour of caramel, then rolled into fragrant cardamom balls. The ladoo every Pakistani mother makes by feel, not by recipe.",
+    urduDesc: "گھی میں بھنا ہوا بیسن، کیریمل رنگ تک پہنچ کر الائچی والی خوشبودار گولیوں میں ڈھلتا ہے۔ ہر ماں اپنے ہاتھ سے بناتی ہے، کسی نسخے سے نہیں۔",
+
+    ingredients: ["2 cups coarse besan (gram flour)", "1 cup ghee", "1 cup powdered sugar (sifted)", "8 cardamom (crushed)", "2 tbsp almonds (chopped)", "2 tbsp pistachios (chopped)", "1 tbsp melon seeds (optional)"],
+    notes: "Roast the besan on the lowest possible heat for 25-30 minutes stirring constantly — pale besan tastes raw and chalky, no matter how much sugar you add. The mixture is ready when it loosens, smells deeply nutty, and the ghee starts pooling at the edges. Let it cool until just warm enough to handle before adding sugar — hot mixture melts the sugar and the ladoos won't hold shape."
+  },
+  {
+    name: "Shahi Tukda",
+    urdu: "شاہی ٹکڑا",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Ghee-fried bread soaked in saffron rabri, crowned with slivered nuts and silver leaf. A Mughal dessert that still feels regal on every Eid table.",
+    urduDesc: "گھی میں تلی ہوئی ڈبل روٹی، زعفرانی ربڑی میں ڈوبی، چاندی کے ورق اور خشک میوے سے سجی۔ مغلیہ دور کا شاہانہ میٹھا، ہر عید پر آج بھی شاہی۔",
+
+    ingredients: ["6 slices white bread (crusts removed)", "½ cup ghee (to fry)", "1 liter full-fat milk", "½ cup sugar (for rabri)", "Pinch of saffron (in warm milk)", "6 cardamom (crushed)", "2 tbsp almonds (slivered)", "2 tbsp pistachios (slivered)", "1 cup sugar + ½ cup water (light syrup)", "1 tsp rose water", "Silver leaf (optional)"],
+    notes: "Use day-old bread — fresh bread turns soggy and refuses to crisp in ghee. Fry the slices till deep golden, dip them briefly in light syrup, then layer with thick rabri on top so the bread keeps a hint of crunch. Assemble just before serving; shahi tukda left to sit collapses into bread pudding."
+  },
+  {
+    name: "Pista Barfi",
+    urdu: "پستہ برفی",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Pale green pistachio fudge cut into neat diamonds, soft and rich enough that one piece is never enough. The bestseller in every mithai box.",
+    urduDesc: "ہلکی سبز رنگ کی پستے کی برفی، ایسی نرم اور خوشبودار کہ ایک ٹکڑا کبھی کافی نہیں ہوتا۔ ہر مٹھائی کے ڈبے کی پہچان۔",
+
+    ingredients: ["1.5 cups pistachios (shelled, unsalted)", "1 cup khoya (grated)", "¾ cup sugar", "¼ cup water", "4 cardamom (crushed)", "2 tbsp ghee", "½ tsp cardamom powder", "Silver leaf (optional)", "Slivered pistachios (to garnish)"],
+    notes: "Blanch and peel the pistachios — the skins turn the barfi a dull brown instead of the pale jade green you want. Cook the sugar syrup only to one-string consistency before adding pistachio paste and khoya, then stir constantly until it pulls away from the pan. Set in a greased tray and cut while still slightly warm; cold barfi cracks under the knife."
+  },
+  {
+    name: "Kalakand",
+    urdu: "کلاکند",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "Grainy milk fudge made from fresh chenna and reduced milk, dotted with pistachios. The mithai that tastes like Tahoora's white box on a Devon Avenue Sunday.",
+    urduDesc: "تازہ چھینے اور گاڑھے دودھ سے بنی دانے دار کلاکند، اوپر پستے کی سجاوٹ۔ تہورا کی سفید ڈبیا کا ذائقہ۔",
+
+    ingredients: ["1 liter full-fat milk (for chenna)", "2 tbsp lemon juice", "1 can (400g) condensed milk", "1 cup full-fat milk", "½ cup khoya (optional)", "6 cardamom (crushed)", "Pinch of saffron", "2 tbsp ghee", "Pistachios (chopped, to garnish)", "Silver leaf (optional)"],
+    notes: "Don't over-knead the chenna — kalakand wants that signature grainy texture, unlike the smooth dough for ras malai. Cook on medium heat stirring constantly until the mixture comes together in a thick mass and leaves the sides of the pan. Set in a ghee-greased tray, press pistachios on top, and let it firm up for 2-3 hours before cutting."
+  },
+  {
+    name: "Coconut Barfi",
+    urdu: "ناریل کی برفی",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "30 min",
+    desc: "Desiccated coconut bound with condensed milk and cardamom, set into snow-white squares. The first mithai every home cook learns to make.",
+    urduDesc: "خشک ناریل، کنڈنسڈ دودھ اور الائچی سے بنی برف جیسی سفید برفی۔ ہر گھریلو خاتون کی پہلی مٹھائی۔",
+
+    ingredients: ["2.5 cups desiccated coconut", "1 can (400g) condensed milk", "¼ cup full-fat milk", "2 tbsp ghee", "6 cardamom (crushed)", "Pinch of saffron (optional)", "2 tbsp pistachios (chopped)", "Extra coconut (to dust)"],
+    notes: "Toast the coconut very lightly in ghee first — raw desiccated coconut tastes flat and dusty. Cook on low heat or the condensed milk catches and turns yellow; you want the barfi to stay snowy. Press into a ghee-greased tray firmly and refrigerate for an hour before cutting, otherwise the squares crumble at the edges."
+  },
+  {
+    name: "Moong Daal Halwa",
+    urdu: "مونگ کی دال کا حلوہ",
+    protein: "veg",
+    type: "snacks",
+    effort: "elaborate",
+    time: "2 hr",
+    desc: "Yellow split mung daal slow-bhuna in ghee until every grain glistens, then enriched with milk, saffron, and nuts. The halwa of winter weddings — heavy, regal, unforgettable.",
+    urduDesc: "زرد مونگ کی دال گھی میں ایسی بھنی کہ ہر دانہ چمکنے لگے، پھر دودھ، زعفران اور میووں سے بھرپور۔ سرما کی شادیوں کا شاہی حلوہ۔",
+
+    ingredients: ["1 cup yellow moong daal (soaked 4 hrs)", "1 cup ghee", "1 cup sugar", "1.5 cups full-fat milk", "1 cup water", "½ cup khoya (grated)", "8 cardamom (crushed)", "Generous pinch of saffron", "3 tbsp almonds (slivered)", "3 tbsp pistachios (slivered)", "2 tbsp raisins", "1 tsp kewra water"],
+    notes: "Drain the soaked daal well and grind to a coarse paste — too watery and the bhunai takes forever, too dry and it scorches. The bhunai phase is the soul of this halwa: a full 30-40 minutes on low heat, stirring almost constantly, until the daal turns a deep golden colour and releases its ghee. Anything less and the halwa will taste raw no matter how much sugar and milk go in."
+  },
+  {
+    name: "Zarda",
+    urdu: "زردہ",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Saffron-orange basmati rice glistening with ghee, raisins, and slivered nuts. The bright yellow centrepiece of every Pakistani wedding lunch and Eid dawat.",
+    urduDesc: "زعفرانی نارنجی رنگ کے باسمتی چاول، گھی، کشمش اور خشک میوے سے سجے۔ ہر پاکستانی شادی اور عید کی دعوت کا شاہی پکوان۔",
+
+    ingredients: ["2 cups basmati rice (soaked 30 min)", "1.5 cups sugar", "½ cup ghee", "Generous pinch of saffron (in warm milk)", "¼ tsp orange food colour", "8 cardamom pods", "4 cloves", "2 tbsp raisins", "3 tbsp almonds (slivered)", "3 tbsp pistachios (slivered)", "¼ cup khoya (optional)", "2 tbsp candied orange peel or tutti frutti", "1 tsp kewra water"],
+    notes: "Parboil the rice till just 70% done — drain it firm, never soft, because it cooks again with the sugar syrup. Adding sugar before the rice softens locks the grains so they stay separate and never turn into a sticky mess. Finish on dum (lowest heat, covered with a tight lid or sealed with dough) for 10-15 minutes so the saffron and ghee perfume every grain."
+  },
+  {
+    name: "Nankhatai",
+    urdu: "نان خطائی",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "45 min",
+    desc: "Cardamom shortbread cookies that crumble the moment they touch your tongue, topped with a single pistachio. Tahoora bakery's bestseller, easy enough for a Sunday afternoon at home.",
+    urduDesc: "الائچی والی نان خطائی، منہ میں رکھتے ہی پگھلنے والی، اوپر ایک پستہ سجا ہوا۔ توہرہ بیکری کی پسندیدہ، گھر میں بنانے کے لیے بھی آسان۔",
+
+    ingredients: ["1 cup maida", "¼ cup fine sooji", "¼ cup besan", "¾ cup ghee (softened, not melted)", "¾ cup powdered sugar", "½ tsp cardamom powder", "¼ tsp baking soda", "Pinch of salt", "Pistachios (whole, to top)"],
+    notes: "Ghee must be at room-temperature soft, never melted — melted ghee makes nankhatai spread flat and turn greasy. Don't overwork the dough; a few gentle presses to bring it together is enough, kneading develops gluten and ruins the crumb. Bake at 160°C until the bottoms are pale gold and the tops still look raw-pale — they firm up dramatically as they cool."
+  },
+  {
+    name: "Cake Rusk",
+    urdu: "کیک رس",
+    protein: "veg",
+    type: "snacks",
+    effort: "medium",
+    time: "2 hr",
+    desc: "Twice-baked cardamom sponge dried to a sweet golden crunch, made for dunking in karak chai. The bakery staple every Pakistani home keeps in a tin.",
+    urduDesc: "دو بار سکی ہوئی الائچی والی کرنچی کیک رس، کڑک چائے میں بھگو کر کھانے کے لیے بنی۔ ہر پاکستانی گھر کے ٹن میں موجود رہنے والی بیکری کی سوغات۔",
+
+    ingredients: ["4 eggs (room temp)", "1 cup sugar", "1 cup maida", "½ cup oil or melted ghee", "½ tsp baking powder", "¼ tsp baking soda", "½ tsp cardamom powder", "1 tsp vanilla", "1 tbsp sesame seeds (optional, on top)"],
+    notes: "Beat the eggs and sugar to a thick pale ribbon — this is what gives cake rusk its airy crumb before it dries out. Bake the cake first, cool completely overnight if you can, then slice into thick fingers and bake again at 140°C for 30-40 minutes flipping halfway. The rusks should be golden and snap cleanly; if they bend, they need more time in the oven."
+  },
+
+  // ─── SNACKS — DRINKS ──────────────────────────────────
+  {
+    name: "Doodh Patti Chai",
+    urdu: "دودھ پتی چائے",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "10 min",
+    desc: "All-milk tea simmered hard with loose black tea until it's thick, strong, and the color of caramel. The daily ritual — no water, no compromise.",
+    urduDesc: "صرف دودھ میں کھلی پتی کو خوب پکا کر بنائی جانے والی گاڑھی، تیز، کیرامل رنگ کی چائے۔ روزانہ کی رسم — نہ پانی، نہ سمجھوتہ۔",
+
+    ingredients: ["2 cups full-fat milk", "1.5 tsp loose black tea (Tapal Danedar or Lipton Yellow Label)", "2-3 tsp sugar to taste", "2 green cardamom pods, lightly crushed (optional)", "Pinch of salt (secret trick)"],
+    notes: "The trick is patience — bring milk just to a boil, add tea, lower to medium, and let it bubble for 5-6 minutes until it darkens. Don't stir constantly. A pinch of salt cuts the milk's heaviness and deepens the color. Strain into a cup, never a mug — chai is meant to be sipped slowly."
+  },
+  {
+    name: "Kashmiri Pink Chai",
+    urdu: "کشمیری گلابی چائے",
+    protein: "veg",
+    type: "snacks",
+    effort: "elaborate",
+    time: "45 min",
+    desc: "Slow-simmered green tea leaves whipped with baking soda and ice water until they turn that signature rose-pink, then finished with milk, cream, and crushed pistachios. The Eid and winter showpiece.",
+    urduDesc: "خاص کشمیری پتی، میٹھا سوڈا اور برف کے پانی سے رگڑ کر تیار کی جانے والی گلابی چائے، اوپر سے دودھ، بالائی اور پستے۔ عید اور سردیوں کی خاص سوغات۔",
+
+    ingredients: ["2 tbsp Kashmiri tea leaves (special green tea)", "4 cups cold water (divided)", "¼ tsp baking soda", "1 cup ice-cold water", "3 cups whole milk", "2-3 tbsp sugar to taste (the Pakistani default)", "Pinch of salt (traditional Kashmiri version is salty — optional)", "2 tbsp cream or malai", "Crushed pistachios and almonds to garnish", "2 cardamom pods (optional)"],
+    notes: "Color is everything — boil tea leaves with 2 cups water and baking soda until reduced by half, then aerate aggressively by pouring back and forth with a ladle for 5-10 minutes. Adding ice water shocks it into that famous pink. Don't rush this step or you'll get a muddy brown. Add milk only at the end. Pakistani households almost always sweeten it; the original Kashmiri version is salty — both are correct."
+  },
+  {
+    name: "Masala Chai",
+    urdu: "مسالہ چائے",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "15 min",
+    desc: "Black tea simmered with crushed whole spices and milk until the whole kitchen smells like cardamom and cinnamon. Warming, fragrant, the cure for rainy afternoons.",
+    urduDesc: "الائچی، دار چینی، لونگ اور ادرک کے ساتھ پکی ہوئی خوشبودار چائے۔ بارش کے دنوں کا علاج۔",
+
+    ingredients: ["1.5 cups water", "1.5 cups milk", "2 tsp loose black tea", "4 green cardamom pods, crushed", "1 small cinnamon stick", "3 cloves", "1-inch piece fresh ginger, smashed", "3-4 black peppercorns", "½ tsp fennel seeds", "3 tsp sugar to taste"],
+    notes: "Crush the whole spices in a mortar — pre-ground masala loses its soul within days. Simmer spices in water first for 3-4 minutes so they bloom, then add tea, then milk, then sugar. Black pepper is the secret — it sounds odd but ties everything together. Strain through a fine sieve."
+  },
+  {
+    name: "Mango Lassi",
+    urdu: "آم کی لسی",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "5 min",
+    desc: "Thick yogurt blended with ripe alphonso or kesar mango pulp, a little sugar, and ice. The drink that ends iftar arguments in mango season.",
+    urduDesc: "گاڑھی دہی، پکے آم کا گودا، چینی اور برف سے بنی ٹھنڈی لسی۔ افطار کا پسندیدہ مشروب۔",
+
+    ingredients: ["1 cup thick yogurt (full-fat, hung if possible)", "1 cup ripe mango pulp (alphonso or kesar — fresh or canned)", "2-3 tbsp sugar to taste (skip if mango is very sweet)", "½ cup cold milk or water", "Pinch of cardamom powder", "Ice cubes", "Crushed pistachios to garnish"],
+    notes: "Canned alphonso pulp from a South Asian store is genuinely better than mediocre fresh mango — don't feel bad using it. Hung yogurt (drained in muslin for 20 minutes) gives the proper thick texture; otherwise it goes watery. Blend just until smooth — over-blending makes it foamy and thin. Serve in chilled glasses."
+  },
+  {
+    name: "Rooh Afza Milk",
+    urdu: "روح افزا دودھ",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "5 min",
+    desc: "Chilled milk swirled with the iconic ruby-red Rooh Afza rose syrup, sometimes with soaked basil seeds floating on top. The Ramadan iftar drink — every Pakistani fridge has a bottle.",
+    urduDesc: "ٹھنڈے دودھ میں روح افزا کا گلابی شربت، اوپر تخم ملنگا۔ ہر پاکستانی فریج کا حصہ، رمضان کی پہچان۔",
+
+    ingredients: ["2 cups cold whole milk (or chilled water for sharbat version)", "3-4 tbsp Rooh Afza syrup (Hamdard brand is the original)", "1 tsp basil seeds (tukh malanga), soaked in water for 15 min (optional)", "Ice cubes", "Slivered almonds or pistachios to garnish (optional)", "Few drops kewra water (optional)"],
+    notes: "Pour the Rooh Afza in first, then add milk and stir — it streaks beautifully. Don't over-stir; the layered look is part of the drink. Basil seeds must be pre-soaked until they bloom into little jelly orbs, never added dry. For the water version (sharbat), use very cold water and a squeeze of lemon. A bottle of Rooh Afza lasts years; it's a pantry forever-item."
+  },
+
+  // ─── SHAN/NATIONAL STAPLES ────────────────────────────
+  {
+    name: "Kofta Curry",
+    urdu: "کوفتہ سالن",
+    protein: "meat",
+    type: "saalan",
+    effort: "medium",
+    time: "70 min",
+    desc: "Hand-rolled spiced meatballs simmered in a tangy yogurt-tomato gravy. Comfort food that doubles as dawat fare — both Shan and National sell a dedicated Kofta masala for good reason.",
+    urduDesc: "ہاتھ سے بنائے گئے مصالحے دار کوفتے، دہی اور ٹماٹر کی چٹپٹی گریوی میں۔ گھریلو سکون اور دعوت دونوں کے لیے موزوں۔",
+
+    ingredients: ["500g keema (finely minced beef/mutton)", "2 tbsp roasted chana flour (besan)", "2 onions (1 paste, 1 fried golden)", "3 tomatoes (pureed)", "1 cup yogurt", "1 tbsp ginger-garlic paste", "1 tsp each: cumin, coriander powder, red chili, garam masala", "1 tsp fennel seeds (ground)", "3 tbsp oil/ghee", "Fresh coriander, green chilies"],
+    notes: "Knead keema with roasted besan, onion paste, and spices for at least 10 minutes — this is what keeps koftas from falling apart. Drop raw koftas directly into simmering gravy (don't fry first) and DO NOT stir for the first 15 minutes. Shake the pot instead. Ground fennel is the auntie secret."
+  },
+  {
+    name: "Sindhi Biryani",
+    urdu: "سندھی بریانی",
+    protein: "meat",
+    type: "rice",
+    effort: "elaborate",
+    time: "2 hrs",
+    desc: "The Karachi street-king biryani — spicier and tangier than its cousins, with potatoes, plums, and a clear hit of yogurt-tomato sourness. The biryani most Pakistanis actually mean when they say 'biryani.'",
+    urduDesc: "کراچی کی شان — سندھی بریانی، آلو بخارے اور ٹماٹر کی کھٹاس کے ساتھ تیز اور چٹپٹی۔ اصلی پاکستانی بریانی کا مزہ۔",
+
+    ingredients: ["1 kg mutton/beef (bone-in)", "3 cups basmati rice", "3 onions (fried golden)", "1.5 cups yogurt", "4 tomatoes (chopped)", "4 potatoes (halved, fried)", "10-12 aloo bukhara (dried plums)", "3-4 tbsp Sindhi biryani masala", "Mint + coriander (generous handful each)", "Saffron in warm milk", "Green chilies (whole, 6-8)", "Lemon juice", "Ghee"],
+    notes: "The aloo bukhara are non-negotiable — they make it Sindhi. Fry potatoes separately and add to the gravy near the end so they hold shape. Layer rice + gravy with mint, coriander, and whole green chilies between each layer. Sindhi biryani should be visibly spicier and oilier than Bombay style — embrace it."
+  },
+  {
+    name: "Bombay Biryani",
+    urdu: "بمبئی بریانی",
+    protein: "meat",
+    type: "rice",
+    effort: "elaborate",
+    time: "2 hrs",
+    desc: "Karachi-Memon style biryani with fried potatoes, dried plums, and a sweeter, deeper spice profile than Sindhi. The Eid biryani for many Karachi households.",
+    urduDesc: "کراچی میمن طرز کی بریانی — تلے ہوئے آلو، آلو بخارے اور گہرے میٹھے مصالحوں کے ساتھ۔ بہت سے گھرانوں کی عید کی بریانی۔",
+
+    ingredients: ["1 kg mutton/beef (bone-in)", "3 cups basmati rice", "3 onions (fried golden)", "1 cup yogurt", "3 tomatoes (chopped)", "4 potatoes (cubed, fried golden)", "10 aloo bukhara", "3 tbsp Bombay biryani masala (extra cinnamon, cloves, cardamom)", "Saffron + kewra water", "Mint, coriander", "Lemon, green chilies", "4 tbsp ghee"],
+    notes: "Bombay style leans sweeter and more aromatic than Sindhi — heavier on whole garam masala, lighter on chili. Use kewra water in addition to saffron for that distinctive perfume. Potatoes are fried to a deep golden crust BEFORE going into the gravy. Many families eat it with raita and kachumber, never with salan."
+  },
+  {
+    name: "Memoni Biryani",
+    urdu: "میمنی بریانی",
+    protein: "meat",
+    type: "rice",
+    effort: "elaborate",
+    time: "2.5 hrs",
+    desc: "The Gujarati-Memon community's fiery mutton biryani — heavy on yogurt, dried plums, and serious heat. Distinctively spicier than Sindhi, with very little tomato.",
+    urduDesc: "میمن برادری کی روایتی مٹن بریانی — دہی، آلو بخارے اور تیز مرچوں کے ساتھ۔ سندھی سے بھی زیادہ چٹپٹی۔",
+
+    ingredients: ["1 kg mutton (bone-in)", "3 cups basmati rice", "4 onions (fried dark golden)", "2 cups yogurt (full fat)", "12-15 aloo bukhara", "8-10 dried red chilies (soaked, blended)", "3 tbsp Memoni biryani masala", "1 tbsp papaya paste (tenderizer)", "Mint, coriander, green chilies (generous)", "Saffron in milk", "4 tbsp ghee", "1 lemon"],
+    notes: "Memoni biryani uses very little or no tomato — yogurt and dried plums carry all the tang. Marinate mutton in yogurt + papaya paste for 4+ hours (overnight is better) for that signature melt-in-mouth texture. The heat level should make you sweat — that's the Memoni way."
+  },
+  {
+    name: "Mutton Pasanda",
+    urdu: "مٹن پسندا",
+    protein: "meat",
+    type: "saalan",
+    effort: "elaborate",
+    time: "90 min",
+    desc: "Mughlai flat-strip lamb in a rich nut-and-yogurt gravy. The name means 'favorite cuts' — this was the Mughal court's prized dish, and Shan and National both still sell the masala for it.",
+    urduDesc: "مغلائی پسندا — لیمب کی چپٹی پٹیاں خشک میووں اور دہی کی شاہی گریوی میں۔ مغل دربار کا پسندیدہ کھانا۔",
+
+    ingredients: ["1 kg lamb/beef (cut in thin flat strips, pounded)", "1 cup yogurt", "3 onions (fried golden, blended)", "15 cashews + 10 almonds (paste)", "2 tbsp poppy seeds (paste)", "1 tbsp ginger-garlic paste", "1 tsp white pepper", "4 green cardamom, 2 black cardamom, 4 cloves", "1 cinnamon stick", "½ cup cream", "3 tbsp ghee", "Saffron, kewra water"],
+    notes: "Pound the lamb strips thin with the back of a knife — pasanda means 'favorite,' but technique makes the cut. Marinate in yogurt + spices for 2 hours minimum. The nut paste must be smooth — strain it if needed. No tomato, no red chili — pasanda is about creamy richness, not heat."
+  },
+  {
+    name: "Chicken Broast",
+    urdu: "چکن بروسٹ",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "60 min",
+    desc: "Pakistan's beloved pressure-fried chicken — crispier than KFC, juicier inside, and the unofficial Friday-night family treat across every city. Both Shan and National sell a dedicated Broast masala.",
+    urduDesc: "پاکستان کا محبوب بروسٹ — کے ایف سی سے بھی زیادہ کرسپی، ہر شہر کا جمعہ کی رات کا کھانا۔",
+
+    ingredients: ["1 whole chicken (cut in 8 pieces, bone-in)", "2 cups buttermilk (or yogurt thinned with milk)", "1 tbsp ginger-garlic paste", "2 eggs", "1.5 cups all-purpose flour", "½ cup cornstarch", "2 tbsp broast masala (or: paprika, garlic powder, black pepper, white pepper, salt, oregano)", "Oil for deep frying"],
+    notes: "Marinate chicken in buttermilk + spices for at least 4 hours — overnight is best. The double-coat is the trick: flour → wet egg dip → flour again, pressing hard so the crust adheres. Fry on high for the first 2 minutes, then lower the heat so the inside cooks through without burning the crust. Serve with garlic mayo and a soft bun roll."
+  },
+  {
+    name: "Fish Biryani",
+    urdu: "مچھلی بریانی",
+    protein: "meat",
+    type: "rice",
+    effort: "elaborate",
+    time: "90 min",
+    desc: "A coastal Karachi specialty — boneless fish fillets layered with saffron rice in a tangy masala. Shan's Fish Biryani masala is a flagship product on the rice shelf.",
+    urduDesc: "ساحلی کراچی کی خاصیت — بے ہڈی مچھلی، زعفرانی چاولوں کی تہوں میں چٹپٹے مصالحے کے ساتھ۔",
+
+    ingredients: ["750g firm white fish (rohu, basa, or cod fillets)", "3 cups basmati rice", "2 onions (fried golden)", "1 cup yogurt", "3 tomatoes", "2 tbsp lemon juice", "2 tbsp fish biryani masala (or: turmeric, red chili, cumin, coriander, ginger-garlic)", "Curry leaves (a sprig)", "Mint, coriander", "Saffron in milk", "3 tbsp oil + 2 tbsp ghee"],
+    notes: "Marinate fish in turmeric, salt, and lemon for 20 minutes, then shallow-fry briefly so it holds shape during layering. Cook the masala WITHOUT the fish first, then layer carefully — fish breaks easily. Less dum time than meat biryani (15 min max). A few curry leaves in the tarka give it the coastal signature."
+  },
+  {
+    name: "Aloo Anday",
+    urdu: "آلو انڈے",
+    protein: "veg",
+    type: "saalan",
+    effort: "quick",
+    time: "30 min",
+    desc: "Boiled eggs and potatoes in a quick spiced onion-tomato gravy — the Pakistani sehri staple and any-tired-night dinner. Lives in every household's weekly rotation.",
+    urduDesc: "ابلے انڈے اور آلو، پیاز ٹماٹر کے سادہ مصالحے میں۔ سحری کی پسندیدہ اور تھکے ہوئے دن کا سہارا۔",
+
+    ingredients: ["6 eggs (hard-boiled, peeled)", "3 potatoes (cubed)", "2 onions (chopped)", "3 tomatoes (chopped)", "1 tbsp ginger-garlic paste", "1 tsp each: cumin, coriander powder, red chili, turmeric", "½ tsp garam masala", "2 tbsp oil", "Green chilies, fresh coriander"],
+    notes: "Score the boiled eggs lightly with a knife before adding so the masala penetrates. Add potatoes first, cook until almost soft, THEN add eggs near the end so they don't fall apart. Some families crack the eggs whole into the simmering gravy instead — both methods are valid. Eat with paratha for sehri or chapati for dinner."
   }
 ];
 
@@ -1969,8 +2925,8 @@ function updateFilterUI() {
     btn.className = 'filter-pill px-4 py-1.5 rounded-full text-sm font-medium border border-stone-200 cursor-pointer';
   });
   const typeBtns = document.querySelectorAll('#typeFilters .filter-pill');
-  const typeMap = { all: 0, rice: 1, salaan: 2, sides: 3 };
-  const typeClasses = { all: 'active-all', rice: 'active-rice', salaan: 'active-salaan', sides: 'active-sides' };
+  const typeMap = { all: 0, rice: 1, saalan: 2, sides: 3, snacks: 4 };
+  const typeClasses = { all: 'active-all', rice: 'active-rice', saalan: 'active-saalan', sides: 'active-sides', snacks: 'active-snacks' };
   typeBtns[typeMap[activeFilters.type]].classList.add(typeClasses[activeFilters.type]);
 
   // Effort filters
@@ -2024,7 +2980,7 @@ const recipeEmojis = {
   "Mixed Daal": "🍲", "Aloo Gobi": "🥦", "Baingan Bharta": "🍆", "Bhindi Masala": "🌿",
   "Karela Sabzi": "🥒", "Aloo Palak": "🥬", "Chana Masala": "🫛", "Rajma": "🫘",
   "Mixed Sabzi": "🥗", "Tori Ki Sabzi": "🥒", "Kaddu Ki Sabzi": "🎃", "Shalgam Ki Sabzi": "🟣",
-  "Aloo Keema (Veg)": "🥔",
+  "Zeera Aloo": "🥔",
   "Daal Chawal": "🍛", "Vegetable Biryani": "🥕", "Tahiri": "🍛", "Matar Pulao": "🟢", "Zeera Rice": "🍚",
   "Raita": "🥛", "Kachumber Salad": "🥗", "Pakoras": "🧆", "Samosas": "🥟",
   "Imli Ki Chutney": "🫙", "Hari Chutney": "🌿", "Naan": "🫓", "Paratha": "🥞",
@@ -2040,7 +2996,26 @@ const recipeEmojis = {
   "Gol Gappay / Pani Puri": "🫧", "Chaat Papri": "✨", "Aloo Tikki": "🥔",
   "Keema Naan": "🫓", "Aloo Paratha": "🥞", "Makki Ki Roti": "🌽", "Halwa Puri": "☀️",
   "Lassi (Sweet & Salty)": "🥛", "Gajar Ka Halwa": "🥕", "Kheer": "🍚", "Phirni": "🍮",
-  "Chapati / Roti": "🫓", "Shami Kebab": "🫔", "Bun Kebab": "🍔"
+  "Chapati / Roti": "🫓", "Shami Kebab": "🫔", "Bun Kebab": "🍔",
+  "Maghaz Masala (Brain Masala)": "🧠", "Kaleji Masala (Liver Masala)": "🫀", "Gurda Kapoora": "🩸",
+  "Bhindi Gosht": "🌿", "Palak Gosht": "💚", "Daal Gosht": "🍲", "Daal Palak": "🍃",
+  "Anda Salan (Egg Curry)": "🥚", "Achar Gosht": "🫙", "Machli Salan (Fish Curry)": "🐟",
+  "Pindi Cholay": "⚫", "Mutton Korma (Traditional Red)": "🏰",
+  "Chicken Corn Soup": "🌽", "Hot & Sour Soup (Desi-style)": "🌶️",
+  "Chicken Chargha": "🍗", "Chicken Bihari Boti": "🥩", "Chicken Tikka Boti": "🍢",
+  "Tandoori Chicken (Whole)": "🔥", "Lahori Tali Hui Machli": "🐠", "Frontier Chicken": "⛰️",
+  "Beef Seekh Kebab (Grilled)": "🥢", "Tandoori Lamb Chops": "🐑", "Haryali Chicken Boti": "🌱", "Balochi Tikka": "⚫",
+  "Onion Kulcha": "🧅", "Bhatura": "🟡",
+  "Paratha Roll": "🌯", "Fruit Chaat": "🍇", "Samosa Chaat": "✨", "Chana Chaat": "🫛", "Dahi Puri": "💫",
+  "Anda Paratha": "🍳", "Chole Bhature (Cholay)": "🍞", "Chicken Patties": "🥧", "Khari Puff": "🟨", "Bun Maska": "🥯", "Desi Masala Maggi": "🍜",
+  "Gulab Jamun": "🍡", "Ras Malai": "🤍", "Kulfi": "🍦", "Falooda": "🍧", "Sheer Khurma": "🌙",
+  "Sooji Halwa": "🌾", "Jalebi": "🥨", "Besan Ladoo": "🟡", "Shahi Tukda": "👑",
+  "Pista Barfi": "🟢", "Kalakand": "⬜", "Coconut Barfi": "🥥", "Moong Daal Halwa": "🧈",
+  "Zarda": "🌟", "Nankhatai": "🍪", "Cake Rusk": "🥖",
+  "Doodh Patti Chai": "☕", "Kashmiri Pink Chai": "🌸", "Masala Chai": "🍵",
+  "Mango Lassi": "🥭", "Rooh Afza Milk": "🌹",
+  "Kofta Curry": "⚪", "Sindhi Biryani": "🌶️", "Bombay Biryani": "🥘", "Memoni Biryani": "🔥",
+  "Mutton Pasanda": "👑", "Chicken Broast": "🍗", "Fish Biryani": "🐟", "Aloo Anday": "🥚"
 };
 
 // Gradient palettes per protein with variety
@@ -2065,26 +3040,36 @@ const gradientSets = {
     "linear-gradient(135deg, #f0fdf1 0%, #baf7c1 50%, #88ef94 100%)",
     "linear-gradient(135deg, #fefce8 0%, #d9f99d 50%, #bef264 100%)",
     "linear-gradient(135deg, #f7fee7 0%, #bef264 40%, #a3e635 100%)",
+  ],
+  snacks: [
+    "linear-gradient(135deg, #fdf2f8 0%, #fbcfe8 50%, #f9a8d4 100%)",
+    "linear-gradient(135deg, #fff7ed 0%, #fed7aa 50%, #fdba74 100%)",
+    "linear-gradient(135deg, #fae8ff 0%, #f5d0fe 50%, #e9d5ff 100%)",
+    "linear-gradient(135deg, #ecfeff 0%, #cffafe 50%, #a5f3fc 100%)",
+    "linear-gradient(135deg, #fff1f2 0%, #fecdd3 50%, #fda4af 100%)",
   ]
 };
 
 const glowColors = {
   chicken: ["#fbbf24", "#f59e0b", "#fb923c", "#f97316", "#fcd34d"],
   meat: ["#f87171", "#ef4444", "#fb7185", "#e11d48", "#f43f5e"],
-  veg: ["#4ade80", "#22c55e", "#34d399", "#a3e635", "#86efac"]
+  veg: ["#4ade80", "#22c55e", "#34d399", "#a3e635", "#86efac"],
+  snacks: ["#ec4899", "#fb923c", "#c084fc", "#22d3ee", "#f43f5e"]
 };
 
 function getRecipeEmoji(name) {
   return recipeEmojis[name] || "🍽️";
 }
 
-function getRecipeGradient(protein, index) {
-  const set = gradientSets[protein] || gradientSets.chicken;
+function getRecipeGradient(recipe, index) {
+  const key = recipe.type === 'snacks' ? 'snacks' : recipe.protein;
+  const set = gradientSets[key] || gradientSets.chicken;
   return set[index % set.length];
 }
 
-function getGlowColor(protein, index) {
-  const set = glowColors[protein] || glowColors.chicken;
+function getGlowColor(recipe, index) {
+  const key = recipe.type === 'snacks' ? 'snacks' : recipe.protein;
+  const set = glowColors[key] || glowColors.chicken;
   return set[index % set.length];
 }
 
@@ -2101,7 +3086,7 @@ function getProteinTag(protein) {
 }
 
 function getTypeLabel(type) {
-  const map = { rice: '🍚 Rice', salaan: '🍛 Salaan', sides: '🫓 Side' };
+  const map = { rice: '🍚 Rice', saalan: '🍛 Saalan', sides: '🫓 Side', snacks: '🍡 Snacks' };
   return map[type] || type;
 }
 
@@ -2151,14 +3136,14 @@ function renderCards(highlightId = null) {
     const isHighlighted = highlightId === i;
 
     return `
-      <div class="recipe-card card-enter scroll-highlight bg-white rounded-2xl border border-stone-200 border-l-4 ${getCardBorderColor(r.protein)} overflow-hidden cursor-pointer ${isHighlighted ? 'highlighted' : ''}"
+      <div class="recipe-card card-enter scroll-highlight bg-white rounded-2xl border border-stone-200 overflow-hidden cursor-pointer ${isHighlighted ? 'highlighted' : ''}"
            style="animation-delay: ${Math.min(i * 40, 400)}ms"
            onclick="selectRecipe(${i})" data-index="${i}" ${isHighlighted ? 'id="highlighted-card"' : ''}>
 
         <!-- Recipe image area -->
-        <div class="recipe-image rounded-t-2xl" style="background: ${getRecipeGradient(r.protein, i)}">
+        <div class="recipe-image rounded-t-2xl" style="background: ${getRecipeGradient(r, i)}">
           <div class="img-pattern"></div>
-          <div class="img-glow" style="background: ${getGlowColor(r.protein, i)}"></div>
+          <div class="img-glow" style="background: ${getGlowColor(r, i)}"></div>
           <span class="emoji-icon">${getRecipeEmoji(r.name)}</span>
         </div>
 
@@ -2232,9 +3217,9 @@ function renderDetailPanel(recipe, filteredIndex) {
   contentEl.innerHTML = `
     <div class="detail-enter bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-lg">
       <!-- Image -->
-      <div class="detail-image" style="background: ${getRecipeGradient(recipe.protein, filteredIndex)}">
+      <div class="detail-image" style="background: ${getRecipeGradient(recipe, filteredIndex)}">
         <div class="img-pattern"></div>
-        <div class="img-glow" style="background: ${getGlowColor(recipe.protein, filteredIndex)}"></div>
+        <div class="img-glow" style="background: ${getGlowColor(recipe, filteredIndex)}"></div>
         <span class="emoji-icon">${getRecipeEmoji(recipe.name)}</span>
       </div>
 
@@ -2314,9 +3299,9 @@ function openSheet(recipe, filteredIndex) {
 
   content.innerHTML = `
     <!-- Image -->
-    <div class="sheet-image rounded-xl mb-4" style="background: ${getRecipeGradient(recipe.protein, filteredIndex)}">
+    <div class="sheet-image rounded-xl mb-4" style="background: ${getRecipeGradient(recipe, filteredIndex)}">
       <div class="img-pattern"></div>
-      <div class="img-glow" style="background: ${getGlowColor(recipe.protein, filteredIndex)}"></div>
+      <div class="img-glow" style="background: ${getGlowColor(recipe, filteredIndex)}"></div>
       <span class="emoji-icon">${getRecipeEmoji(recipe.name)}</span>
     </div>
 
@@ -2399,9 +3384,65 @@ function closeSheet() {
 })();
 
 // ============================================================
+// STRUCTURED DATA — schema.org/Recipe per recipe for SEO + AI search
+// ============================================================
+function parseTimeToISO(timeStr) {
+  // "45 min" → "PT45M"; "1 hr" → "PT1H"; "1 hr 30 min" → "PT1H30M"; "2.5 hrs" → "PT2H30M"; "150 min" → "PT2H30M"
+  if (!timeStr) return undefined;
+  let totalMinutes = 0;
+  const hrMatch = timeStr.match(/(\d+(?:\.\d+)?)\s*hr/i);
+  const minMatch = timeStr.match(/(\d+)\s*min/i);
+  if (hrMatch) totalMinutes += parseFloat(hrMatch[1]) * 60;
+  if (minMatch) totalMinutes += parseInt(minMatch[1], 10);
+  if (totalMinutes === 0) return undefined;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = Math.round(totalMinutes - hours * 60);
+  return 'PT' + (hours ? hours + 'H' : '') + (minutes ? minutes + 'M' : '');
+}
+
+function getSchemaCategory(type, protein) {
+  if (type === 'rice' || type === 'saalan') return 'Main course';
+  if (type === 'sides') return 'Side dish';
+  if (type === 'snacks') return 'Snack';
+  return 'Main course';
+}
+
+function injectRecipeStructuredData() {
+  const items = recipes.map((r, idx) => ({
+    "@type": "Recipe",
+    "@id": "https://maggiemix.com/#recipe-" + idx,
+    "name": r.name,
+    "alternateName": r.urdu,
+    "description": r.desc,
+    "recipeCuisine": "Pakistani",
+    "recipeCategory": getSchemaCategory(r.type, r.protein),
+    "keywords": ["Pakistani recipe", r.name, r.protein, r.type].join(", "),
+    "recipeIngredient": r.ingredients,
+    "recipeInstructions": [
+      { "@type": "HowToStep", "name": "Cook", "text": r.notes }
+    ],
+    "totalTime": parseTimeToISO(r.time),
+    "recipeYield": "4 servings",
+    "inLanguage": ["en", "ur"],
+    "isPartOf": { "@id": "https://maggiemix.com/#collection" },
+    "suitableForDiet": r.protein === "veg" ? "https://schema.org/VegetarianDiet" : undefined
+  }));
+  const ld = {
+    "@context": "https://schema.org",
+    "@graph": items
+  };
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.id = 'recipe-structured-data';
+  script.textContent = JSON.stringify(ld);
+  document.head.appendChild(script);
+}
+
+// ============================================================
 // INIT
 // ============================================================
 renderCards();
+injectRecipeStructuredData();
 </script>
 
 </body>
