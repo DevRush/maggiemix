@@ -170,7 +170,7 @@ tailwind.config = {
 
   /* Scroll to highlighted card — offset accounts for sticky filter header (3 rows + padding) */
   .scroll-highlight {
-    scroll-margin-top: 240px;
+    scroll-margin-top: 180px;
   }
 
   /* Pick for me button shimmer + dice wobble */
@@ -203,6 +203,18 @@ tailwind.config = {
   .filter-pill.favorites-filter { background: #fffbeb; border-color: #fde68a; color: #92400e; font-weight: 600; }
   .filter-pill.favorites-filter.active { background: #f59e0b; color: white; border-color: #d97706; }
   .filter-pill.favorites-filter .star { margin-right: 4px; }
+
+  /* Visual separator between filter buttons and the Pick-For-Me section */
+  .pick-section { position: relative; }
+  .pick-section::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 50%;
+    height: 60%;
+    width: 1px;
+    background: #e7e5e4; /* stone-200 */
+    transform: translateY(-50%);
+  }
 
   /* Recipe image area */
   .recipe-image {
@@ -270,7 +282,7 @@ tailwind.config = {
   /* Detail panel — sticky to viewport, internally scrollable if content is taller than the viewport */
   .detail-panel {
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: calc(100vh - 260px);
+    max-height: calc(100vh - 200px);
     overflow-y: auto;
     overscroll-behavior: contain;
     /* Subtle scrollbar styling so it doesn't dominate */
@@ -440,13 +452,13 @@ tailwind.config = {
 <!-- Header -->
 <header class="bg-gradient-to-br from-pakgreen-800 via-pakgreen-700 to-pakgreen-900 text-white relative overflow-hidden">
   <div class="pattern-overlay absolute inset-0"></div>
-  <div class="relative z-10 max-w-6xl mx-auto px-4 py-6 md:py-10 text-center">
-    <p class="text-saffron-300 font-body text-xs md:text-sm tracking-[0.3em] uppercase mb-2 md:mb-3">For Ammi, with love</p>
-    <h1 class="font-display text-3xl md:text-6xl font-bold mb-1 md:mb-2 tracking-tight">
+  <div class="relative z-10 max-w-6xl mx-auto px-4 py-4 md:py-6 text-center">
+    <p class="text-saffron-300 font-body text-[10px] md:text-xs tracking-[0.3em] uppercase mb-1 md:mb-2">For Ammi, with love</p>
+    <h1 class="font-display text-3xl md:text-5xl font-bold mb-0.5 md:mb-1 tracking-tight">
       Aaj Kya Banayein<span class="text-saffron-400">?</span>
     </h1>
-    <p class="font-display text-lg md:text-2xl text-pakgreen-200 italic mb-1">آج کیا بنائیں؟</p>
-    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-3 md:mt-4 max-w-xl mx-auto px-2">Your daily Pakistani recipe helper. Filter by effort and type, or hit <span class="text-saffron-300 font-semibold">Pick For Me</span> when you're tired of deciding.</p>
+    <p class="font-display text-base md:text-xl text-pakgreen-200 italic mb-0.5" lang="ur">آج کیا بنائیں؟</p>
+    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-2 md:mt-2.5 max-w-xl mx-auto px-2">Your daily Pakistani recipe helper. Filter by effort and type, or hit <span class="text-saffron-300 font-semibold">Pick For Me</span> when you're tired of deciding.</p>
 
     <!-- Decorative crescents -->
     <div class="absolute top-4 left-6 text-saffron-400 opacity-20 text-6xl select-none" aria-hidden="true">☪</div>
@@ -456,10 +468,10 @@ tailwind.config = {
 
 <!-- Sticky Filters -->
 <div id="filters" class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
-  <div class="max-w-[1440px] mx-auto px-3 md:px-4 py-3 md:py-4">
+  <div class="max-w-[1440px] mx-auto px-3 md:px-4 py-2 md:py-2.5">
 
     <!-- Filter rows -->
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3 min-h-[3rem] md:min-h-[3.5rem]">
+    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
       <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Protein</span>
       <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters" role="group" aria-label="Filter by protein">
         <button onclick="setFilter('protein','all')" aria-label="All proteins" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
@@ -469,7 +481,7 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3 min-h-[3rem] md:min-h-[3.5rem]">
+    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
       <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Type</span>
       <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters" role="group" aria-label="Filter by dish type">
         <button onclick="setFilter('type','all')" aria-label="All types" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
@@ -480,7 +492,7 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 min-h-[3rem] md:min-h-[3.5rem]">
+    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 min-h-[2.25rem] md:min-h-[2.5rem]">
       <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Effort</span>
       <div class="flex flex-wrap gap-1.5 md:gap-2" id="effortFilters" role="group" aria-label="Filter by effort level">
         <button onclick="setFilter('effort','all')" aria-label="All effort levels" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
@@ -489,15 +501,15 @@ tailwind.config = {
         <button onclick="setFilter('effort','elaborate')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-500 cursor-pointer">👩‍🍳 Elaborate</button>
       </div>
 
-      <!-- Favorites pill + Pick For Me & Counter -->
-      <div class="ml-auto flex items-center gap-2 md:gap-3">
+      <!-- Visual separator between filters and the Pick-For-Me section -->
+      <div class="ml-auto flex items-center gap-2 md:gap-3 pick-section pl-2 md:pl-4">
         <span id="favoritesPillWrap" style="display:none">
-          <button id="favoritesFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium border cursor-pointer">
+          <button id="favoritesFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 md:px-4 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium border cursor-pointer">
             <span class="star">★</span><span class="hidden sm:inline">Saved </span>(<span class="fav-count">0</span>)
           </button>
         </span>
         <span class="text-xs md:text-sm text-stone-400" aria-label="Total matching recipes"><span id="recipeCount" class="font-bold counter-badge text-sm md:text-base">0</span></span>
-        <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-5 md:px-8 py-3 md:py-3.5 rounded-2xl text-white font-bold text-base md:text-lg shadow-lg hover:shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
+        <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-white font-bold text-sm md:text-base shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
           <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> <span class="hidden sm:inline">Pick For Me!</span><span class="sm:hidden">Surprise!</span>
         </button>
       </div>
@@ -525,7 +537,7 @@ tailwind.config = {
 
     <!-- Right: sticky detail panel (desktop only) -->
     <div class="hidden lg:block w-[400px] shrink-0">
-      <div id="detailPanel" class="detail-panel sticky top-[240px]">
+      <div id="detailPanel" class="detail-panel sticky top-[180px]">
         <!-- Empty state -->
         <div id="detailEmpty" class="bg-white rounded-2xl border border-stone-200 border-dashed p-10 text-center">
           <p class="text-4xl mb-3">👆</p>
