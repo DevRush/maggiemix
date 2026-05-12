@@ -168,9 +168,9 @@ tailwind.config = {
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Scroll to highlighted card */
+  /* Scroll to highlighted card — offset accounts for sticky filter header (3 rows + padding) */
   .scroll-highlight {
-    scroll-margin-top: 200px;
+    scroll-margin-top: 240px;
   }
 
   /* Pick for me button shimmer + dice wobble */
@@ -3426,7 +3426,7 @@ function renderDetailPanel(recipe, filteredIndex) {
         <div class="flex items-start justify-between gap-3">
           <div class="flex-1 min-w-0">
             <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
-            <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
+            <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
           </div>
           <button class="fav-btn ${isFavorite(recipe.name) ? 'is-fav' : ''} shrink-0"
                   data-fav-name="${recipe.name}"
@@ -3446,7 +3446,7 @@ function renderDetailPanel(recipe, filteredIndex) {
 
         <!-- Description -->
         <p class="text-stone-600 text-sm leading-relaxed mt-4">${recipe.desc}</p>
-        <p class="text-stone-500 text-sm leading-relaxed mt-2" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
+        <p class="text-stone-500 text-sm leading-relaxed mt-2" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
 
         <!-- Divider -->
         <div class="border-t border-stone-100 mt-5 pt-5">
@@ -3483,7 +3483,11 @@ function pickForMe() {
     renderCards(randomIndex);
     setTimeout(() => {
       const highlighted = document.getElementById('highlighted-card');
-      if (highlighted) highlighted.classList.add('selected');
+      if (highlighted) {
+        highlighted.classList.add('selected');
+        // Scroll the picked card into view below the sticky filter header
+        highlighted.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
       selectedIndex = randomIndex;
       renderDetailPanel(recipe, randomIndex);
     }, 100);
@@ -3517,7 +3521,7 @@ function openSheet(recipe, filteredIndex) {
     <div class="flex items-start justify-between gap-3">
       <div class="flex-1 min-w-0">
         <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
-        <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
+        <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
       </div>
       <button class="fav-btn ${isFavorite(recipe.name) ? 'is-fav' : ''} shrink-0"
               data-fav-name="${recipe.name}"
@@ -3537,7 +3541,7 @@ function openSheet(recipe, filteredIndex) {
 
     <!-- Description -->
     <p class="text-stone-600 text-sm leading-relaxed mt-4">${recipe.desc}</p>
-    <p class="text-stone-500 text-sm leading-relaxed mt-2" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
+    <p class="text-stone-500 text-sm leading-relaxed mt-2" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
 
     <!-- Ingredients -->
     <div class="border-t border-stone-100 mt-5 pt-5">
