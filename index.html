@@ -267,10 +267,20 @@ tailwind.config = {
     background-clip: text;
   }
 
-  /* Detail panel */
+  /* Detail panel — sticky to viewport, internally scrollable if content is taller than the viewport */
   .detail-panel {
     transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: calc(100vh - 260px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Subtle scrollbar styling so it doesn't dominate */
+    scrollbar-width: thin;
+    scrollbar-color: #d6d3d1 transparent;
   }
+  .detail-panel::-webkit-scrollbar { width: 6px; }
+  .detail-panel::-webkit-scrollbar-track { background: transparent; }
+  .detail-panel::-webkit-scrollbar-thumb { background: #d6d3d1; border-radius: 3px; }
+  .detail-panel::-webkit-scrollbar-thumb:hover { background: #a8a29e; }
   .detail-panel .detail-enter {
     animation: detailFadeIn 0.4s ease forwards;
   }
@@ -497,7 +507,7 @@ tailwind.config = {
 
 <!-- Main content: grid + detail panel -->
 <main class="max-w-[1440px] mx-auto px-3 md:px-4 py-4 md:py-8">
-  <div class="flex gap-6 items-start">
+  <div class="flex gap-6 items-stretch">
 
     <!-- Left: scrollable recipe grid -->
     <div class="flex-1 min-w-0">
@@ -515,7 +525,7 @@ tailwind.config = {
 
     <!-- Right: sticky detail panel (desktop only) -->
     <div class="hidden lg:block w-[400px] shrink-0">
-      <div id="detailPanel" class="detail-panel sticky top-[200px]">
+      <div id="detailPanel" class="detail-panel sticky top-[240px]">
         <!-- Empty state -->
         <div id="detailEmpty" class="bg-white rounded-2xl border border-stone-200 border-dashed p-10 text-center">
           <p class="text-4xl mb-3">👆</p>
@@ -3483,13 +3493,11 @@ function pickForMe() {
     renderCards(randomIndex);
     setTimeout(() => {
       const highlighted = document.getElementById('highlighted-card');
-      if (highlighted) {
-        highlighted.classList.add('selected');
-        // Scroll the picked card into view below the sticky filter header
-        highlighted.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (highlighted) highlighted.classList.add('selected');
       selectedIndex = randomIndex;
       renderDetailPanel(recipe, randomIndex);
+      // No scroll on desktop — the detail panel on the right is sticky and
+      // always visible, so the user sees the new recipe wherever they're scrolled.
     }, 100);
   } else {
     // Mobile: move picked recipe to top of grid, highlight it
