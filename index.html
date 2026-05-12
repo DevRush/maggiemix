@@ -204,18 +204,6 @@ tailwind.config = {
   .filter-pill.favorites-filter.active { background: #f59e0b; color: white; border-color: #d97706; }
   .filter-pill.favorites-filter .star { margin-right: 4px; }
 
-  /* Visual separator between filter buttons and the Pick-For-Me section */
-  .pick-section { position: relative; }
-  .pick-section::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 50%;
-    height: 60%;
-    width: 1px;
-    background: #e7e5e4; /* stone-200 */
-    transform: translateY(-50%);
-  }
-
   /* Recipe image area */
   .recipe-image {
     height: 140px;
@@ -469,50 +457,70 @@ tailwind.config = {
 <!-- Sticky Filters -->
 <div id="filters" class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
   <div class="max-w-[1440px] mx-auto px-3 md:px-4 py-2 md:py-2.5">
+    <div class="lg:flex lg:gap-6 lg:items-stretch">
 
-    <!-- Filter rows -->
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
-      <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Protein</span>
-      <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters" role="group" aria-label="Filter by protein">
-        <button onclick="setFilter('protein','all')" aria-label="All proteins" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
-        <button onclick="setFilter('protein','chicken')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-400 cursor-pointer">🐔 Chicken</button>
-        <button onclick="setFilter('protein','meat')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-400 cursor-pointer">🥩 Meat</button>
-        <button onclick="setFilter('protein','veg')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-400 cursor-pointer">🥬 Veg</button>
+      <!-- Left: filter rows -->
+      <div class="lg:flex-1 lg:min-w-0">
+        <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
+          <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Protein</span>
+          <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters" role="group" aria-label="Filter by protein">
+            <button onclick="setFilter('protein','all')" aria-label="All proteins" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
+            <button onclick="setFilter('protein','chicken')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-400 cursor-pointer">🐔 Chicken</button>
+            <button onclick="setFilter('protein','meat')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-400 cursor-pointer">🥩 Meat</button>
+            <button onclick="setFilter('protein','veg')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-400 cursor-pointer">🥬 Veg</button>
+          </div>
+        </div>
+
+        <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
+          <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Type</span>
+          <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters" role="group" aria-label="Filter by dish type">
+            <button onclick="setFilter('type','all')" aria-label="All types" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
+            <button onclick="setFilter('type','rice')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-700 cursor-pointer">🍚 Rice</button>
+            <button onclick="setFilter('type','saalan')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-600 cursor-pointer">🍛 Saalan</button>
+            <button onclick="setFilter('type','sides')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-cardamom-500 cursor-pointer">🫓 Sides</button>
+            <button onclick="setFilter('type','snacks')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pink-500 cursor-pointer">🍡 Snacks</button>
+          </div>
+        </div>
+
+        <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 min-h-[2.25rem] md:min-h-[2.5rem]">
+          <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Effort</span>
+          <div class="flex flex-wrap gap-1.5 md:gap-2" id="effortFilters" role="group" aria-label="Filter by effort level">
+            <button onclick="setFilter('effort','all')" aria-label="All effort levels" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
+            <button onclick="setFilter('effort','quick')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-500 cursor-pointer">⚡ Quick</button>
+            <button onclick="setFilter('effort','medium')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-500 cursor-pointer">🔥 Medium</button>
+            <button onclick="setFilter('effort','elaborate')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-500 cursor-pointer">👩‍🍳 Elaborate</button>
+          </div>
+
+          <!-- MOBILE Pick For Me area (inline in effort row, lg:hidden on desktop) -->
+          <div class="lg:hidden ml-auto flex items-center gap-2">
+            <span id="favoritesPillWrapMobile" style="display:none">
+              <button onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
+                <span class="star">★</span>(<span class="fav-count-mobile">0</span>)
+              </button>
+            </span>
+            <span class="text-xs text-stone-400"><span id="recipeCountMobile" class="font-bold counter-badge text-sm">0</span></span>
+            <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-4 py-2 rounded-xl text-white font-bold text-sm shadow-md hover:shadow-xl active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-1 ring-offset-white">
+              <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> Surprise!
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
-      <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Type</span>
-      <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters" role="group" aria-label="Filter by dish type">
-        <button onclick="setFilter('type','all')" aria-label="All types" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
-        <button onclick="setFilter('type','rice')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-700 cursor-pointer">🍚 Rice</button>
-        <button onclick="setFilter('type','saalan')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-600 cursor-pointer">🍛 Saalan</button>
-        <button onclick="setFilter('type','sides')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-cardamom-500 cursor-pointer">🫓 Sides</button>
-        <button onclick="setFilter('type','snacks')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pink-500 cursor-pointer">🍡 Snacks</button>
-      </div>
-    </div>
-
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 min-h-[2.25rem] md:min-h-[2.5rem]">
-      <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Effort</span>
-      <div class="flex flex-wrap gap-1.5 md:gap-2" id="effortFilters" role="group" aria-label="Filter by effort level">
-        <button onclick="setFilter('effort','all')" aria-label="All effort levels" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
-        <button onclick="setFilter('effort','quick')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-500 cursor-pointer">⚡ Quick</button>
-        <button onclick="setFilter('effort','medium')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-500 cursor-pointer">🔥 Medium</button>
-        <button onclick="setFilter('effort','elaborate')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-500 cursor-pointer">👩‍🍳 Elaborate</button>
-      </div>
-
-      <!-- Visual separator between filters and the Pick-For-Me section -->
-      <div class="ml-auto flex items-center gap-2 md:gap-3 pick-section pl-2 md:pl-4">
-        <span id="favoritesPillWrap" style="display:none">
-          <button id="favoritesFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 md:px-4 py-1 md:py-1.5 rounded-full text-xs md:text-sm font-medium border cursor-pointer">
-            <span class="star">★</span><span class="hidden sm:inline">Saved </span>(<span class="fav-count">0</span>)
+      <!-- Right (DESKTOP only): Pick For Me column aligned with the detail panel below -->
+      <div class="pick-column hidden lg:flex lg:w-[400px] lg:shrink-0 lg:items-center lg:justify-center lg:border-l lg:border-stone-200 lg:pl-6">
+        <div class="flex flex-col items-center gap-2 py-1">
+          <span id="favoritesPillWrap" style="display:none">
+            <button id="favoritesFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
+              <span class="star">★</span>Saved (<span class="fav-count">0</span>)
+            </button>
+          </span>
+          <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-6 py-2.5 rounded-xl text-white font-bold text-base shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
+            <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> Pick For Me!
           </button>
-        </span>
-        <span class="text-xs md:text-sm text-stone-400" aria-label="Total matching recipes"><span id="recipeCount" class="font-bold counter-badge text-sm md:text-base">0</span></span>
-        <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-white font-bold text-sm md:text-base shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
-          <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> <span class="hidden sm:inline">Pick For Me!</span><span class="sm:hidden">Surprise!</span>
-        </button>
+          <span class="text-xs text-stone-400" aria-label="Total matching recipes"><span id="recipeCount" class="font-bold counter-badge text-sm">0</span> recipes</span>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
@@ -535,8 +543,8 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- Right: sticky detail panel (desktop only) -->
-    <div class="hidden lg:block w-[400px] shrink-0">
+    <!-- Right: sticky detail panel (desktop only) — border-l aligns with Pick For Me column above to form one continuous vertical divider -->
+    <div class="hidden lg:block w-[400px] shrink-0 border-l border-stone-200 pl-6">
       <div id="detailPanel" class="detail-panel sticky top-[180px]">
         <!-- Empty state -->
         <div id="detailEmpty" class="bg-white rounded-2xl border border-stone-200 border-dashed p-10 text-center">
@@ -3136,21 +3144,20 @@ function toggleFavoritesFilter() {
   renderCards();
 }
 function updateFavoritesPill() {
-  const wrap = document.getElementById('favoritesPillWrap');
-  if (!wrap) return;
+  const wraps = [document.getElementById('favoritesPillWrap'), document.getElementById('favoritesPillWrapMobile')];
   const count = getFavorites().length;
-  if (count === 0) {
-    wrap.style.display = 'none';
-    favoritesOnly = false;
-  } else {
-    wrap.style.display = '';
-    const pill = document.getElementById('favoritesFilterBtn');
-    if (pill) {
-      pill.classList.toggle('active', favoritesOnly);
-      pill.setAttribute('aria-pressed', String(favoritesOnly));
-      pill.querySelector('.fav-count').textContent = count;
-    }
-  }
+  wraps.forEach(wrap => {
+    if (!wrap) return;
+    if (count === 0) wrap.style.display = 'none'; else wrap.style.display = '';
+  });
+  if (count === 0) favoritesOnly = false;
+  // Update count text in both desktop + mobile pills
+  document.querySelectorAll('.fav-count, .fav-count-mobile').forEach(el => { el.textContent = count; });
+  // Update active state on both buttons
+  document.querySelectorAll('.filter-pill.favorites-filter').forEach(pill => {
+    pill.classList.toggle('active', favoritesOnly);
+    pill.setAttribute('aria-pressed', String(favoritesOnly));
+  });
 }
 
 function getFilteredRecipes() {
@@ -3339,8 +3346,10 @@ function renderCards(highlightId = null) {
   const grid = document.getElementById('recipeGrid');
   const empty = document.getElementById('emptyState');
   const counter = document.getElementById('recipeCount');
+  const counterMobile = document.getElementById('recipeCountMobile');
 
   counter.textContent = filtered.length;
+  if (counterMobile) counterMobile.textContent = filtered.length;
 
   if (filtered.length === 0) {
     grid.innerHTML = '';
