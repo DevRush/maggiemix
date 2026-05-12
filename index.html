@@ -204,6 +204,10 @@ tailwind.config = {
   .filter-pill.favorites-filter.active { background: #f59e0b; color: white; border-color: #d97706; }
   .filter-pill.favorites-filter .star { margin-right: 4px; }
 
+  /* Subtle warm-cream background for the dedicated 4th column area so it reads as a distinct vertical section */
+  .fourth-column { background-color: rgba(255, 248, 237, 0.55); }
+  /* The detail panel itself stays white (it's a card sitting in the column) */
+
   /* Recipe image area */
   .recipe-image {
     height: 140px;
@@ -456,11 +460,11 @@ tailwind.config = {
 
 <!-- Sticky Filters -->
 <div id="filters" class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm">
-  <div class="max-w-[1440px] mx-auto px-3 md:px-4 py-2 md:py-2.5">
+  <div class="max-w-[1440px] mx-auto px-3 md:px-4">
     <div class="lg:flex lg:gap-6 lg:items-stretch">
 
-      <!-- Left: filter rows -->
-      <div class="lg:flex-1 lg:min-w-0">
+      <!-- Left: filter rows (carries the vertical padding so the right column's border spans full height) -->
+      <div class="lg:flex-1 lg:min-w-0 py-2 md:py-2.5">
         <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
           <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Protein</span>
           <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters" role="group" aria-label="Filter by protein">
@@ -507,8 +511,8 @@ tailwind.config = {
       </div>
 
       <!-- Right (DESKTOP only): Pick For Me column aligned with the detail panel below -->
-      <div class="pick-column hidden lg:flex lg:w-[400px] lg:shrink-0 lg:items-center lg:justify-center lg:border-l lg:border-stone-200 lg:pl-6">
-        <div class="flex flex-col items-center gap-2 py-1">
+      <div class="pick-column fourth-column hidden lg:flex lg:w-[400px] lg:shrink-0 lg:items-center lg:justify-center lg:border-l lg:border-stone-200 lg:pl-6">
+        <div class="flex flex-col items-center gap-2">
           <span id="favoritesPillWrap" style="display:none">
             <button id="favoritesFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
               <span class="star">★</span>Saved (<span class="fav-count">0</span>)
@@ -526,11 +530,11 @@ tailwind.config = {
 </div>
 
 <!-- Main content: grid + detail panel -->
-<main class="max-w-[1440px] mx-auto px-3 md:px-4 py-4 md:py-8">
+<main class="max-w-[1440px] mx-auto px-3 md:px-4">
   <div class="flex gap-6 items-stretch">
 
-    <!-- Left: scrollable recipe grid -->
-    <div class="flex-1 min-w-0">
+    <!-- Left: scrollable recipe grid (carries the vertical padding so right column's border spans full height) -->
+    <div class="flex-1 min-w-0 py-4 md:py-8">
       <div id="recipeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-5">
         <!-- Cards rendered by JS -->
       </div>
@@ -543,8 +547,8 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- Right: sticky detail panel (desktop only) — border-l aligns with Pick For Me column above to form one continuous vertical divider -->
-    <div class="hidden lg:block w-[400px] shrink-0 border-l border-stone-200 pl-6">
+    <!-- Right: sticky detail panel (desktop only) — border-l + subtle bg unify with Pick For Me column above -->
+    <div class="fourth-column hidden lg:block w-[400px] shrink-0 border-l border-stone-200 pl-6 pt-4 md:pt-8">
       <div id="detailPanel" class="detail-panel sticky top-[180px]">
         <!-- Empty state -->
         <div id="detailEmpty" class="bg-white rounded-2xl border border-stone-200 border-dashed p-10 text-center">
@@ -3453,12 +3457,9 @@ function renderDetailPanel(recipe, filteredIndex) {
       </div>
 
       <div class="p-6">
-        <!-- Title + Favorite Star -->
-        <div class="flex items-start justify-between gap-3">
-          <div class="flex-1 min-w-0">
-            <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
-            <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
-          </div>
+        <!-- Title + Favorite Star (star sits on the title's line, urdu wraps below) -->
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight flex-1 min-w-0">${recipe.name}</h2>
           <button class="fav-btn ${isFavorite(recipe.name) ? 'is-fav' : ''} shrink-0"
                   data-fav-name="${recipe.name}"
                   onclick="toggleFavorite('${recipe.name.replace(/'/g, "\\'")}', event)"
@@ -3466,6 +3467,7 @@ function renderDetailPanel(recipe, filteredIndex) {
                   aria-pressed="${isFavorite(recipe.name)}"
                   title="Save to favorites">${isFavorite(recipe.name) ? '★' : '☆'}</button>
         </div>
+        <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
 
         <!-- Tags -->
         <div class="flex flex-wrap gap-2 mt-4">
@@ -3546,12 +3548,9 @@ function openSheet(recipe, filteredIndex) {
       <span class="emoji-icon">${getRecipeEmoji(recipe.name)}</span>
     </div>
 
-    <!-- Title + Favorite Star -->
-    <div class="flex items-start justify-between gap-3">
-      <div class="flex-1 min-w-0">
-        <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
-        <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
-      </div>
+    <!-- Title + Favorite Star (star aligned with title line; urdu below) -->
+    <div class="flex items-center justify-between gap-3">
+      <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight flex-1 min-w-0">${recipe.name}</h2>
       <button class="fav-btn ${isFavorite(recipe.name) ? 'is-fav' : ''} shrink-0"
               data-fav-name="${recipe.name}"
               onclick="toggleFavorite('${recipe.name.replace(/'/g, "\\'")}', event)"
@@ -3559,6 +3558,7 @@ function openSheet(recipe, filteredIndex) {
               aria-pressed="${isFavorite(recipe.name)}"
               title="Save to favorites">${isFavorite(recipe.name) ? '★' : '☆'}</button>
     </div>
+    <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
 
     <!-- Tags -->
     <div class="flex flex-wrap gap-2 mt-3">
