@@ -16,6 +16,10 @@
 <meta property="og:url" content="https://maggiemix.com/">
 <meta property="og:title" content="MaggieMix — 180+ Pakistani Recipes">
 <meta property="og:description" content="180+ Pakistani, Indian &amp; South Asian home recipes, curated by genuine desi home cooks. Bilingual. Filter by effort and type — or hit Pick For Me when you're tired of deciding.">
+<meta property="og:image" content="https://maggiemix.com/icons/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="MaggieMix — 180+ Pakistani Home Recipes">
 <meta property="og:site_name" content="MaggieMix">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ur_PK">
@@ -25,9 +29,22 @@
 <meta name="twitter:url" content="https://maggiemix.com/">
 <meta name="twitter:title" content="MaggieMix — 180+ Pakistani Recipes">
 <meta name="twitter:description" content="180+ Pakistani, Indian &amp; South Asian home recipes, curated by genuine desi home cooks. Bilingual. Filter by effort and type, or hit Pick For Me.">
+<meta name="twitter:image" content="https://maggiemix.com/icons/og-image.png">
+<meta name="twitter:image:alt" content="MaggieMix — 180+ Pakistani Home Recipes">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥘</text></svg>">
-<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥘</text></svg>">
+<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon-180.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icons/icon-512.png">
+
+<!-- PWA manifest -->
+<link rel="manifest" href="/manifest.json">
+
+<!-- iOS Safari PWA -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MaggieMix">
+<meta name="mobile-web-app-capable" content="yes">
 
 <!-- WebSite + Organization structured data (per-recipe structured data injected by JS at load) -->
 <script type="application/ld+json">
@@ -175,6 +192,17 @@ tailwind.config = {
     50% { transform: rotate(-4deg) scale(1); }
     75% { transform: rotate(4deg) scale(1.05); }
   }
+
+  /* Favorite star button */
+  .fav-btn { font-size: 28px; line-height: 1; cursor: pointer; background: none; border: none; padding: 4px 8px; color: #d6d3d1; transition: all 0.2s ease; border-radius: 8px; }
+  .fav-btn:hover { transform: scale(1.18); color: #f59e0b; background: rgba(245, 158, 11, 0.08); }
+  .fav-btn.is-fav { color: #f59e0b; text-shadow: 0 0 12px rgba(245, 158, 11, 0.45); }
+  .fav-btn:focus-visible { outline: 2px solid #ff8310; outline-offset: 2px; }
+  .fav-indicator { position: absolute; top: 10px; right: 10px; font-size: 18px; color: #f59e0b; text-shadow: 0 1px 4px rgba(0,0,0,0.25); z-index: 3; pointer-events: none; animation: favPop 0.4s ease forwards; }
+  @keyframes favPop { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .filter-pill.favorites-filter { background: #fffbeb; border-color: #fde68a; color: #92400e; font-weight: 600; }
+  .filter-pill.favorites-filter.active { background: #f59e0b; color: white; border-color: #d97706; }
+  .filter-pill.favorites-filter .star { margin-right: 4px; }
 
   /* Recipe image area */
   .recipe-image {
@@ -408,7 +436,7 @@ tailwind.config = {
       Aaj Kya Banayein<span class="text-saffron-400">?</span>
     </h1>
     <p class="font-display text-lg md:text-2xl text-pakgreen-200 italic mb-1">آج کیا بنائیں؟</p>
-    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-3 md:mt-4 max-w-xl mx-auto px-2">Your daily Pakistani recipe helper — 180+ home recipes curated by desi people. Filter by effort and type, or hit <span class="text-saffron-300 font-semibold">Pick For Me</span> when you're tired of deciding.</p>
+    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-3 md:mt-4 max-w-xl mx-auto px-2">Your daily Pakistani recipe helper. Filter by effort and type, or hit <span class="text-saffron-300 font-semibold">Pick For Me</span> when you're tired of deciding.</p>
 
     <!-- Decorative crescents -->
     <div class="absolute top-4 left-6 text-saffron-400 opacity-20 text-6xl select-none" aria-hidden="true">☪</div>
@@ -421,20 +449,20 @@ tailwind.config = {
   <div class="max-w-[1440px] mx-auto px-3 md:px-4 py-3 md:py-4">
 
     <!-- Filter rows -->
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3">
+    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3 min-h-[3rem] md:min-h-[3.5rem]">
       <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Protein</span>
-      <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters">
-        <button onclick="setFilter('protein','all')" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
+      <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters" role="group" aria-label="Filter by protein">
+        <button onclick="setFilter('protein','all')" aria-label="All proteins" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
         <button onclick="setFilter('protein','chicken')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-400 cursor-pointer">🐔 Chicken</button>
         <button onclick="setFilter('protein','meat')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-400 cursor-pointer">🥩 Meat</button>
         <button onclick="setFilter('protein','veg')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-400 cursor-pointer">🥬 Veg</button>
       </div>
     </div>
 
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3">
+    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-2 md:mb-3 min-h-[3rem] md:min-h-[3.5rem]">
       <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Type</span>
-      <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters">
-        <button onclick="setFilter('type','all')" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
+      <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters" role="group" aria-label="Filter by dish type">
+        <button onclick="setFilter('type','all')" aria-label="All types" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
         <button onclick="setFilter('type','rice')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-700 cursor-pointer">🍚 Rice</button>
         <button onclick="setFilter('type','saalan')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-600 cursor-pointer">🍛 Saalan</button>
         <button onclick="setFilter('type','sides')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-cardamom-500 cursor-pointer">🫓 Sides</button>
@@ -442,20 +470,25 @@ tailwind.config = {
       </div>
     </div>
 
-    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3">
+    <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 min-h-[3rem] md:min-h-[3.5rem]">
       <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0">Effort</span>
-      <div class="flex flex-wrap gap-1.5 md:gap-2" id="effortFilters">
-        <button onclick="setFilter('effort','all')" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
+      <div class="flex flex-wrap gap-1.5 md:gap-2" id="effortFilters" role="group" aria-label="Filter by effort level">
+        <button onclick="setFilter('effort','all')" aria-label="All effort levels" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
         <button onclick="setFilter('effort','quick')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-500 cursor-pointer">⚡ Quick</button>
         <button onclick="setFilter('effort','medium')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-500 cursor-pointer">🔥 Medium</button>
         <button onclick="setFilter('effort','elaborate')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-500 cursor-pointer">👩‍🍳 Elaborate</button>
       </div>
 
-      <!-- Pick For Me & Counter -->
+      <!-- Favorites pill + Pick For Me & Counter -->
       <div class="ml-auto flex items-center gap-2 md:gap-3">
-        <span class="text-xs md:text-sm text-stone-400"><span id="recipeCount" class="font-bold counter-badge text-sm md:text-base">0</span></span>
-        <button onclick="pickForMe()" class="pick-button shimmer px-5 md:px-8 py-3 md:py-3.5 rounded-2xl text-white font-bold text-base md:text-lg shadow-lg hover:shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
-          <span class="dice-wobble inline-block">🎲</span> <span class="hidden sm:inline">Pick For Me!</span><span class="sm:hidden">Surprise!</span>
+        <span id="favoritesPillWrap" style="display:none">
+          <button id="favoritesFilterBtn" onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium border cursor-pointer">
+            <span class="star">★</span><span class="hidden sm:inline">Saved </span>(<span class="fav-count">0</span>)
+          </button>
+        </span>
+        <span class="text-xs md:text-sm text-stone-400" aria-label="Total matching recipes"><span id="recipeCount" class="font-bold counter-badge text-sm md:text-base">0</span></span>
+        <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-5 md:px-8 py-3 md:py-3.5 rounded-2xl text-white font-bold text-base md:text-lg shadow-lg hover:shadow-2xl hover:scale-110 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
+          <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> <span class="hidden sm:inline">Pick For Me!</span><span class="sm:hidden">Surprise!</span>
         </button>
       </div>
     </div>
@@ -2895,6 +2928,116 @@ const recipes = [
 
     ingredients: ["6 eggs (hard-boiled, peeled)", "3 potatoes (cubed)", "2 onions (chopped)", "3 tomatoes (chopped)", "1 tbsp ginger-garlic paste", "1 tsp each: cumin, coriander powder, red chili, turmeric", "½ tsp garam masala", "2 tbsp oil", "Green chilies, fresh coriander"],
     notes: "Score the boiled eggs lightly with a knife before adding so the masala penetrates. Add potatoes first, cook until almost soft, THEN add eggs near the end so they don't fall apart. Some families crack the eggs whole into the simmering gravy instead — both methods are valid. Eat with paratha for sehri or chapati for dinner."
+  },
+
+  // ─── PAKISTANI-CHINESE ────────────────────────────────
+  {
+    name: "Chicken Manchurian",
+    urdu: "چکن مانچورین",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "1 hr",
+    desc: "Crispy fried chicken dumplings tossed in a sweet-tangy ginger-garlic-soy gravy with capsicum and scallions. The undisputed king of every Pakistani-Chinese dawat menu.",
+    urduDesc: "کرسپی تلے ہوئے چکن کے کوفتے جو ادرک، لہسن اور سویا ساس کی میٹھی چٹپٹی گریوی میں لپٹے ہوں۔ پاکستانی چائنیز دعوتوں کا بے تاج بادشاہ۔",
+
+    ingredients: ["500g boneless chicken (cubed)", "1 egg", "3 tbsp cornflour", "2 tbsp all-purpose flour", "2 tbsp soy sauce", "2 tbsp ketchup", "1 tbsp chili garlic sauce", "1 tbsp vinegar", "1 tbsp sugar", "1 tbsp ginger-garlic paste", "1 capsicum (cubed)", "1 onion (cubed)", "4 green chilies (slit)", "2 scallions (chopped)", "Salt and white pepper to taste", "Oil for deep frying"],
+    notes: "For the dry version, reduce the sauce until it just coats the chicken. For gravy-style, add 1 cup chicken stock with a cornflour slurry and let it thicken. Fry the chicken pieces twice for that signature restaurant crunch — once to cook, once just before tossing."
+  },
+  {
+    name: "Chinese Egg Fried Rice",
+    urdu: "چائنیز ایگ فرائیڈ رائس",
+    protein: "veg",
+    type: "rice",
+    effort: "quick",
+    time: "25 min",
+    desc: "Garlic-laden basmati fried rice tumbled with scrambled egg, soy, vinegar, white pepper, and scallions. The mandatory partner for anything from a Pakistani-Chinese dawat.",
+    urduDesc: "لہسن سے بھرپور باسمتی فرائیڈ رائس، انڈے، سویا، سرکہ، سفید مرچ اور ہری پیاز کے ساتھ۔ ہر پاکستانی چائنیز دعوت کا لازمی جوڑی دار۔",
+
+    ingredients: ["3 cups cooked basmati rice (cold, day-old)", "3 eggs (beaten)", "6 cloves garlic (finely chopped)", "1 cup mixed vegetables (carrot, peas, beans)", "3 scallions (chopped, whites and greens separate)", "2 tbsp soy sauce", "1 tbsp vinegar", "1 tsp white pepper", "1 tsp sugar", "Salt to taste", "3 tbsp oil"],
+    notes: "Cold day-old rice is non-negotiable — fresh rice turns mushy and clumpy. Cook on the highest flame your stove allows for that smoky wok-hei flavor. Scramble the eggs first, push aside, then attack the garlic and rice."
+  },
+  {
+    name: "Chicken Chow Mein",
+    urdu: "چکن چاؤمین",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "40 min",
+    desc: "Stir-fried noodles with shredded chicken, julienned vegetables, soy, vinegar, and chili sauce. Always first on the order list when Pakistani families pull up to a Chinese restaurant.",
+    urduDesc: "تلے ہوئے نوڈلز جن میں شریڈڈ چکن، باریک کٹی سبزیاں، سویا ساس، سرکہ اور چلی ساس شامل ہو۔ پاکستانی فیملیز کے چائنیز ریسٹورنٹ آرڈر کا پہلا نام۔",
+
+    ingredients: ["400g egg noodles", "300g boneless chicken (shredded)", "1 carrot (julienned)", "1 capsicum (julienned)", "1 cup cabbage (shredded)", "1 onion (sliced)", "3 scallions (chopped)", "1 tbsp ginger-garlic paste", "3 tbsp soy sauce", "2 tbsp vinegar", "1 tbsp chili garlic sauce", "1 tsp white pepper", "1 tsp sugar", "Salt to taste", "3 tbsp oil"],
+    notes: "Boil the noodles just until al dente — they keep cooking in the wok. Toss them with a teaspoon of oil right after draining so they don't stick. Keep vegetables crunchy by stir-frying on high heat for no more than two minutes."
+  },
+  {
+    name: "Honey Chili Chicken",
+    urdu: "ہنی چلی چکن",
+    protein: "chicken",
+    type: "snacks",
+    effort: "medium",
+    time: "45 min",
+    desc: "Crispy battered chicken tossed in a sticky honey-chili-soy glaze, finished with sesame seeds and scallions. A restaurant-favorite Pakistani-Chinese starter that disappears in minutes.",
+    urduDesc: "کرسپی تلا ہوا چکن جو شہد، مرچ اور سویا ساس کی چپچپی چاشنی میں لپٹا ہو، اوپر تل اور ہری پیاز چھڑکی ہو۔ پاکستانی چائنیز ریسٹورنٹس کا مشہور سٹارٹر۔",
+
+    ingredients: ["500g boneless chicken (cubed)", "1 egg", "3 tbsp cornflour", "2 tbsp all-purpose flour", "3 tbsp honey", "2 tbsp soy sauce", "2 tbsp chili garlic sauce", "1 tbsp ketchup", "1 tbsp vinegar", "1 tbsp ginger-garlic paste", "2 dried red chilies", "2 scallions (chopped)", "1 tbsp sesame seeds", "Salt and white pepper to taste", "Oil for deep frying"],
+    notes: "Toss the chicken in the glaze right before serving — wait too long and the crispy coating turns soggy. Adjust honey-to-chili ratio to taste; the sauce should be sticky enough to cling, not pool. A dash of red food color gives it that bright restaurant look."
+  },
+
+  // ─── MORE DRINKS ──────────────────────────────────────
+  {
+    name: "Nimbu Pani",
+    urdu: "نیمبو پانی",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "10 min",
+    desc: "Fresh lime water shaken with sugar or salt, mint, black salt, and roasted cumin. The universal Pakistani summer drink, sold on every street corner from Karachi to Lahore.",
+    urduDesc: "تازہ لیموں کا پانی، چینی یا نمک، پودینہ، کالا نمک اور بھنا زیرہ ملا کر بنایا گیا۔ کراچی سے لاہور تک ہر گلی کا پاکستانی گرمیوں کا مشروب۔",
+
+    ingredients: ["4 fresh lemons (juiced)", "4 cups chilled water", "4 tbsp sugar (or to taste)", "1 tsp black salt", "½ tsp roasted cumin powder", "¼ tsp regular salt", "Handful fresh mint leaves", "Ice cubes", "Lemon slices for garnish"],
+    notes: "Roll the lemons firmly on the counter before juicing — you'll get nearly double the juice. For the salty version, drop the sugar and double the black salt and cumin. Crush the mint leaves between your palms before adding to release their oils."
+  },
+  {
+    name: "Sattu Sharbat",
+    urdu: "ستو شربت",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "10 min",
+    desc: "Roasted gram-flour drink whisked with sugar (sweet) or lemon, salt, and cumin (savory). A Punjabi-Bihari cooling tonic that gets you through blazing loo-filled summers.",
+    urduDesc: "بھنے ہوئے چنے کے آٹے کا مشروب، چینی کے ساتھ میٹھا یا لیموں، نمک اور زیرے کے ساتھ نمکین۔ پنجابی اور بہاری گھرانوں کا گرمی کا علاج۔",
+
+    ingredients: ["4 tbsp sattu (roasted gram flour)", "3 cups chilled water", "3 tbsp sugar OR 2 tbsp lemon juice", "½ tsp black salt (for savory)", "½ tsp roasted cumin powder (for savory)", "1 green chili (finely chopped, for savory)", "Handful fresh mint leaves", "Ice cubes"],
+    notes: "Whisk the sattu into a little water first to make a smooth paste, then top up — otherwise you'll fight lumps the whole way. Drink it on an empty stomach in the morning for a working-man's protein boost. The savory version is what farmers actually drink in the fields."
+  },
+  {
+    name: "Tamarind Sharbat",
+    urdu: "املی کا شربت",
+    protein: "veg",
+    type: "snacks",
+    effort: "quick",
+    time: "15 min",
+    desc: "Tamarind pulp let loose into chilled water with jaggery, black salt, and roasted cumin. THE iftar opener that revives you after a long Ramzan fast.",
+    urduDesc: "املی کا گودا ٹھنڈے پانی، گڑ، کالا نمک اور بھنے زیرے کے ساتھ۔ لمبے روزے کے بعد افطار کا سب سے پہلا اور بہترین مشروب۔",
+
+    ingredients: ["½ cup tamarind pulp (seedless)", "4 cups chilled water", "4 tbsp jaggery or sugar", "1 tsp black salt", "1 tsp roasted cumin powder", "½ tsp black pepper", "¼ tsp red chili powder", "Handful fresh mint leaves", "Ice cubes"],
+    notes: "Soak the tamarind in warm water for 20 minutes, then squeeze out the pulp by hand and strain — this gives the cleanest flavor. Jaggery adds an earthy depth that white sugar can't match. Make it a day ahead and let it sit in the fridge; the spices marry beautifully overnight."
+  },
+
+  // ─── SEHRI / BREAKFAST ────────────────────────────────
+  {
+    name: "Anda Bhurji",
+    urdu: "انڈا بھرجی",
+    protein: "veg",
+    type: "saalan",
+    effort: "quick",
+    time: "15 min",
+    desc: "Scrambled eggs Pakistani-style with tomato, onion, green chili, fresh coriander, and a whisper of garam masala. The 10-minute sehri and breakfast that every Pakistani household lives on.",
+    urduDesc: "پاکستانی انداز کے بھرجی انڈے، ٹماٹر، پیاز، ہری مرچ، تازہ ہرا دھنیا اور گرم مصالحہ کے ساتھ۔ سحری اور ناشتے کا دس منٹ والا وفادار ساتھی۔",
+
+    ingredients: ["4 eggs (beaten)", "1 onion (finely chopped)", "1 tomato (finely chopped)", "2 green chilies (chopped)", "½ tsp red chili powder", "¼ tsp turmeric", "¼ tsp garam masala", "¼ tsp cumin seeds", "Salt to taste", "2 tbsp oil or ghee", "Fresh coriander for garnish"],
+    notes: "Cook the onion until just translucent — don't brown it or the bhurji turns heavy. Add the eggs on low heat and stir constantly with the edge of your spoon for that signature soft, fluffy curd. Eat hot with parathas, or stuffed into a fresh roll for sehri."
   }
 ];
 
@@ -2939,11 +3082,61 @@ function updateFilterUI() {
   effortBtns[effortMap[activeFilters.effort]].classList.add(effortClasses[activeFilters.effort]);
 }
 
+// ============================================================
+// FAVORITES (localStorage-backed, no account required)
+// ============================================================
+const FAV_KEY = 'maggiemix:favorites';
+let favoritesOnly = false;
+
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem(FAV_KEY) || '[]'); } catch (e) { return []; }
+}
+function isFavorite(name) { return getFavorites().includes(name); }
+function toggleFavorite(name, ev) {
+  if (ev) ev.stopPropagation();
+  let favs = getFavorites();
+  const i = favs.indexOf(name);
+  if (i === -1) favs.push(name); else favs.splice(i, 1);
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(favs)); } catch (e) {}
+  document.querySelectorAll('[data-fav-name="' + CSS.escape(name) + '"]').forEach(btn => {
+    const fav = isFavorite(name);
+    btn.classList.toggle('is-fav', fav);
+    btn.textContent = fav ? '★' : '☆';
+    btn.setAttribute('aria-label', fav ? 'Remove from favorites' : 'Save to favorites');
+    btn.setAttribute('aria-pressed', String(fav));
+  });
+  updateFavoritesPill();
+  renderCards();
+}
+function toggleFavoritesFilter() {
+  favoritesOnly = !favoritesOnly;
+  updateFavoritesPill();
+  renderCards();
+}
+function updateFavoritesPill() {
+  const wrap = document.getElementById('favoritesPillWrap');
+  if (!wrap) return;
+  const count = getFavorites().length;
+  if (count === 0) {
+    wrap.style.display = 'none';
+    favoritesOnly = false;
+  } else {
+    wrap.style.display = '';
+    const pill = document.getElementById('favoritesFilterBtn');
+    if (pill) {
+      pill.classList.toggle('active', favoritesOnly);
+      pill.setAttribute('aria-pressed', String(favoritesOnly));
+      pill.querySelector('.fav-count').textContent = count;
+    }
+  }
+}
+
 function getFilteredRecipes() {
   let filtered = recipes.filter(r => {
     if (activeFilters.protein !== 'all' && r.protein !== activeFilters.protein) return false;
     if (activeFilters.type !== 'all' && r.type !== activeFilters.type) return false;
     if (activeFilters.effort !== 'all' && r.effort !== activeFilters.effort) return false;
+    if (favoritesOnly && !isFavorite(r.name)) return false;
     return true;
   });
 
@@ -3015,7 +3208,10 @@ const recipeEmojis = {
   "Doodh Patti Chai": "☕", "Kashmiri Pink Chai": "🌸", "Masala Chai": "🍵",
   "Mango Lassi": "🥭", "Rooh Afza Milk": "🌹",
   "Kofta Curry": "⚪", "Sindhi Biryani": "🌶️", "Bombay Biryani": "🥘", "Memoni Biryani": "🔥",
-  "Mutton Pasanda": "👑", "Chicken Broast": "🍗", "Fish Biryani": "🐟", "Aloo Anday": "🥚"
+  "Mutton Pasanda": "👑", "Chicken Broast": "🍗", "Fish Biryani": "🐟", "Aloo Anday": "🥚",
+  "Chicken Manchurian": "🥡", "Chinese Egg Fried Rice": "🍚", "Chicken Chow Mein": "🍜", "Honey Chili Chicken": "🍯",
+  "Nimbu Pani": "🍋", "Sattu Sharbat": "🌾", "Tamarind Sharbat": "🟤",
+  "Anda Bhurji": "🍳"
 };
 
 // Gradient palettes per protein with variety
@@ -3134,6 +3330,7 @@ function renderCards(highlightId = null) {
   grid.innerHTML = filtered.map((r, i) => {
     const pt = getProteinTag(r.protein);
     const isHighlighted = highlightId === i;
+    const fav = isFavorite(r.name);
 
     return `
       <div class="recipe-card card-enter scroll-highlight bg-white rounded-2xl border border-stone-200 overflow-hidden cursor-pointer ${isHighlighted ? 'highlighted' : ''}"
@@ -3144,7 +3341,8 @@ function renderCards(highlightId = null) {
         <div class="recipe-image rounded-t-2xl" style="background: ${getRecipeGradient(r, i)}">
           <div class="img-pattern"></div>
           <div class="img-glow" style="background: ${getGlowColor(r, i)}"></div>
-          <span class="emoji-icon">${getRecipeEmoji(r.name)}</span>
+          <span class="emoji-icon" aria-hidden="true">${getRecipeEmoji(r.name)}</span>
+          ${fav ? '<span class="fav-indicator" aria-label="Saved">★</span>' : ''}
         </div>
 
         <div class="p-5">
@@ -3152,7 +3350,7 @@ function renderCards(highlightId = null) {
           <div class="flex items-start justify-between mb-3">
             <div class="flex-1 min-w-0">
               <h3 class="font-display text-lg font-semibold text-stone-800 leading-tight">${r.name}</h3>
-              <p class="text-stone-600 text-sm mt-0.5 font-medium" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${r.urdu}</p>
+              <p class="text-stone-600 text-sm mt-0.5 font-medium" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${r.urdu}</p>
             </div>
             <div class="flex items-center gap-1.5 ml-3 shrink-0" title="${getEffortLabel(r.effort)}">
               ${getEffortDots(r.effort)}
@@ -3168,7 +3366,7 @@ function renderCards(highlightId = null) {
 
           <!-- Description -->
           <p class="text-stone-600 text-sm leading-relaxed">${r.desc}</p>
-          <p class="text-stone-500 text-sm leading-relaxed mt-1.5" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${r.urduDesc}</p>
+          <p class="text-stone-500 text-sm leading-relaxed mt-1.5" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${r.urduDesc}</p>
 
           <!-- Tap hint -->
           <div class="flex items-center justify-end mt-2">
@@ -3224,9 +3422,19 @@ function renderDetailPanel(recipe, filteredIndex) {
       </div>
 
       <div class="p-6">
-        <!-- Title -->
-        <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
-        <p class="text-stone-600 text-base mt-1 font-medium" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
+        <!-- Title + Favorite Star -->
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex-1 min-w-0">
+            <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
+            <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
+          </div>
+          <button class="fav-btn ${isFavorite(recipe.name) ? 'is-fav' : ''} shrink-0"
+                  data-fav-name="${recipe.name}"
+                  onclick="toggleFavorite('${recipe.name.replace(/'/g, "\\'")}', event)"
+                  aria-label="${isFavorite(recipe.name) ? 'Remove from' : 'Save to'} favorites"
+                  aria-pressed="${isFavorite(recipe.name)}"
+                  title="Save to favorites">${isFavorite(recipe.name) ? '★' : '☆'}</button>
+        </div>
 
         <!-- Tags -->
         <div class="flex flex-wrap gap-2 mt-4">
@@ -3238,14 +3446,14 @@ function renderDetailPanel(recipe, filteredIndex) {
 
         <!-- Description -->
         <p class="text-stone-600 text-sm leading-relaxed mt-4">${recipe.desc}</p>
-        <p class="text-stone-500 text-sm leading-relaxed mt-2" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
+        <p class="text-stone-500 text-sm leading-relaxed mt-2" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
 
         <!-- Divider -->
         <div class="border-t border-stone-100 mt-5 pt-5">
           <!-- Ingredients -->
           <h4 class="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">Ingredients</h4>
           <ul class="space-y-1.5 mb-5">
-            ${recipe.ingredients.map(ing => `<li class="text-sm text-stone-600 flex items-start gap-2"><span class="text-saffron-400 mt-0.5 text-xs">●</span>${ing}</li>`).join('')}
+            ${recipe.ingredients.map(ing => `<li class="text-sm text-stone-600 flex items-start gap-2"><span class="text-saffron-400 mt-0.5 text-xs" aria-hidden="true">●</span>${ing}</li>`).join('')}
           </ul>
 
           <!-- Cook's Notes -->
@@ -3305,9 +3513,19 @@ function openSheet(recipe, filteredIndex) {
       <span class="emoji-icon">${getRecipeEmoji(recipe.name)}</span>
     </div>
 
-    <!-- Title -->
-    <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
-    <p class="text-stone-600 text-base mt-1 font-medium" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
+    <!-- Title + Favorite Star -->
+    <div class="flex items-start justify-between gap-3">
+      <div class="flex-1 min-w-0">
+        <h2 class="font-display text-2xl font-bold text-stone-800 leading-tight">${recipe.name}</h2>
+        <p class="text-stone-600 text-base mt-1 font-medium" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urdu}</p>
+      </div>
+      <button class="fav-btn ${isFavorite(recipe.name) ? 'is-fav' : ''} shrink-0"
+              data-fav-name="${recipe.name}"
+              onclick="toggleFavorite('${recipe.name.replace(/'/g, "\\'")}', event)"
+              aria-label="${isFavorite(recipe.name) ? 'Remove from' : 'Save to'} favorites"
+              aria-pressed="${isFavorite(recipe.name)}"
+              title="Save to favorites">${isFavorite(recipe.name) ? '★' : '☆'}</button>
+    </div>
 
     <!-- Tags -->
     <div class="flex flex-wrap gap-2 mt-3">
@@ -3319,13 +3537,13 @@ function openSheet(recipe, filteredIndex) {
 
     <!-- Description -->
     <p class="text-stone-600 text-sm leading-relaxed mt-4">${recipe.desc}</p>
-    <p class="text-stone-500 text-sm leading-relaxed mt-2" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
+    <p class="text-stone-500 text-sm leading-relaxed mt-2" lang="ur" lang="ur" style="font-family: 'Noto Nastaliq Urdu', serif; direction: rtl;">${recipe.urduDesc}</p>
 
     <!-- Ingredients -->
     <div class="border-t border-stone-100 mt-5 pt-5">
       <h4 class="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">Ingredients</h4>
       <ul class="space-y-1.5 mb-5">
-        ${recipe.ingredients.map(ing => `<li class="text-sm text-stone-600 flex items-start gap-2"><span class="text-saffron-400 mt-0.5 text-xs">●</span>${ing}</li>`).join('')}
+        ${recipe.ingredients.map(ing => `<li class="text-sm text-stone-600 flex items-start gap-2"><span class="text-saffron-400 mt-0.5 text-xs" aria-hidden="true">●</span>${ing}</li>`).join('')}
       </ul>
 
       <h4 class="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">Cook's Notes</h4>
@@ -3441,7 +3659,17 @@ function injectRecipeStructuredData() {
 // ============================================================
 // INIT
 // ============================================================
+// Fisher-Yates shuffle so the homepage looks different every page load.
+// Stable within a session — only reshuffles on hard reload, not on filter changes.
+(function shuffleRecipes() {
+  for (let i = recipes.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [recipes[i], recipes[j]] = [recipes[j], recipes[i]];
+  }
+})();
+
 renderCards();
+updateFavoritesPill();
 injectRecipeStructuredData();
 </script>
 
