@@ -4,7 +4,7 @@
 
 Live at **[maggiemix.com](https://maggiemix.com)**.
 
-MaggieMix answers the eternal question *"aaj kya banayein?"* (what should we cook today?). Browse karahi, biryani, nihari, chaat, mithai, chai and more — filter by effort and type, or hit **Pick For Me** when you're tired of deciding.
+MaggieMix exists to answer the eternal question: *"aaj kya banayein?"* (what should we cook today?). Karahi, biryani, nihari, chaat, mithai, chai. Filter by how much effort you have left in you, or hit **Pick For Me** and let the app decide dinner.
 
 ## Features
 
