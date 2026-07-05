@@ -400,15 +400,20 @@ tailwind.config = {
   /* ── MOBILE: compact filter bar ── */
   @media (max-width: 767px) {
     .filter-label { display: none; }
-    .filter-pill { padding: 6px 12px; font-size: 13px; }
-    .filter-row { gap: 6px; margin-bottom: 8px; }
-    .filter-row .flex-wrap { gap: 6px; }
+    /* High-specificity overrides for Tailwind utilities on filter pills */
+    .filter-row .filter-pill { padding: 5px 8px !important; font-size: 12.5px !important; }
+    .filter-row { gap: 4px; margin-bottom: 6px; }
+    .filter-row .flex-wrap { gap: 4px !important; }
     .recipe-image { height: 100px; }
     .recipe-image .emoji-icon { font-size: 48px; }
     .recipe-card .p-5 { padding: 12px; }
     .recipe-card h3 { font-size: 15px; }
     .recipe-card .text-sm { font-size: 13px; }
     .mobile-pick-row { flex-direction: row; justify-content: space-between; width: 100%; }
+  }
+  /* Even tighter on very narrow phones */
+  @media (max-width: 380px) {
+    .filter-row .filter-pill { padding: 4px 7px !important; font-size: 12px !important; }
   }
 
   /* ── MOBILE: sheet image ── */
@@ -494,19 +499,19 @@ tailwind.config = {
             <button onclick="setFilter('effort','medium')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-500 cursor-pointer">🔥 Medium</button>
             <button onclick="setFilter('effort','elaborate')" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-500 cursor-pointer">👩‍🍳 Elaborate</button>
           </div>
+        </div>
 
-          <!-- MOBILE Pick For Me area (inline in effort row, lg:hidden on desktop) -->
-          <div class="lg:hidden ml-auto flex items-center gap-2">
-            <span id="favoritesPillWrapMobile" style="display:none">
-              <button onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
-                <span class="star">★</span>(<span class="fav-count-mobile">0</span>)
-              </button>
-            </span>
-            <span class="text-xs text-stone-400"><span id="recipeCountMobile" class="font-bold counter-badge text-sm">0</span></span>
-            <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-4 py-2 rounded-xl text-white font-bold text-sm shadow-md hover:shadow-xl active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-1 ring-offset-white">
-              <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> Surprise!
+        <!-- MOBILE Pick For Me row (own row, lg:hidden on desktop) -->
+        <div class="lg:hidden flex items-center justify-between gap-3 mt-2 pt-2 border-t border-stone-100">
+          <span id="favoritesPillWrapMobile" style="display:none">
+            <button onclick="toggleFavoritesFilter()" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
+              <span class="star">★</span>(<span class="fav-count-mobile">0</span>)
             </button>
-          </div>
+          </span>
+          <span class="text-xs text-stone-500"><span id="recipeCountMobile" class="font-bold counter-badge text-sm">0</span> recipes</span>
+          <button onclick="pickForMe()" aria-label="Pick a random recipe for me" class="pick-button shimmer px-4 py-2 rounded-xl text-white font-bold text-sm shadow-md hover:shadow-xl active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-1 ring-offset-white">
+            <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> Surprise!
+          </button>
         </div>
       </div>
 
