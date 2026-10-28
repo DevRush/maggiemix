@@ -1,6 +1,7 @@
 {
   "name": "MaggieMix — Pakistani Recipe Helper",
   "short_name": "MaggieMix",
+  "id": "/",
   "description": "180+ Pakistani, Indian & South Asian home recipes, curated by genuine desi home cooks. Bilingual (Urdu + English). Filter by effort and type, or hit Pick For Me when you're tired of deciding.",
   "start_url": "/",
   "scope": "/",
@@ -10,7 +11,11 @@
   "theme_color": "#15531e",
   "lang": "en",
   "dir": "ltr",
-  "categories": ["food", "lifestyle", "reference"],
+  "categories": [
+    "food",
+    "lifestyle",
+    "reference"
+  ],
   "icons": [
     {
       "src": "/icons/icon-192.png",
