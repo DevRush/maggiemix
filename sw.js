@@ -11,7 +11,7 @@
  * Bump CACHE_VERSION when you want old caches purged on the next activation
  * (not required for routine content updates thanks to network-first).
  */
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = `maggiemix-${CACHE_VERSION}`;
 const NETWORK_TIMEOUT_MS = 4000;
 
@@ -30,7 +30,7 @@ const APP_SHELL = [
 const FONT_HOSTS = ['fonts.googleapis.com', 'fonts.gstatic.com'];
 // Best-effort extras: fetched at install if the network allows, never block installation.
 const OPTIONAL = [
-  'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap',
+  'https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap',
 ];
 
 self.addEventListener('install', event => {

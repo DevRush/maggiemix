@@ -17,8 +17,9 @@ const TYPE = new Set(['rice', 'saalan', 'sides', 'snacks']);
 const EFFORT = new Set(['quick', 'medium', 'elaborate']);
 const TIME_RE = /^(?:\d+(?:\.\d+)?\+?\s*hrs?)?\s*(?:\d+\s*min)?$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const STRING_FIELDS = ['id', 'name', 'urdu', 'emoji', 'protein', 'type', 'effort', 'time', 'desc', 'urduDesc', 'notes'];
-const ALLOWED = new Set([...STRING_FIELDS, 'ingredients']);
+const STRING_FIELDS = ['id', 'name', 'urdu', 'protein', 'type', 'effort', 'time', 'desc', 'urduDesc', 'notes'];
+const OPTIONAL_STRING_FIELDS = ['emoji'];
+const ALLOWED = new Set([...STRING_FIELDS, ...OPTIONAL_STRING_FIELDS, 'ingredients']);
 
 const errors = [];
 const err = (r, msg) => errors.push(`${r && r.name ? r.name : '(unnamed)'}: ${msg}`);
@@ -32,6 +33,9 @@ const ids = new Map(), names = new Map();
 recipes.forEach((r, i) => {
   for (const f of STRING_FIELDS) {
     if (typeof r[f] !== 'string' || !r[f].trim()) err(r, `missing or empty "${f}"`);
+  }
+  for (const f of OPTIONAL_STRING_FIELDS) {
+    if (r[f] !== undefined && (typeof r[f] !== 'string' || !r[f].trim())) err(r, `"${f}" must be a non-empty string when present`);
   }
   if (!Array.isArray(r.ingredients) || r.ingredients.length === 0) err(r, 'ingredients must be a non-empty array');
   else r.ingredients.forEach((ing, j) => { if (typeof ing !== 'string' || !ing.trim()) err(r, `ingredient #${j + 1} is empty`); });

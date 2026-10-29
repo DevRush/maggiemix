@@ -9,7 +9,7 @@ MaggieMix exists to answer the eternal question: *"aaj kya banayein?"* (what sho
 ## Features
 
 - **188 curated recipes** from genuine desi home cooks, each with ingredients and cook's notes
-- **Bilingual** — Urdu and English, with proper Nastaliq typography
+- **Bilingual** — Urdu and English; every card leads with the dish's name in Nastaliq
 - **Filter by protein, type and effort** — quick weeknight daal vs. weekend nihari
 - **Search** — by name (English or Urdu), description or ingredient (`?q=haleem` works too)
 - **Pick For Me** — one tap picks dinner for you
@@ -45,7 +45,9 @@ Keep each recipe's `id` stable once published — it is what favourites, share l
 
 ### Changing styles
 
-Utility classes come from a **static Tailwind v3 build** committed as `css/tailwind.css` (about 18 KB) instead of the runtime Tailwind CDN. If you add or change a utility class in `index.html` or `js/app.js`, regenerate it:
+The look ("Dastarkhwan": deep green, saffron and rani pink on cream, DM Serif Display + Manrope + Noto Nastaliq Urdu) is defined once as CSS variables at the top of `css/styles.css`; the same values are mirrored in `tailwind.config.js` for the few layout utilities that need a colour.
+
+Utility classes come from a **static Tailwind v3 build** committed as `css/tailwind.css` (under 10 KB) instead of the runtime Tailwind CDN. If you add or change a utility class in `index.html` or `js/app.js`, regenerate it:
 
 ```sh
 npm install           # once

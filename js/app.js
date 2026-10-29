@@ -11,16 +11,16 @@
   const SITE_URL = 'https://maggiemix.com/';
   const DESKTOP = window.matchMedia('(min-width: 1024px)');
 
-  const PROTEIN_TAG = {
-    chicken: { cls: 'tag-chicken', label: '🐔 Chicken' },
-    meat:    { cls: 'tag-meat',    label: '🥩 Meat' },
-    veg:     { cls: 'tag-veg',     label: '🥬 Veg' },
+  const PROTEIN = {
+    chicken: { cls: 'card-chicken', label: 'Chicken' },
+    meat:    { cls: 'card-meat',    label: 'Meat' },
+    veg:     { cls: 'card-veg',     label: 'Veg' },
   };
-  const TYPE_LABEL = { rice: '🍚 Rice', saalan: '🍛 Saalan', sides: '🫓 Side', snacks: '🍡 Snacks' };
+  const TYPE_LABEL = { rice: 'Rice', saalan: 'Saalan', sides: 'Side', snacks: 'Snack' };
   const EFFORT = {
-    quick:     { level: 1, label: 'Quick',     icon: '⚡',  color: 'text-pakgreen-600' },
-    medium:    { level: 2, label: 'Medium',    icon: '🔥',  color: 'text-saffron-600' },
-    elaborate: { level: 3, label: 'Elaborate', icon: '👩‍🍳', color: 'text-henna-600' },
+    quick:     { level: 1, label: 'Quick' },
+    medium:    { level: 2, label: 'Medium' },
+    elaborate: { level: 3, label: 'Elaborate' },
   };
   // Active-pill colour per filter value (CSS classes live in css/styles.css)
   const ACTIVE_CLASS = {
@@ -29,7 +29,6 @@
     effort:  { all: 'active-all', quick: 'active-quick', medium: 'active-medium', elaborate: 'active-elaborate' },
   };
   const ALL_ACTIVE_CLASSES = Object.values(ACTIVE_CLASS).flatMap(m => Object.values(m));
-  const PALETTE_SIZE = 5; // matches the .grad-*-N / .glow-*-N rules in styles.css
 
   // ---------- DOM ----------
   const $ = (sel, root = document) => root.querySelector(sel);
@@ -47,7 +46,6 @@
     sheetBackdrop: $('#sheetBackdrop'),
     sheetContent: $('#sheetContent'),
     searchInputs: $$('.search-input'),
-    searchRowMobile: $('#searchRowMobile'),
     toast: $('#toast'),
   };
 
@@ -76,16 +74,6 @@
   }
   function escapeHtml(s) {
     return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
-  }
-  // Small stable hash so each recipe keeps the same gradient on every visit.
-  function hash(str) {
-    let h = 0;
-    for (let i = 0; i < str.length; i++) h = (h * 31 + str.charCodeAt(i)) >>> 0;
-    return h;
-  }
-  function paletteFor(r) {
-    const family = r.type === 'snacks' ? 'snacks' : (PROTEIN_TAG[r.protein] ? r.protein : 'chicken');
-    return `${family}-${hash(r.id) % PALETTE_SIZE}`;
   }
   function isDesktop() { return DESKTOP.matches; }
   function debounce(fn, ms) {
@@ -124,7 +112,6 @@
   }
   function setFavButtonState(btn, fav) {
     btn.classList.toggle('is-fav', fav);
-    btn.textContent = fav ? '★' : '☆';
     btn.setAttribute('aria-label', fav ? 'Remove from saved recipes' : 'Save this recipe');
     btn.setAttribute('aria-pressed', String(fav));
   }
@@ -201,84 +188,82 @@
   }
 
   // ---------- Rendering ----------
-  function effortDots(effort) {
+  const icon = name => `<svg aria-hidden="true"><use href="#i-${name}"></use></svg>`;
+  function effortHtml(effort) {
     const e = EFFORT[effort] || EFFORT.quick;
-    let out = '';
-    for (let i = 0; i < 3; i++) out += `<span class="effort-dot ${i < e.level ? 'effort-filled' : 'effort-empty'} ${e.color}"></span>`;
-    return out;
+    let squares = '';
+    for (let i = 0; i < 3; i++) squares += `<i class="${i < e.level ? 'on' : ''}"></i>`;
+    return `<span class="effort" role="img" aria-label="Effort: ${e.label}" title="${e.label}">${squares}</span>`;
   }
-  function tagsHtml(r, size) {
-    const pt = PROTEIN_TAG[r.protein] || { cls: 'tag-sides', label: escapeHtml(r.protein) };
-    const e = EFFORT[r.effort];
-    const pad = size === 'lg' ? 'px-3 py-1' : 'px-2.5 py-0.5';
-    return `
-      <span class="${pad} rounded-full text-xs font-medium ${pt.cls}">${pt.label}</span>
-      <span class="${pad} rounded-full text-xs font-medium bg-stone-100 text-stone-600">${TYPE_LABEL[r.type] || escapeHtml(r.type)}</span>
-      <span class="${pad} rounded-full text-xs font-medium bg-stone-50 text-stone-500">⏱ ${escapeHtml(r.time)}</span>
-      ${size === 'lg' && e ? `<span class="${pad} rounded-full text-xs font-medium bg-stone-50 text-stone-500">${e.icon} ${e.label}</span>` : ''}`;
+  function proteinOf(r) { return PROTEIN[r.protein] || { cls: 'card-other', label: escapeHtml(r.protein) }; }
+  function favButtonHtml(r) {
+    const fav = isFavorite(r.id);
+    return `<button type="button" class="fav-btn${fav ? ' is-fav' : ''}" data-fav="${r.id}"
+              aria-label="${fav ? 'Remove from saved recipes' : 'Save this recipe'}" aria-pressed="${fav}">${icon('star')}</button>`;
   }
-  function illustrationHtml(r, cls, { favBadge = false } = {}) {
-    const p = paletteFor(r);
-    return `
-      <div class="${cls} grad-${p}">
-        <div class="img-pattern"></div>
-        <div class="img-glow glow-${p}"></div>
-        <span class="emoji-icon" aria-hidden="true">${r.emoji}</span>
-        ${favBadge && isFavorite(r.id) ? '<span class="fav-indicator" aria-hidden="true">★</span>' : ''}
-      </div>`;
-  }
+
   function cardHtml(r) {
     const selected = r.id === state.selectedId && isDesktop();
     const picked = r.id === state.pickedId;
+    const p = proteinOf(r);
     return `
-      <article class="recipe-card card-enter bg-white rounded-2xl border border-stone-200 overflow-hidden cursor-pointer${selected ? ' selected' : ''}${picked ? ' highlighted' : ''}"
+      <article class="recipe-card card-enter ${p.cls}${selected ? ' selected' : ''}${picked ? ' highlighted' : ''}"
                data-id="${r.id}"${picked ? ' id="highlighted-card"' : ''}>
-        ${illustrationHtml(r, 'recipe-image rounded-t-2xl', { favBadge: true })}
-        <div class="p-5 card-body">
-          <div class="flex items-start justify-between mb-3">
-            <div class="flex-1 min-w-0">
-              <h2 class="font-display text-lg font-semibold text-stone-800 leading-tight"><button type="button" class="card-title-btn" data-open="${r.id}">${escapeHtml(r.name)}</button></h2>
-              <p class="urdu text-stone-600 text-sm mt-0.5 font-medium" lang="ur" dir="rtl">${escapeHtml(r.urdu)}</p>
-            </div>
-            <div class="flex items-center gap-1.5 ml-3 shrink-0" role="img" title="${EFFORT[r.effort] ? EFFORT[r.effort].label : ''}" aria-label="Effort: ${EFFORT[r.effort] ? EFFORT[r.effort].label : ''}">
-              ${effortDots(r.effort)}
-            </div>
+        ${isFavorite(r.id) ? `<span class="fav-indicator" aria-hidden="true">${icon('star')}</span>` : ''}
+        <div class="card-illo">
+          <span class="urdu" lang="ur" dir="rtl">${escapeHtml(r.urdu)}</span>
+          <span class="chip">${p.label}</span>
+        </div>
+        <div class="card-body">
+          <h2 class="card-title"><button type="button" class="card-title-btn" data-open="${r.id}">${escapeHtml(r.name)}</button></h2>
+          <div class="card-meta">
+            <span>${TYPE_LABEL[r.type] || escapeHtml(r.type)}</span><span aria-hidden="true">·</span>
+            <span>${escapeHtml(r.time)}</span><span aria-hidden="true">·</span>
+            ${effortHtml(r.effort)}
           </div>
-          <div class="flex flex-wrap gap-2 mb-3">${tagsHtml(r, 'sm')}</div>
-          <p class="text-stone-600 text-sm leading-relaxed">${escapeHtml(r.desc)}</p>
-          <p class="urdu text-stone-500 text-sm leading-relaxed mt-1.5" lang="ur" dir="rtl">${escapeHtml(r.urduDesc)}</p>
-          <div class="flex items-center justify-end mt-2">
-            <span class="text-xs text-stone-300" aria-hidden="true">tap to view →</span>
-          </div>
+          <p class="card-desc">${escapeHtml(r.desc)}</p>
+          <p class="urdu card-desc-ur" lang="ur" dir="rtl">${escapeHtml(r.urduDesc)}</p>
+          <p class="card-hint" aria-hidden="true">Tap to view →</p>
         </div>
       </article>`;
   }
+
   function detailHtml(r, variant) {
-    const fav = isFavorite(r.id);
     const sheet = variant === 'sheet';
+    const p = proteinOf(r);
+    const e = EFFORT[r.effort];
+    const eyebrow = r.id === state.pickedId ? "Tonight's pick" : TYPE_LABEL[r.type] || 'Recipe';
     return `
-      ${illustrationHtml(r, sheet ? 'sheet-image rounded-xl' : 'detail-image')}
-      <div class="${sheet ? 'pt-4' : 'p-6'}">
-        <div class="flex items-center justify-between gap-3">
-          <h2 id="${sheet ? 'sheetTitle' : 'detailTitle'}" class="font-display text-2xl font-bold text-stone-800 leading-tight flex-1 min-w-0">${escapeHtml(r.name)}</h2>
-          <button type="button" class="fav-btn${fav ? ' is-fav' : ''} shrink-0" data-fav="${r.id}"
-                  aria-label="${fav ? 'Remove from saved recipes' : 'Save this recipe'}" aria-pressed="${fav}">${fav ? '★' : '☆'}</button>
+      <div class="detail-card ${p.cls}">
+        <div class="detail-head">
+          <div class="min-w-0">
+            <p class="eyebrow">${eyebrow}</p>
+            <h2 id="${sheet ? 'sheetTitle' : 'detailTitle'}" class="detail-title">${escapeHtml(r.name)}</h2>
+          </div>
+          ${favButtonHtml(r)}
         </div>
-        <p class="urdu text-stone-600 text-base mt-1 font-medium" lang="ur" dir="rtl">${escapeHtml(r.urdu)}</p>
-        <div class="flex flex-wrap gap-2 mt-4">${tagsHtml(r, 'lg')}</div>
-        <p class="text-stone-600 text-sm leading-relaxed mt-4">${escapeHtml(r.desc)}</p>
-        <p class="urdu text-stone-500 text-sm leading-relaxed mt-2" lang="ur" dir="rtl">${escapeHtml(r.urduDesc)}</p>
-        <div class="border-t border-stone-100 mt-5 pt-5">
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">Ingredients</h3>
-          <ul class="space-y-1.5 mb-5">
-            ${r.ingredients.map(ing => `<li class="text-sm text-stone-600 flex items-start gap-2"><span class="text-saffron-400 mt-0.5 text-xs" aria-hidden="true">●</span>${escapeHtml(ing)}</li>`).join('')}
-          </ul>
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-stone-400 mb-3">Cook's Notes</h3>
-          <p class="text-sm text-stone-600 leading-relaxed italic">${escapeHtml(r.notes)}</p>
-        </div>
-        <div class="flex gap-2 mt-6 detail-actions">
-          <button type="button" class="share-btn flex-1 px-4 py-2.5 rounded-xl bg-pakgreen-700 hover:bg-pakgreen-800 text-white text-sm font-semibold cursor-pointer" data-share="${r.id}">📤 Share</button>
-          <button type="button" class="print-btn px-4 py-2.5 rounded-xl border border-stone-200 hover:border-stone-400 text-stone-600 text-sm font-semibold cursor-pointer" data-action="print">🖨️ Print</button>
+        <div class="detail-body">
+          <p class="urdu detail-urdu" lang="ur" dir="rtl">${escapeHtml(r.urdu)}</p>
+          <div class="tag-row">
+            <span class="tag tag-accent">${p.label}</span>
+            <span class="tag">${TYPE_LABEL[r.type] || escapeHtml(r.type)}</span>
+            <span class="tag">${escapeHtml(r.time)}</span>
+            ${e ? `<span class="tag">${e.label}</span>` : ''}
+          </div>
+          <p class="detail-desc">${escapeHtml(r.desc)}</p>
+          <p class="urdu detail-urdu-desc" lang="ur" dir="rtl">${escapeHtml(r.urduDesc)}</p>
+          <div class="ingredients">
+            <h3 class="section-title">Ingredients</h3>
+            <ul>${r.ingredients.map(ing => `<li>${escapeHtml(ing)}</li>`).join('')}</ul>
+          </div>
+          <div class="note">
+            <h3 class="section-title">Ammi's note</h3>
+            <p>${escapeHtml(r.notes)}</p>
+          </div>
+          <div class="detail-actions">
+            <button type="button" class="btn-primary" data-share="${r.id}">${icon('share')}Share</button>
+            <button type="button" class="btn-outline" data-action="print">${icon('print')}Print</button>
+          </div>
         </div>
       </div>`;
   }
@@ -299,7 +284,7 @@
   function renderDetailPanel(r) {
     el.detailEmpty.classList.add('hidden');
     el.detailContent.classList.remove('hidden');
-    el.detailContent.innerHTML = `<div class="detail-enter bg-white rounded-2xl border border-stone-200 overflow-hidden shadow-lg">${detailHtml(r, 'panel')}</div>`;
+    el.detailContent.innerHTML = detailHtml(r, 'panel');
     el.detailPanel.scrollTop = 0;
   }
 
@@ -480,14 +465,6 @@
       case 'close-sheet': return closeSheet();
       case 'reset-filters': return resetAll();
       case 'print': return window.print();
-      case 'toggle-search': {
-        const open = el.searchRowMobile.hidden;
-        el.searchRowMobile.hidden = !open;
-        t.setAttribute('aria-expanded', String(open));
-        if (open) { const inp = $('.search-input', el.searchRowMobile); if (inp) inp.focus(); }
-        else if (state.query) setQuery('');
-        return;
-      }
       case 'clear-search': {
         setQuery('');
         const inp = $('.search-input', t.parentElement); if (inp) inp.focus();
@@ -527,7 +504,6 @@
     const q = params.get('q');
     if (q) {
       el.searchInputs.forEach(i => { i.value = q; });
-      if (el.searchRowMobile) { el.searchRowMobile.hidden = false; }
       state.query = q.trim();
       $$('.search-clear').forEach(b => { b.hidden = false; });
     }

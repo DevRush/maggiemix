@@ -7,7 +7,7 @@
 <meta name="description" content="MaggieMix — 180+ Pakistani, Indian &amp; South Asian home recipes, curated by genuine desi home cooks. Bilingual (Urdu + English). Filter by effort and type, or hit Pick For Me when you're tired of deciding. Karahi, biryani, nihari, chaat, mithai, chai — all in one place.">
 <meta name="keywords" content="Pakistani recipes, Indian recipes, South Asian recipes, desi recipes, karahi, biryani, nihari, korma, haleem, paya, daal, chaat, mithai, chai, Urdu recipes, halal recipes, MaggieMix, Aaj Kya Banayein, recipe picker, what should I cook">
 <meta name="author" content="MaggieMix">
-<meta name="theme-color" content="#15531e">
+<meta name="theme-color" content="#11402A">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://maggiemix.com/">
 
@@ -95,111 +95,90 @@
 <link rel="stylesheet" href="css/styles.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Manrope:wght@400;500;600;700;800&family=Noto+Nastaliq+Urdu:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- Inline SVG icon sprite (no emoji icons; text-coloured via currentColor) -->
 </head>
-<body class="bg-stone-50 min-h-screen">
+<body class="bg-cream-100 text-ink font-body min-h-screen">
+
+<svg width="0" height="0" class="hidden" aria-hidden="true" focusable="false">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M20 20l-3.5-3.5" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></symbol>
+  <symbol id="i-dice" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor"/><circle cx="12" cy="12" r="1.3" fill="currentColor"/><circle cx="15.5" cy="8.5" r="1.3" fill="currentColor"/><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 15V4M8 8l4-4 4 4M5 13v6h14v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><path d="M7 9V3h10v6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><rect x="4" y="9" width="16" height="8" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M7 14h10v7H7z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+</svg>
 
 <!-- Header -->
-<header class="bg-gradient-to-br from-pakgreen-800 via-pakgreen-700 to-pakgreen-900 text-white relative overflow-hidden" data-inert-when-sheet>
-  <div class="pattern-overlay absolute inset-0"></div>
-  <div class="relative z-10 max-w-6xl mx-auto px-4 py-4 md:py-6 text-center">
-    <p class="text-saffron-300 font-body text-[10px] md:text-xs tracking-[0.3em] uppercase mb-1 md:mb-2">For Ammi, with love</p>
-    <h1 class="font-display text-3xl md:text-5xl font-bold mb-0.5 md:mb-1 tracking-tight">
-      Aaj Kya Banayein<span class="text-saffron-400">?</span>
-    </h1>
-    <p class="urdu font-display text-base md:text-xl text-pakgreen-200 italic mb-0.5" lang="ur" dir="rtl">آج کیا بنائیں؟</p>
-    <p class="text-pakgreen-300 font-body text-xs md:text-sm mt-2 md:mt-2.5 max-w-xl mx-auto px-2">Your daily Pakistani recipe helper. Filter by effort and type, or hit <span class="text-saffron-300 font-semibold">Pick For Me</span> when you're tired of deciding.</p>
-
-    <!-- Decorative crescents -->
-    <div class="absolute top-4 left-6 text-saffron-400 opacity-20 text-6xl select-none" aria-hidden="true">☪</div>
-    <div class="absolute bottom-4 right-6 text-saffron-400 opacity-20 text-4xl select-none" aria-hidden="true">☪</div>
+<header class="site-header" data-inert-when-sheet>
+  <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-10 py-5 md:py-6 flex flex-wrap items-center justify-between gap-4 md:gap-6">
+    <div class="flex flex-col gap-0.5 min-w-0">
+      <p class="eyebrow text-zafran-300">For Ammi, with love</p>
+      <h1 class="font-display text-[30px] md:text-[46px] leading-none tracking-tight">Aaj Kya Banayein<span class="text-zafran-300">?</span></h1>
+      <p class="urdu text-lg md:text-[22px] text-zafran-300" lang="ur" dir="rtl">آج کیا بنائیں؟</p>
+    </div>
+    <div class="search-box w-full lg:w-[360px]" role="search">
+      <svg class="search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" class="search-input" placeholder="Search — karahi, daal, بریانی…" aria-label="Search recipes" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <button type="button" class="search-clear" data-action="clear-search" aria-label="Clear search" hidden><svg aria-hidden="true"><use href="#i-close"/></svg></button>
+    </div>
   </div>
 </header>
 
 <!-- Sticky filters -->
-<div id="filters" class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-stone-200 shadow-sm" data-inert-when-sheet>
-  <div class="max-w-[1440px] mx-auto px-3 md:px-4">
+<div id="filters" class="filter-bar sticky top-0 z-40" data-inert-when-sheet>
+  <div class="max-w-[1440px] mx-auto px-3 md:px-8 lg:px-10">
     <div class="lg:flex lg:gap-6 lg:items-stretch">
 
       <!-- Left: filter rows -->
-      <div class="lg:flex-1 lg:min-w-0 py-2 md:py-2.5">
-
-        <!-- Mobile search row (toggled by the 🔍 button; always visible if a ?q= query is present) -->
-        <div id="searchRowMobile" class="lg:hidden mb-2" hidden>
-          <div class="search-box" role="search">
-            <span class="search-icon" aria-hidden="true">🔍</span>
-            <input type="search" class="search-input" placeholder="Search recipes — karahi, daal, بریانی…" aria-label="Search recipes" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-            <button type="button" class="search-clear" data-action="clear-search" aria-label="Clear search" hidden>✕</button>
-          </div>
-        </div>
-
-        <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
-          <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0" id="proteinLabel">Protein</span>
+      <div class="lg:flex-1 lg:min-w-0 py-2 md:py-3 flex flex-col gap-1.5 md:gap-2">
+        <div class="filter-row flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <span class="filter-label" id="proteinLabel">Protein</span>
           <div class="flex flex-wrap gap-1.5 md:gap-2" id="proteinFilters" role="group" aria-labelledby="proteinLabel">
-            <button type="button" data-filter="protein" data-value="all" aria-pressed="true" aria-label="All proteins" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
-            <button type="button" data-filter="protein" data-value="chicken" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-400 cursor-pointer">🐔 Chicken</button>
-            <button type="button" data-filter="protein" data-value="meat" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-400 cursor-pointer">🥩 Meat</button>
-            <button type="button" data-filter="protein" data-value="veg" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-400 cursor-pointer">🥬 Veg</button>
+            <button type="button" data-filter="protein" data-value="all" aria-pressed="true" aria-label="All proteins" class="filter-pill active-all">All</button>
+            <button type="button" data-filter="protein" data-value="chicken" aria-pressed="false" class="filter-pill pill-chicken">Chicken</button>
+            <button type="button" data-filter="protein" data-value="meat" aria-pressed="false" class="filter-pill pill-meat">Meat</button>
+            <button type="button" data-filter="protein" data-value="veg" aria-pressed="false" class="filter-pill pill-veg">Veg</button>
           </div>
         </div>
 
-        <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 mb-1.5 md:mb-2 min-h-[2.25rem] md:min-h-[2.5rem]">
-          <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0" id="typeLabel">Type</span>
+        <div class="filter-row flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <span class="filter-label" id="typeLabel">Type</span>
           <div class="flex flex-wrap gap-1.5 md:gap-2" id="typeFilters" role="group" aria-labelledby="typeLabel">
-            <button type="button" data-filter="type" data-value="all" aria-pressed="true" aria-label="All types" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
-            <button type="button" data-filter="type" data-value="rice" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-700 cursor-pointer">🍚 Rice</button>
-            <button type="button" data-filter="type" data-value="saalan" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-600 cursor-pointer">🍛 Saalan</button>
-            <button type="button" data-filter="type" data-value="sides" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-cardamom-500 cursor-pointer">🫓 Sides</button>
-            <button type="button" data-filter="type" data-value="snacks" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pink-500 cursor-pointer">🍡 Snacks</button>
+            <button type="button" data-filter="type" data-value="all" aria-pressed="true" aria-label="All types" class="filter-pill active-all">All</button>
+            <button type="button" data-filter="type" data-value="rice" aria-pressed="false" class="filter-pill">Rice</button>
+            <button type="button" data-filter="type" data-value="saalan" aria-pressed="false" class="filter-pill">Saalan</button>
+            <button type="button" data-filter="type" data-value="sides" aria-pressed="false" class="filter-pill">Sides</button>
+            <button type="button" data-filter="type" data-value="snacks" aria-pressed="false" class="filter-pill">Snacks</button>
           </div>
         </div>
 
-        <div class="filter-row flex flex-wrap items-center gap-2 md:gap-3 min-h-[2.25rem] md:min-h-[2.5rem]">
-          <span class="filter-label text-xs font-semibold uppercase tracking-wider text-stone-400 w-16 shrink-0" id="effortLabel">Effort</span>
+        <div class="filter-row flex flex-wrap items-center gap-x-3 gap-y-1.5">
+          <span class="filter-label" id="effortLabel">Effort</span>
           <div class="flex flex-wrap gap-1.5 md:gap-2" id="effortFilters" role="group" aria-labelledby="effortLabel">
-            <button type="button" data-filter="effort" data-value="all" aria-pressed="true" aria-label="All effort levels" class="filter-pill active-all px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-stone-400 cursor-pointer">All</button>
-            <button type="button" data-filter="effort" data-value="quick" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-pakgreen-500 cursor-pointer">⚡ Quick</button>
-            <button type="button" data-filter="effort" data-value="medium" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-saffron-500 cursor-pointer">🔥 Medium</button>
-            <button type="button" data-filter="effort" data-value="elaborate" aria-pressed="false" class="filter-pill px-3 md:px-4 py-1 md:py-1.5 rounded-full text-sm font-medium border border-stone-200 hover:border-henna-500 cursor-pointer">👩‍🍳 Elaborate</button>
+            <button type="button" data-filter="effort" data-value="all" aria-pressed="true" aria-label="All effort levels" class="filter-pill active-all">All</button>
+            <button type="button" data-filter="effort" data-value="quick" aria-pressed="false" class="filter-pill">Quick</button>
+            <button type="button" data-filter="effort" data-value="medium" aria-pressed="false" class="filter-pill">Medium</button>
+            <button type="button" data-filter="effort" data-value="elaborate" aria-pressed="false" class="filter-pill">Elaborate</button>
           </div>
-        </div>
-
-        <!-- Mobile action row: saved pill · search toggle · count · Surprise! -->
-        <div class="lg:hidden flex items-center justify-between gap-2 mt-2 pt-2 border-t border-stone-100">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="favorites-pill-wrap" hidden>
-              <button type="button" data-action="toggle-favorites" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
-                <span class="star">★</span>(<span class="fav-count">0</span>)
-              </button>
-            </span>
-            <button type="button" data-action="toggle-search" aria-expanded="false" aria-controls="searchRowMobile" aria-label="Search recipes" class="filter-pill search-toggle px-3 py-1 rounded-full text-xs font-medium border border-stone-200 cursor-pointer">🔍</button>
-            <span class="text-xs text-stone-500 whitespace-nowrap"><span class="recipe-count font-bold counter-badge text-sm">0</span> recipes</span>
-          </div>
-          <button type="button" data-action="pick" aria-label="Pick a random recipe for me" class="pick-button shimmer px-4 py-2 rounded-xl text-white font-bold text-sm shadow-md hover:shadow-xl active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-1 ring-offset-white shrink-0">
-            <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> Surprise!
-          </button>
         </div>
       </div>
 
-      <!-- Right (desktop only): search · saved · Pick For Me · count — aligned with the detail panel below -->
-      <div class="pick-column fourth-column hidden lg:flex lg:w-[400px] lg:shrink-0 lg:items-center lg:justify-center lg:border-l lg:border-stone-200 lg:pl-6">
-        <div class="flex flex-col items-center gap-2 w-full max-w-[320px]">
-          <div class="search-box w-full" role="search">
-            <span class="search-icon" aria-hidden="true">🔍</span>
-            <input type="search" class="search-input" placeholder="Search recipes — karahi, daal, بریانی…" aria-label="Search recipes" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
-            <button type="button" class="search-clear" data-action="clear-search" aria-label="Clear search" hidden>✕</button>
-          </div>
+      <!-- Right (desktop only): saved · Pick For Me · count — aligned with the detail panel below -->
+      <div class="fourth-column hidden lg:flex lg:w-[400px] lg:shrink-0 lg:items-center lg:justify-center lg:pl-6">
+        <div class="flex flex-col items-center gap-2">
           <div class="flex items-center gap-3">
             <span class="favorites-pill-wrap" hidden>
-              <button type="button" data-action="toggle-favorites" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter px-3 py-1 rounded-full text-xs font-medium border cursor-pointer">
-                <span class="star">★</span>Saved (<span class="fav-count">0</span>)
+              <button type="button" data-action="toggle-favorites" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter">
+                <svg class="star" aria-hidden="true"><use href="#i-star"/></svg>Saved (<span class="fav-count">0</span>)
               </button>
             </span>
-            <button type="button" data-action="pick" aria-label="Pick a random recipe for me" class="pick-button shimmer px-6 py-2.5 rounded-xl text-white font-bold text-base shadow-md hover:shadow-xl hover:scale-105 active:scale-95 transition-all cursor-pointer ring-2 ring-saffron-200 ring-offset-2 ring-offset-white">
-              <span class="dice-wobble inline-block" aria-hidden="true">🎲</span> Pick For Me!
+            <button type="button" data-action="pick" aria-label="Pick a random recipe for me" class="pick-button">
+              <svg class="dice-wobble" aria-hidden="true"><use href="#i-dice"/></svg>Pick For Me
             </button>
           </div>
-          <span class="text-xs text-stone-400" aria-live="polite"><span class="recipe-count font-bold counter-badge text-sm">0</span> recipes</span>
+          <span class="text-sm text-ink-500 font-semibold" aria-live="polite"><span class="recipe-count counter-badge">0</span> recipes</span>
         </div>
       </div>
 
@@ -208,31 +187,31 @@
 </div>
 
 <!-- Main content: grid + detail panel -->
-<main class="max-w-[1440px] mx-auto px-3 md:px-4" data-inert-when-sheet>
+<main class="max-w-[1440px] mx-auto px-3 md:px-8 lg:px-10" data-inert-when-sheet>
   <div class="flex gap-6 items-stretch">
 
     <!-- Left: recipe grid -->
-    <div class="flex-1 min-w-0 py-4 md:py-8">
-      <div id="recipeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-3 md:gap-5">
+    <div class="flex-1 min-w-0 pt-4 pb-32 md:pt-6 lg:py-8">
+      <div id="recipeGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-5">
         <!-- Cards rendered by js/app.js -->
       </div>
 
       <!-- Empty state -->
-      <div id="emptyState" class="hidden text-center py-20">
-        <p class="text-5xl mb-4" aria-hidden="true">🍽️</p>
-        <p class="text-stone-500 text-lg" id="emptyQuery">No recipes match these filters.</p>
-        <p class="text-stone-400 text-sm mt-1 mb-5">Try changing your selection above.</p>
-        <button type="button" data-action="reset-filters" class="px-4 py-2 rounded-xl bg-stone-800 hover:bg-stone-900 text-white text-sm font-semibold cursor-pointer">Show all recipes</button>
+      <div id="emptyState" class="hidden text-center py-20 px-4">
+        <p class="font-display text-2xl md:text-3xl text-ink" id="emptyQuery">No recipes match these filters.</p>
+        <p class="urdu text-lg text-ink-500 mt-1" lang="ur" dir="rtl">کچھ اور ڈھونڈیں؟</p>
+        <p class="text-ink-500 text-sm mt-2 mb-6">Try changing your selection above.</p>
+        <button type="button" data-action="reset-filters" class="btn-primary">Show all recipes</button>
       </div>
     </div>
 
     <!-- Right: sticky detail panel (desktop only) -->
-    <div class="fourth-column hidden lg:block w-[400px] shrink-0 border-l border-stone-200 pl-6 pt-4 md:pt-8">
+    <div class="fourth-column hidden lg:block w-[400px] shrink-0 pl-6 pt-8">
       <div id="detailPanel" class="detail-panel">
-        <div id="detailEmpty" class="bg-white rounded-2xl border border-stone-200 border-dashed p-10 text-center">
-          <p class="text-4xl mb-3" aria-hidden="true">👆</p>
-          <p class="text-stone-500 font-medium">Select a recipe</p>
-          <p class="text-stone-400 text-sm mt-1">Click any card or hit "Pick For Me"</p>
+        <div id="detailEmpty" class="detail-empty">
+          <p class="urdu text-2xl text-pak-900" lang="ur" dir="rtl">آج کیا بنائیں؟</p>
+          <p class="font-display text-xl text-ink mt-2">Select a recipe</p>
+          <p class="text-ink-500 text-sm mt-1">Tap any card, or hit Pick For Me</p>
         </div>
         <div id="detailContent" class="detail-content hidden"></div>
       </div>
@@ -241,21 +220,34 @@
   </div>
 </main>
 
+<!-- Mobile bottom bar: saved · count · Surprise -->
+<div class="mobile-bar lg:hidden" data-inert-when-sheet>
+  <span class="favorites-pill-wrap" hidden>
+    <button type="button" data-action="toggle-favorites" aria-pressed="false" aria-label="Show only my saved recipes" class="filter-pill favorites-filter">
+      <svg class="star" aria-hidden="true"><use href="#i-star"/></svg><span class="fav-count">0</span>
+    </button>
+  </span>
+  <span class="text-sm text-ink-500 font-semibold whitespace-nowrap"><span class="recipe-count counter-badge">0</span> recipes</span>
+  <button type="button" data-action="pick" aria-label="Pick a random recipe for me" class="pick-button ml-auto">
+    <svg class="dice-wobble" aria-hidden="true"><use href="#i-dice"/></svg>Surprise me
+  </button>
+</div>
+
 <!-- Mobile bottom sheet -->
 <div id="sheetBackdrop" class="sheet-backdrop lg:hidden" data-action="close-sheet"></div>
 <div id="sheetPanel" class="sheet-panel lg:hidden" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
   <div class="sheet-close">
     <div class="sheet-handle" aria-hidden="true"></div>
-    <button type="button" class="sheet-close-btn" data-action="close-sheet" aria-label="Close recipe">✕</button>
+    <button type="button" class="sheet-close-btn" data-action="close-sheet" aria-label="Close recipe"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
   </div>
-  <div id="sheetContent" class="px-4 pb-8"></div>
+  <div id="sheetContent" class="pb-8"></div>
 </div>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <!-- Footer -->
-<footer class="bg-pakgreen-900 text-pakgreen-300 text-center py-6 text-sm" data-inert-when-sheet>
-  <p class="star-decoration inline-block">Made with mohabbat for Ammi</p>
+<footer class="site-footer" data-inert-when-sheet>
+  <p>✦ Made with mohabbat for Ammi ✦</p>
 </footer>
 
 <script src="js/recipes.js" defer></script>

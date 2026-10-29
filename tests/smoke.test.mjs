@@ -132,10 +132,8 @@ test('mobile: card opens an accessible bottom sheet; Escape and close button dis
   await page.keyboard.press('Escape');
   assert.ok(!(await sheet.getAttribute('class')).includes('open'));
   assert.equal(await page.evaluate(() => document.querySelector('main').inert), false);
-  // search toggle
-  await page.click('[data-action="toggle-search"]');
-  assert.ok(await page.locator('#searchRowMobile').isVisible());
-  await page.locator('#searchRowMobile .search-input').fill('nihari');
+  // search lives in the header on phones too
+  await page.locator('.search-input:visible').fill('nihari');
   await page.waitForTimeout(250);
   assert.ok(await page.locator('.recipe-card').count() >= 2);
   // Surprise! floats the pick to the top

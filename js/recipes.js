@@ -9,7 +9,8 @@
 //   id          stable slug. Used for favorites, share links (#id) and
 //               structured data. Never change an id once published.
 //   name        English name            urdu       Urdu name
-//   emoji       card illustration
+//   emoji       optional; not shown since the 2026 redesign (cards show the
+//               Urdu name instead) but kept in case it is wanted again
 //   protein     "chicken" | "meat" | "veg"
 //   type        "rice" | "saalan" | "sides" | "snacks"
 //   effort      "quick" | "medium" | "elaborate"
