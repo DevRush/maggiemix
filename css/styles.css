@@ -191,7 +191,13 @@ svg { width: 1em; height: 1em; }
   padding: 14px 16px 8px; min-height: 76px;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
 }
-.card-illo .urdu { font-size: 28px; font-weight: 700; line-height: 1.7; }
+.card-illo .urdu { font-size: 28px; font-weight: 700; line-height: 1.7; flex: 1; min-width: 0; }
+.illo-emoji {
+  font-size: 44px; line-height: 1; flex-shrink: 0;
+  filter: drop-shadow(0 3px 6px rgba(28, 26, 23, 0.25));
+  transition: transform 0.2s ease;
+}
+.recipe-card:hover .illo-emoji { transform: scale(1.12) rotate(-4deg); }
 .card-illo .chip {
   font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 800;
   background: var(--cream); color: var(--accent); padding: 4px 8px; border-radius: 4px; flex-shrink: 0;
@@ -270,6 +276,7 @@ svg { width: 1em; height: 1em; }
   padding: 20px 22px 14px; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px;
 }
 .detail-head .eyebrow { opacity: 0.85; margin-bottom: 4px; }
+.detail-emoji { font-size: 52px; line-height: 1; flex-shrink: 0; filter: drop-shadow(0 3px 6px rgba(28, 26, 23, 0.25)); align-self: center; }
 .detail-title { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 30px; line-height: 1.05; }
 .detail-body { padding: 18px 22px 22px; display: flex; flex-direction: column; gap: 14px; }
 .detail-urdu { font-size: 21px; color: var(--green); }
@@ -371,6 +378,8 @@ svg { width: 1em; height: 1em; }
 @media (max-width: 767px) {
   .filter-label { display: none; }
   .card-illo .urdu { font-size: 24px; }
+  .illo-emoji { font-size: 36px; }
+  .detail-emoji { font-size: 44px; }
   .card-title { font-size: 20px; }
   .card-body { padding: 12px 14px 14px; }
   .detail-head { padding: 18px 18px 12px; }
@@ -384,6 +393,7 @@ svg { width: 1em; height: 1em; }
 /* ── Reduced motion ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .dice-wobble, .pick-button:hover .dice-wobble, .card-enter, .detail-card, .fav-indicator, .recipe-card.highlighted { animation: none; }
+  .recipe-card:hover .illo-emoji { transform: none; }
   .recipe-card, .pick-button, .fav-btn, .filter-pill, .sheet-panel, .sheet-backdrop, .toast { transition: none; }
   .recipe-card:hover { transform: none; }
 }

@@ -211,6 +211,7 @@
                data-id="${r.id}"${picked ? ' id="highlighted-card"' : ''}>
         ${isFavorite(r.id) ? `<span class="fav-indicator" aria-hidden="true">${icon('star')}</span>` : ''}
         <div class="card-illo">
+          ${r.emoji ? `<span class="illo-emoji" aria-hidden="true">${escapeHtml(r.emoji)}</span>` : ''}
           <span class="urdu" lang="ur" dir="rtl">${escapeHtml(r.urdu)}</span>
           <span class="chip">${p.label}</span>
         </div>
@@ -236,7 +237,8 @@
     return `
       <div class="detail-card ${p.cls}">
         <div class="detail-head">
-          <div class="min-w-0">
+          ${r.emoji ? `<span class="detail-emoji" aria-hidden="true">${escapeHtml(r.emoji)}</span>` : ''}
+          <div class="min-w-0 flex-1">
             <p class="eyebrow">${eyebrow}</p>
             <h2 id="${sheet ? 'sheetTitle' : 'detailTitle'}" class="detail-title">${escapeHtml(r.name)}</h2>
           </div>
